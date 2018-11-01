@@ -1,0 +1,557 @@
+/* inicio do estilo */
+/*******************
+ESTILO DO BODY
+*******************/
+/* IMPORTA A FONTE */
+@import url(http://fonts.googleapis.com/css?family=Bree+Serif);
+@charset "utf-8";
+html{
+
+	height: 100%;
+
+}
+
+body {
+
+	margin:0;
+
+	padding:0;
+
+	height:100%;
+
+}
+
+* {
+
+	list-style:none; 
+
+	padding:0px;
+
+	margin:0px;
+
+}
+
+#all{
+
+	height:100%;
+
+	width:100%;
+
+	margin:auto;
+
+}
+/*******************
+ESTILO DE SELEÇÃO
+*******************/
+
+::selection {
+	color: #fff;
+	background: #f676b2; /* Safari */
+}
+::-moz-selection {
+	color: #fff;
+	background: #f676b2; /* Firefox */
+}
+
+/*****************************
+ESTILO DO CORPO DO FORMULARIO
+*****************************/
+
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+#wrapper {
+	/* CENTRALIZA O WRAPPER */
+	width: 300px;
+	height: 400px;
+	position: relative;
+	left: 41.5%;
+	padding: 15px 0;
+}
+
+.gradient {
+	/* Posicionar no centro*/
+	width: 600px;
+	height: 600px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	margin-left: -300px;
+	margin-top: -300px;
+	
+	/* Fallback */ 
+	background-image: url(../images/gradient.png); 
+	background-repeat: no-repeat; 
+	
+	/* CSS3 Gradiente */
+	background-image: -webkit-gradient(radial, 0% 0%, 0% 100%, from(rgba(213,246,255,1)), to(rgba(213,246,255,0)));
+	background-image: -webkit-radial-gradient(50% 50%, 40% 40%, rgba(213,246,255,1), rgba(213,246,255,0));
+	background-image: -moz-radial-gradient(50% 50%, 50% 50%, rgba(213,246,255,1), rgba(213,246,255,0));
+	background-image: -ms-radial-gradient(50% 50%, 50% 50%, rgba(213,246,255,1), rgba(213,246,255,0));
+	background-image: -o-radial-gradient(50% 50%, 50% 50%, rgba(213,246,255,1), rgba(213,246,255,0));
+}
+
+/*******************
+FORMULARIO DE LOGIN
+*******************/
+
+.formu {
+	width: 300px;
+	margin: 0 auto;
+	position: relative;
+	z-index:5;
+	
+	background: #f3f3f3;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	
+	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+/*******************
+HEADER
+*******************/
+
+.formu .header {
+	padding: 10px 30px 30px 30px;
+}
+
+.formu .header h1 {
+	font-family: 'Bree Serif', serif;
+	font-weight: 300;
+	font-size: 28px;
+	line-height:34px;
+	color: #414848;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+	margin-bottom: 10px;
+}
+
+.formu .header span {
+	font-size: 11px;
+	line-height: 16px;
+	color: #678889;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+}
+
+/*******************
+CONTENT
+*******************/
+
+.formu .content {
+	padding: 0 30px 25px 30px;
+}
+
+/* Input field */
+.formu .content .input {
+	width: 188px;
+	padding: 15px 25px;
+	
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, 'Bree Serif', serif, "Lucida Grande", sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+	color: #9d9e9e;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+	
+	background: #fff;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+	-moz-box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+	-webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+}
+
+/* Second input field */
+.formu .content .password, .formu .content .pass-icon {
+	margin-top: 25px;
+}
+
+.formu .content .input:hover {
+	background: #dfe9ec;
+	color: #414848;
+}
+
+.formu .content .input:focus {
+	background: #dfe9ec;
+	color: #414848;
+	
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+	-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+}
+
+.user-icon, .pass-icon {
+	width: 46px;
+	height: 47px;
+	display: block;
+	position: absolute;
+	left: 0px;
+	padding-right: 2px;
+	z-index: 3;
+	
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+}
+
+.user-icon {
+	top:120px;
+	background: rgba(65,72,72,0.75) url(../images/user-icon.png) no-repeat center;	
+}
+
+.pass-icon {
+	top:195px;
+	background: rgba(65,72,72,0.75) url(../images/pass-icon.png) no-repeat center;
+}
+
+/* Animação */
+.input, .user-icon, .pass-icon, .button, .register {
+	transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	-ms-transition: all 0.5s;
+}
+
+/*******************
+FOOTER
+*******************/
+
+.formu .footer {
+	padding: 20px 30px 5px 0;
+	overflow: auto;
+	
+	background: #d4dedf;
+	border-top: 1px solid #fff;
+	
+	box-shadow: inset 0 1px 0 rgba(0,0,0,0.15);
+	-moz-box-shadow: inset 0 1px 0 rgba(0,0,0,0.15);
+	-webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,0.15);
+}
+
+/* Botão de Login */
+.formu .footer .button {
+	float:right;
+	padding: 11px 25px;
+	
+	font-family: 'Bree Serif', serif;
+	font-weight: 300;
+	font-size: 18px;
+	color: #fff;
+	text-shadow: 0px 1px 0 rgba(0,0,0,0.25);
+	
+	background: #56c2e1;
+	border: 1px solid #46b3d3;
+	border-radius: 5px;
+	cursor: pointer;
+	
+	box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+	-moz-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+	-webkit-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+}
+
+.formu .footer .button:hover {
+	background: #3f9db8;
+	border: 1px solid rgba(256,256,256,0.75);
+	
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.formu .footer .button:focus {
+	position: relative;
+	bottom: -1px;
+	
+	background: #56c2e1;
+	
+	box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+	-moz-box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+	-webkit-box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+}
+
+/* Botão de Registro */
+.formu .footer .register {
+	display: block;
+	float: right;
+	padding: 10px;
+	margin-right: 20px;
+	
+	background: none;
+	border: none;
+	cursor: pointer;
+	
+	font-family: 'Bree Serif', serif;
+	font-weight: 300;
+	font-size: 18px;
+	color: #414848;
+	text-shadow: 0px 1px 0 rgba(256,256,256,0.5);
+}
+
+.formu .footer .register:hover {
+	color: #3f9db8;
+}
+
+.formu .footer .register:focus {
+	position: relative;
+	bottom: -1px;
+}
+.esqueci{ /* Estilo do formulario de requerer a senha */
+	font-family: 'Bree Serif', serif;
+	font-size:12px;
+	text-decoration: none;
+	color:gray;
+	float: right;
+	padding: 10px 82px;
+}
+/***********************************
+INICIO DAS CONFIGURAÇÕES DOS MODALS
+***********************************/
+.modalDialog {
+	position: fixed	;
+	font-family: 'Bree Serif', serif;;
+	top: 0%;
+	left: -7%;
+	width: 120%;
+	height: 120%;
+	background: rgba(0,0,0,0.3);
+	z-index: 99999;
+	opacity:0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+}
+.modalDialog h2 {
+font-family: 'Bree Serif', serif;
+font-size:20px;
+}
+.modalDialog .input{
+	height: 30px;
+	width: 180px;
+	font-family: 'Bree Serif', serif;;
+	font-weight: 400;
+	font-size: 14px;
+	color: #9d9e9e;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+	
+	background: #fff;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+	-moz-box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+	-webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+}
+.modalDialog .email{
+	height: 30px;
+	width: 377px;
+	font-family: 'Bree Serif', serif;
+	font-weight: 400;
+	font-size: 14px;
+	color: #9d9e9e;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+	
+	background: #fff;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+	-moz-box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+	-webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+}
+.modalDialog:target {
+	opacity:1;
+	pointer-events: auto;
+}
+.modalDialog .reg {
+	float:left;
+	padding: 11px 25px;
+	
+	font-family: 'Bree Serif', serif;
+	font-weight: 300;
+	font-size: 18px;
+	color: #fff;
+	text-shadow: 0px 1px 0 rgba(0,0,0,0.25);
+	
+	background: #56c2e1;
+	border: 1px solid #46b3d3;
+	border-radius: 5px;
+	cursor: pointer;
+	
+	box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+	-moz-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+	-webkit-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+}
+
+.modalDialog .reg:hover {
+	color: #3f9db8;
+}
+
+.modalDialog .reg:focus {
+	position: relative;
+	bottom: -1px;
+}
+.modalDialog .limp {
+	display: block;
+	float: left;
+	padding: 10px;
+	margin-right: 20px;
+	
+	background: none;
+	border: none;
+	cursor: pointer;
+	
+	font-family: 'Bree Serif', serif;
+	font-weight: 300;
+	font-size: 18px;
+	color: #414848;
+	text-shadow: 0px 1px 0 rgba(256,256,256,0.5);
+}
+
+.modalDialog .limp:hover {
+	color: #3f9db8;
+}
+
+.modalDialog .limp:focus {
+	position: relative;
+	bottom: -1px;
+}
+.close {
+	background: #606061;
+	color: #FFFFFF;
+	line-height: 25px;
+	position: absolute;
+	right: -12px;
+	text-align: center;
+	top: -10px;
+	width: 24px;
+	text-decoration: none;
+	font-weight: bold;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	-moz-box-shadow: 1px 1px 3px #000;
+	-webkit-box-shadow: 1px 1px 3px #000;
+	box-shadow: 1px 1px 3px #000;
+}
+
+.close:hover { background: #00d9ff; }
+/**********************************
+INICIO DAS CONFIGURAÇÕES DO PAINEL
+**********************************/
+/* define uma largura fixa para o menu */
+.navigation {
+  width: 100%;
+}
+
+/* estilo do submenu */
+.mainmenu, .submenu {
+  list-style: none;
+  padding: 1px;
+  margin: 0;
+}
+
+/* cores dos links dos menus e submenus */
+.mainmenu a {
+  font-family: 'Bree Serif', serif;
+  display: block;
+  text-decoration: none;
+  padding: 3.1%;
+  color: #444;
+  background: #f3f3f3;
+  }
+
+/* hover */
+.mainmenu a:hover {
+  background-color: #D2D2D2;
+}
+.menu{
+top: 13%;
+width: 21%;
+height: 85.3%;
+float: left;
+position:fixed;
+background: #f3f3f3;
+border: 1px solid #fff;
+border-radius: 5px;
+box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+.mainmenu li:hover .submenu {
+  display: block;
+  max-height: 200px;
+  padding: 1px;
+}
+.submenu a {
+  background-color: #f3f3f3;
+}
+
+/* hover do submenu */
+.submenu a:hover {
+  background-color: #09C;
+}
+.submenu {
+  padding: 1px;
+  overflow: hidden;
+  max-height: 0;
+  -webkit-transition: all 0.5s ease-out;
+}
+.topo {
+	width: 99.4%;
+	height: 11.5%;
+	background: #f3f3f3;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	
+	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+.topo p{
+	font-family: 'Bree Serif', serif;
+	font-size: 18px;
+	float: right;
+}
+.corpo{
+	top: 13%;
+	left: 21.7%;
+	width: 77.7%;
+	height: 85.5%;
+	float: right;
+	position: fixed;
+	background: #f3f3f3;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+.div {
+	width: 20.5%;
+	position: absolute;
+	padding: 5px 20px 13px 20px;
+	border-radius: 4px;
+	background: #fff;
+	border: 1px solid #f2f2f2;
+	top: 15%;
+	right: 40%;
+}
+.divdados {
+	left: 30%;
+	margin: 6.5% auto;
+	padding: 1% 2% 2% 1.5%;
+	position: absolute;
+	background: #FFF;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
