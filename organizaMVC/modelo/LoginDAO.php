@@ -4,7 +4,7 @@ class LoginDAO {
 
     public $pdo = null;
 
-    public function __constuct() {
+    public function __construct() {
         $this->pdo = Conexao::getConexao();
     }
 
