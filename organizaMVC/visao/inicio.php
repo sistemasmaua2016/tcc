@@ -11,7 +11,7 @@
         <title>Untitled Document</title>
         <style type="text/css">
             /* importa a fonte */
-            @import url(http://fonts.googleapis.com/css?family=Bree+Serif);
+           @import url(http://fonts.googleapis.com/css?family=Bree+Serif);
         </style>
     </head>
 
@@ -106,75 +106,75 @@
 
         <!--GRÁFICO 1 GERADO COM O CHART.JS-->
         <script>
-            var totalpg = document.getElementById('totalapag').value;
-            var totalrc = document.getElementById('totalarec').value;
-            var saldo = totalrc - totalpg;
+            var totalpag = document.getElementById('totalapag').value;
+            var totalrec = document.getElementById('totalarec').value;
+            var saldo = totalrec - totalpag;
             if (saldo < 0) {
-                saldo = 0;
-                var data = {
-                    labels: [
-                        "Despesas",
-                        "Receitas",
-                        "Saldo"
-                    ],
+            saldo = 0;
+            var data = {
+            labels: [
+                    "Despesas",
+                    "Receitas",
+                    "Saldo"
+            ],
                     datasets: [
-                        {
-                            data: [totalpg, totalrc, saldo],
+                    {
+                    data: [totalpag, totalrec, saldo],
                             backgroundColor: [
-                                "#CD3333",
-                                "#36A2EB",
-                                "#CD8500"
+                                    "#CD3333",
+                                    "#36A2EB",
+                                    "#CD8500"
                             ],
                             hoverBackgroundColor: [
-                                "#CD3333",
-                                "#36A2EB",
-                                "#CD8500"
+                                    "#CD3333",
+                                    "#36A2EB",
+                                    "#CD8500"
                             ]
-                        }]
-                };
+                    }]
+            };
             } else {
-                var data = {
-                    labels: [
-                        "Despesas",
-                        "Receitas",
-                        "Saldo"
-                    ],
+            var data = {
+            labels: [
+                    "Despesas",
+                    "Receitas",
+                    "Saldo"
+            ],
                     datasets: [
-                        {
-                            data: [totalpg, totalrc, saldo],
+                    {
+                    data: [totalpag, totalrec, saldo],
                             backgroundColor: [
-                                "#CD3333",
-                                "#36A2EB",
-                                "#32CD32"
+                                    "#CD3333",
+                                    "#36A2EB",
+                                    "#32CD32"
                             ],
                             hoverBackgroundColor: [
-                                "#CD3333",
-                                "#36A2EB",
-                                "#32CD32"
+                                    "#CD3333",
+                                    "#36A2EB",
+                                    "#32CD32"
                             ]
-                        }]
-                };
+                    }]
+            };
             }
             var ctx = document.getElementById("myChart").getContext('2d');
             ctx.canvas.width = 275;
             ctx.canvas.height = 275;
             var myChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: data,
-                options: {
+            type: 'doughnut',
+                    data: data,
+                    options: {
                     animation: {
-                        animateScale: true,
-                        responsive: true,
-                        maintainAspectRatio: false;
+                    animateScale: true,
+                            responsive: true,
+                            maintainAspectRatio: false;
                     }
-                }
+                    }
             });
         </script>
         </div>
         <!-- FIM GRÁFICO 1 -->
 
         <!-- TABELA DE RESUMO DO MÊS -->
-       
+
         <div id="lista" style="float: right; width: 50%; height: 50%; position: absolute; left: 46%; top: 8%; 
              font-family: 'Bree Serif', serif; font-size: 16px; color: #444;">
             <table width="437" border="0">
@@ -215,7 +215,7 @@
                             <td width="110" align="right"><?php echo 'R$ ' . number_format($conta->valor, 2, ",", "."); ?></td>
                         </tr>
                     <?php } ?>
-                    <?php } else { ?>
+                <?php } else { ?>
                     <td><?php
                         echo 'Nenhum registro encontrado!';
                     }
@@ -263,64 +263,64 @@
             var totalrcano = document.getElementById('totalarecano').value;
             var saldoano = totalrcano - totalpgano;
             if (saldoano < 0) {
-                saldoano = 0;
-                var data = {
-                    labels: [
-                        "Despesas",
-                        "Receitas",
-                        "Saldo"
-                    ],
+            saldoano = 0;
+            var data = {
+            labels: [
+                    "Despesas",
+                    "Receitas",
+                    "Saldo"
+            ],
                     datasets: [
-                        {
-                            data: [totalpgano, totalrcano, saldoano],
+                    {
+                    data: [totalpgano, totalrcano, saldoano],
                             backgroundColor: [
-                                "#CC6699",
-                                "#FFCC00",
-                                "#CD8500"
+                                    "#CC6699",
+                                    "#FFCC00",
+                                    "#CD8500"
                             ],
                             hoverBackgroundColor: [
-                                "#CD3333",
-                                "#FFCC00",
-                                "#CD8500"
+                                    "#CD3333",
+                                    "#FFCC00",
+                                    "#CD8500"
                             ]
-                        }]
-                };
+                    }]
+            };
             } else {
-                var data = {
-                    labels: [
-                        "Despesas",
-                        "Receitas",
-                        "Saldo"
-                    ],
+            var data = {
+            labels: [
+                    "Despesas",
+                    "Receitas",
+                    "Saldo"
+            ],
                     datasets: [
-                        {
-                            data: [totalpgano, totalrcano, saldoano],
+                    {
+                    data: [totalpgano, totalrcano, saldoano],
                             backgroundColor: [
-                                "#CC6699",
-                                "#FFCC00",
-                                "#32CD32"
+                                    "#CC6699",
+                                    "#FFCC00",
+                                    "#32CD32"
                             ],
                             hoverBackgroundColor: [
-                                "#CC6699",
-                                "#FFCC00",
-                                "#32CD32"
+                                    "#CC6699",
+                                    "#FFCC00",
+                                    "#32CD32"
                             ]
-                        }]
-                };
+                    }]
+            };
             }
             var ctx2 = document.getElementById("myChart2").getContext('2d');
             ctx2.canvas.width = 275;
             ctx2.canvas.height = 275;
             var myChart2 = new Chart(ctx2, {
-                type: 'doughnut',
-                data: data,
-                options: {
+            type: 'doughnut',
+                    data: data,
+                    options: {
                     animation: {
-                        animateScale: true,
-                        responsive: true,
-                        maintainAspectRatio: false,
+                    animateScale: true,
+                            responsive: true,
+                            maintainAspectRatio: false;
                     }
-                }
+                    }
             });
         </script>
         </div>
@@ -363,30 +363,30 @@
                 <table width="0" border="0" cellspacing="0" cellpadding="0" align="center" style="height: 77%;">
                     <tr>
                         <td><a onclick="document.getElementById('mes').value = 'Jan';
-                                document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Janeiro</a></td>
+                            document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Janeiro</a></td>
                         <td><a onclick="document.getElementById('mes').value = 'Feb';
-                                document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Fevereiro</a></td>
+                            document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Fevereiro</a></td>
                         <td><a onclick="document.getElementById('mes').value = 'Mar'; document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Março</a></td>
                         <td><a onclick="document.getElementById('mes').value = 'Apr'; document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Abril</a></td>
                     </tr>
                     <tr>
                         <td><a onclick="document.getElementById('mes').value = 'May'; document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Maio</a></td>
                         <td><a onclick="document.getElementById('mes').value = 'Jun';
-                                document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Junho</a></td>
+                            document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Junho</a></td>
                         <td><a onclick="document.getElementById('mes').value = 'Jul';
-                                document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Julho</a></td>
+                            document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Julho</a></td>
                         <td><a onclick="document.getElementById('mes').value = 'Aug';
-                                document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Agosto</a></td>
+                            document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Agosto</a></td>
                     </tr>
                     <tr>
                         <td><a onclick="document.getElementById('mes').value = 'Sep';
-                                document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Setembro</a></td>
+                            document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Setembro</a></td>
                         <td><a onclick="document.getElementById('mes').value = 'Oct';
-                                document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Outubro</a></td>
+                            document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Outubro</a></td>
                         <td><a onclick="document.getElementById('mes').value = 'Nov';
-                                document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Novembro</a></td>
+                            document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Novembro</a></td>
                         <td><a onclick="document.getElementById('mes').value = 'Dec';
-                                document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Dezembro</a></td>
+                            document.getElementById('fmes').submit()" class="btn btn-primary" style="width: 95%;">Dezembro</a></td>
                     </tr>
                 </table>
             </div>

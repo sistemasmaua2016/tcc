@@ -7,7 +7,7 @@ class Login {
     
     
     
-    public function verificarLogin($param) {
+    public function verificarLogin() {
 
 
     if (isset($_GET['logout'])) { //script de logout

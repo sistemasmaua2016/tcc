@@ -17,18 +17,18 @@
             </style>
             <script type="text/javascript">
                 function mascara(o, f) {
-                    v_obj = o
-                    v_fun = f
-                    setTimeout("execmascara()", 1)
+                    v_obj = o;
+                    v_fun = f;
+                    setTimeout("execmascara()", 1);
                 }
                 function execmascara() {
-                    v_obj.value = v_fun(v_obj.value)
+                    v_obj.value = v_fun(v_obj.value);
                 }
                 function mreais(v) {
-                    v = v.replace(/\D/g, "")						//Remove tudo o que não é dígito
-                    v = v.replace(/(\d{2})$/, ",$1") 			//Coloca a virgula
-                    v = v.replace(/(\d+)(\d{3},\d{2})$/g, "$1.$2") 	//Coloca o primeiro ponto
-                    return "R$ " + v
+                    v = v.replace(/\D/g, "");						//Remove tudo o que não é dígito
+                    v = v.replace(/(\d{2})$/, ",$1"); 			//Coloca a virgula
+                    v = v.replace(/(\d+)(\d{3},\d{2})$/g, "$1.$2"); 	//Coloca o primeiro ponto
+                    return "R$ " + v;
                 }
             </script> 
             <?php
@@ -58,7 +58,7 @@
             </header>
             <?php
             $id = $_SESSION['id'];
-            include('conexao.php');
+            include_once '../modelo/conexao/Conexao.php';
             $i = 1;
             if (isset($_POST['datepicker'])) {
                 $dpesq = $_POST['datepicker'];
@@ -89,40 +89,52 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $total = 0;
-                        $totresult = mysql_num_rows($result); ?>
+                        <?php
+                        $total = 0;
+
+                        $totresult = mysql_query($result);
+                        ?>
                         <?php if ($result) : ?>
-    <?php while ($row = mysql_fetch_assoc($result)) : ?>
+                            <?php while ($row = mysql_fetch_assoc($result)) : ?>
                                 <tr><?php $total += $row['valor']; ?>
                                     <td><?php echo $row['id']; ?></td>
                                     <td><?php echo $row['titulo']; ?></td>
                                     <td><?php echo 'R$ ' . number_format($row['valor'], 2, ",", "."); ?></td>
                                     <td><?php echo $row['descricao']; ?></td>
-                                    <td><?php $data = $row['data'];
-        echo date('d/m/Y', strtotime($data)); ?></td>
-                                    <td><?php $datvenc = $row['data_venc'];
-        echo date('d/m/Y', strtotime($datvenc)); ?></td>
-                                    <td class="actions text-right"><a onclick="document.getElementById('paga').value = '<?php echo $row['id']; ?>'; location.href = '#ModalPaga';
-                                            document.getElementById('postapag').style.visibility = 'visible';
-                                            document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $row['id']; ?>';
-                                                    document.getElementById('tituloalt').value = '<?php echo $row['titulo']; ?>'; document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($row['valor'], 2, ',', '.'); ?>';
-                                                    document.getElementById('descricaoalt').value = '<?php echo $row['descricao']; ?>'; document.getElementById('categoriaalt').value = '<?php echo $row['categoria']; ?>';
-                                                    document.getElementById('datavencalt').value = '<?php $datvenc = $row['data_venc'];
-                        echo date('d/m/Y', strtotime($datvenc)); ?>';
-                                                    modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
+                                    <td><?php
+                                        $data = $row['data'];
+                                        echo date('d/m/Y', strtotime($data));
+                                        ?></td>
+                                    <td><?php
+                                        $datvenc = $row['data_venc'];
+                                        echo date('d/m/Y', strtotime($datvenc));
+                                        ?></td>
+                                    <td class="actions text-right"><a onclick="document.getElementById('paga').value = '<?php echo $row['id']; ?>';
+                                                    location.href = '#ModalPaga';
+                                                    document.getElementById('postapag').style.visibility = 'visible';
+                                                    document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $row['id']; ?>';
+                                                            document.getElementById('tituloalt').value = '<?php echo $row['titulo']; ?>';
+                                                            document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($row['valor'], 2, ',', '.'); ?>';
+                                                            document.getElementById('descricaoalt').value = '<?php echo $row['descricao']; ?>';
+                                                            document.getElementById('categoriaalt').value = '<?php echo $row['categoria']; ?>';
+                                                            document.getElementById('datavencalt').value = '<?php
+                                                                      $datvenc = $row['data_venc'];
+                                                                      echo date('d/m/Y', strtotime($datvenc));
+                                                                      ?>';
+                                                            modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
                                         <a onclick="document.getElementById('idd').value = '<?php echo $row['id']; ?>';
-                                                location.href = '#ModalDel';
-                                                document.getElementById('posta').style.visibility = 'visible';
-                                                document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
+                                                        location.href = '#ModalDel';
+                                                        document.getElementById('posta').style.visibility = 'visible';
+                                                        document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
                                     </td>
                                 </tr>
-    <?php endwhile; ?>
-<?php endif; ?>
-<?php if ($totresult == 0) : ?>
+                            <?php endwhile; ?>
+                        <?php endif; ?>
+                        <?php if ($totresult == 0) : ?>
                             <tr>
                                 <td colspan="6">Nenhum registro encontrado.</td>
                             </tr>
-<?php endif; ?>
+                        <?php endif; ?>
                         <tr>
                             <td>Total</td>
                             <td></td>
@@ -155,7 +167,6 @@
                             } else {
                                 echo '<font style="float: left;">' . 'Deseja alterar o estado desta conta para paga?' . '</font>';
                             }
-                            mysql_close($con);
                             ?>
                             <div id="cancpag" style="width:27%; height:35%; visibility: hidden; position:absolute; top: 50%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
                                     atualizaIframepag()">Cancelar</div>
@@ -174,7 +185,7 @@
                         <form id="del" method="post">
                             <input type="hidden" name="idd" id="idd" value="" />
                             <?php
-                            include('conexao.php');
+                            include_once '../modelo/conexao/Conexao.php';
                             $situacao = 0;
                             if (isset($_POST['idd'])) {
                                 $idd = $_POST['idd'];
@@ -252,9 +263,10 @@
                                             atualizaIframepag()">Sair</div>
                                         <div id="postacad" style="width:20%; height:13%; position:absolute; top: 82%; left: 6.5%" class="btn btn-primary" onclick="document.getElementById('formdados').submit()">Salvar</div><div style="float:right">
                                             <?php
-                                            include('conexao.php');
+                                            include_once '../modelo/conexao/Conexao.php';
+                                            include_once '../modelo/FinancasDAO.php';
                                             if (isset($_POST['titulo']) and isset($_POST['descricao']) and isset($_POST['valor']) and isset($_POST['categoria']) and isset($_POST['datavenc'])) {
-                                            
+
                                                 $titulo = $_POST['titulo'];
                                                 $descricao = $_POST['descricao'];
                                                 $valor = $_POST['valor'];
@@ -270,7 +282,7 @@
                                                 $datavenc = $_POST['datavenc'];
                                                 $expldvc = explode('/', $datavenc);
                                                 $dfinalvenc = $expldvc['2'] . '-' . $expldvc['1'] . '-' . $expldvc['0'];
-                                                $sqlInsert= "INSERT INTO `financas` (titulo, descricao, valor, tipo, categoria, data, hora, usuario_id, data_venc) VALUES ('$titulo', '$descricao', '$valor', '$tipo', '$categoria', '$datacad', '$horacad', '$id', '$dfinalvenc')" ;
+                                                $sqlInsert = "INSERT INTO `financas` (titulo, descricao, valor, tipo, categoria, data, hora, usuario_id, data_venc) VALUES ('$titulo', '$descricao', '$valor', '$tipo', '$categoria', '$datacad', '$horacad', '$id', '$dfinalvenc')";
                                                 //echo $sqlInsert;    
                                                 $cadastra = mysql_query($sqlInsert);
                                                 if ($cadastra) {
@@ -280,7 +292,6 @@ atualizaIframepag;
 </script>';
                                                 }
                                             }
-                                            mysql_close($con);
                                             ?></div></td>
                                     <td>&nbsp;</td>
                                 </tr>

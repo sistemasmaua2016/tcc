@@ -56,7 +56,7 @@
                             </tr>
                             <tr>
                                 <td>&nbsp;</td>
-                                <td colspan="2"><input type="text" name="nome" maxlength="20" id="nome" required="required" width="180" class="email" onblur="validanome()"/></td>
+                                <td colspan="2"><input type="text" name="nome" maxlength="20" id="nome" required="required" width="380" class="nome" onblur="validanome()"/></td>
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
@@ -130,7 +130,6 @@
                     alert("Já existe uma conta cadastrada com este email");</script>';
                 }
             }
-            mysql_close($con);
             ?>
             <script type="text/javascript">
                 document.getElementById('nome').value = '<?php echo $nome; ?>';
@@ -189,33 +188,32 @@
                                 <td>&nbsp;</td>
                                 <td colspan="2"><?php
 
-                                    class recuperarsenha {
+            class recuperarsenha {
 
-                                        private function recuperar() {
-                                            include('conexao.php');
-                                            if (isset($_POST['mail']) and isset($_POST['dicar'])) {
-                                                $mail = $_POST['mail'];
-                                                $dicar = $_POST['dicar'];
-                                                $pesquisa = mysql_query("SELECT * FROM `usuario` WHERE `email` = '$mail' AND `dica` = '$dicar'");
-                                                $resultado = mysql_fetch_assoc($pesquisa);
-                                                if ($resultado > 0) {
-                                                    echo 'Sua senha é ', '<font style="color:red;">', $resultado['senha'], '</font>';
-                                                } else {
-                                                    echo 'Não existe uma conta com os dados informados ou um dos campos não correspodem';
-                                                }
-                                            }
-                                            mysql_close();
-                                        }
+                private function recuperar() {
+                    include('conexao.php');
+                    if (isset($_POST['mail']) and isset($_POST['dicar'])) {
+                        $mail = $_POST['mail'];
+                        $dicar = $_POST['dicar'];
+                        $pesquisa = mysql_query("SELECT * FROM `usuario` WHERE `email` = '$mail' AND `dica` = '$dicar'");
+                        $resultado = mysql_fetch_assoc($pesquisa);
+                        if ($resultado > 0) {
+                            echo 'Sua senha é ', '<font style="color:red;">', $resultado['senha'], '</font>';
+                        } else {
+                            echo 'Não existe uma conta com os dados informados ou um dos campos não correspodem';
+                        }
+                    }
+                }
 
-                                        public function mostra() {
-                                            $this->recuperar();
-                                        }
+                public function mostra() {
+                    $this->recuperar();
+                }
 
-                                    }
+            }
 
-                                    $mostra = new recuperarsenha;
-                                    $mostra->mostra();
-                                    ?>
+            $mostra = new recuperarsenha;
+            $mostra->mostra();
+            ?>
                                     <td>&nbsp;</td>
                             </tr>
                             <tr>

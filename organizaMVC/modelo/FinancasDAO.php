@@ -24,12 +24,12 @@ class FinancasDAO {
         $this->pdo = Conexao::getConexao();
     }
 
-    public function getTotalDespezasMesAtual($usuarioId, $mes, $tipo = 'despesa') {
+    public function getTotalDespezasMesAtual($usuario_id, $mes, $tipo = 'despesa') {
         try {
             $sql = "SELECT * FROM `financas` WHERE `usuario_id` = :usuarioId AND `tipo` = :tipo AND `data` "
                     . "BETWEEN :dtInicio AND :dtFinal ";
             $stm = $this->pdo->prepare($sql);
-            $stm->bindValue("usuarioId", $usuarioId);
+            $stm->bindValue("usuarioId", $usuario_id);
             $stm->bindValue("dtInicio", date('Y-' . $this->mes_num["$mes"] . '-1'));
             $stm->bindValue("dtFinal", date('Y-' . $this->mes_num["$mes"] . '-31'));
             $stm->bindValue("tipo", $tipo);
@@ -46,8 +46,8 @@ class FinancasDAO {
     }
 
     public function getContasProximasAoVencimento($id, $mes) {
-        
-        
+
+
         $data = date('Y-' . $this->mes_num["$mes"] . '-d');
         if (date('d') < 10) {
             $data2 = date('Y-' . $this->mes_num["$mes"] . '-10');
@@ -57,8 +57,8 @@ class FinancasDAO {
         }
         if (date('d') > 20 and date('d') < 30) {
             $data2 = date('Y-' . $this->mes_num["$mes"] . '-30');
-            
-            
+
+
             $sql = "SELECT * FROM `financas` WHERE usuario_id=:id and `categoria`!= 'paga' and `categoria`!= 'recebida'"
                     . " and `categoria`!= 'vencida' and data_venc BETWEEN :data AND :data2";
             $stm = $this->pdo->prepare($sql);
@@ -71,9 +71,11 @@ class FinancasDAO {
             return $vencimentos;
         }
         try {
+            
         } catch (PDOException $exc) {
             echo $exc->getMessage();
         }
     }
+    }
 
-}
+

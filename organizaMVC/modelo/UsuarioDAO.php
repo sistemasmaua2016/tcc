@@ -53,7 +53,7 @@ class UsuarioDAO {
           echo 'Não existe uma conta com os dados informados ou um dos campos não correspodem';
           }
           
-          mysql_close();
+          
         }
 
           public function mostra() {
