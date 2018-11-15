@@ -25,10 +25,17 @@ $novaContas = new contas($titulo, $descricao, $valor, $tipo, $categoria, $data, 
 
 $sucesso = $contasDAO->InserirConta($novaContas);
 
-if ($sucesso) {
+
+
+
+if($sucesso) {
 
     $msg = "Conta cadastrada com sucesso!";
-    header("../visao/despesas.php?msg=" . $msg);
+    header("Location: ../visao/despesas.php?msg=" . $msg);
 } else {
     $msg = "Conta ja cadatrada!";
-}   header("../visao/despesas.php?msg=" . $msg);
+    header("Location: ../visao/despesas.php?msg=" . $msg);
+}   
+
+
+

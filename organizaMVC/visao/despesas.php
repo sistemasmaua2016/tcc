@@ -15,22 +15,7 @@
                     background: #f3f3f3;
                 }
             </style>
-            <script type="text/javascript">
-                function mascara(o, f) {
-                    v_obj = o;
-                    v_fun = f;
-                    setTimeout("execmascara()", 1);
-                }
-                function execmascara() {
-                    v_obj.value = v_fun(v_obj.value);
-                }
-                function mreais(v) {
-                    v = v.replace(/\D/g, "");						//Remove tudo o que não é dígito
-                    v = v.replace(/(\d{2})$/, ",$1"); 			//Coloca a virgula
-                    v = v.replace(/(\d+)(\d{3},\d{2})$/g, "$1.$2"); 	//Coloca o primeiro ponto
-                    return "R$ " + v;
-                }
-            </script> 
+            <script type="text/javascript" src="js/mascaras.js"></script> 
             <?php
             session_start();
             if ($_SESSION['logado'] != "SIM") {
@@ -110,22 +95,22 @@
                                         echo date('d/m/Y', strtotime($datvenc));
                                         ?></td>
                                     <td class="actions text-right"><a onclick="document.getElementById('paga').value = '<?php echo $row['id']; ?>';
-                                                    location.href = '#ModalPaga';
-                                                    document.getElementById('postapag').style.visibility = 'visible';
-                                                    document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $row['id']; ?>';
-                                                            document.getElementById('tituloalt').value = '<?php echo $row['titulo']; ?>';
-                                                            document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($row['valor'], 2, ',', '.'); ?>';
-                                                            document.getElementById('descricaoalt').value = '<?php echo $row['descricao']; ?>';
-                                                            document.getElementById('categoriaalt').value = '<?php echo $row['categoria']; ?>';
-                                                            document.getElementById('datavencalt').value = '<?php
+                                            location.href = '#ModalPaga';
+                                            document.getElementById('postapag').style.visibility = 'visible';
+                                            document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $row['id']; ?>';
+                                                    document.getElementById('tituloalt').value = '<?php echo $row['titulo']; ?>';
+                                                    document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($row['valor'], 2, ',', '.'); ?>';
+                                                    document.getElementById('descricaoalt').value = '<?php echo $row['descricao']; ?>';
+                                                    document.getElementById('categoriaalt').value = '<?php echo $row['categoria']; ?>';
+                                                    document.getElementById('datavencalt').value = '<?php
                                                                       $datvenc = $row['data_venc'];
                                                                       echo date('d/m/Y', strtotime($datvenc));
                                                                       ?>';
-                                                            modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
+                                                    modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
                                         <a onclick="document.getElementById('idd').value = '<?php echo $row['id']; ?>';
-                                                        location.href = '#ModalDel';
-                                                        document.getElementById('posta').style.visibility = 'visible';
-                                                        document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
+                                                location.href = '#ModalDel';
+                                                document.getElementById('posta').style.visibility = 'visible';
+                                                document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
@@ -262,16 +247,7 @@
                                     <td colspan="2"><div id="fechacad" style="width:20%; height:13%; position:absolute; top: 82%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
                                             atualizaIframepag()">Sair</div>
                                         <div id="postacad" style="width:20%; height:13%; position:absolute; top: 82%; left: 6.5%" class="btn btn-primary" onclick="document.getElementById('formdados').submit()">Salvar</div><div style="float:right">
-                                            <?php
-                                            include_once '../modelo/contasDAO.php';
-                                            
-                                            $contasDAO = new contasDAO();
-                                            $cadastra = $contasDAO->getInserirConta($id);
-atualizaIframepag;
-</script>';
-                                                }
-                                            
-                                            ?></div></td>
+                                        </div></td>
                                     <td>&nbsp;</td>
                                 </tr>
                             </table>
@@ -308,7 +284,6 @@ atualizaIframepag;
                                     echo 'Ocorreu um erro ao editar esta conta!';
                                 }
                             }
-                            
                             ?></div><div id="tab" style="visibility:hidden">
                             <form id="formaltdados" name="formaltdados" method="post">
                                 <h2>Editar conta</h2>
