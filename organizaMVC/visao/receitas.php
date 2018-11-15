@@ -42,7 +42,7 @@
             </header>
             <?php
             $id = $_SESSION['id'];
-            include('conexao.php');
+            include('../modelo/conexao/Conexao.php');
             $i = 1;
             if (isset($_POST['datepicker'])) {
                 $dpesq = $_POST['datepicker'];
@@ -58,7 +58,6 @@
             if ($i == 1) {
                 $result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `tipo` = 'receita' AND `categoria`='a receber' AND `data_venc` BETWEEN ('$data1') AND ('$data2')");
             }
-            mysql_close($con);
             ?>
             <hr>
                 <table class="table table-hover" style="font-family: 'Bree Serif', serif;">
@@ -74,8 +73,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $total = 0;
-                        $totresult = mysql_num_rows($result); ?>
+                        <?php
+                        $total = 0;
+                        $totresult = mysql_query($result);
+                        ?>
                         <?php if ($result) : ?>
     <?php while ($row = mysql_fetch_assoc($result)) : ?>
                                 <tr><?php $total += $row['valor']; ?>
@@ -83,18 +84,24 @@
                                     <td><?php echo $row['titulo']; ?></td>
                                     <td><?php echo 'R$ ' . number_format($row['valor'], 2, ',', '.'); ?></td>
                                     <td><?php echo $row['descricao']; ?></td>
-                                    <td><?php $data = $row['data'];
-        echo date('d/m/Y', strtotime($data)); ?></td>
-                                    <td><?php $datvenc = $row['data_venc'];
-        echo date('d/m/Y', strtotime($datvenc)); ?></td>
+                                    <td><?php
+                                        $data = $row['data'];
+                                        echo date('d/m/Y', strtotime($data));
+                                        ?></td>
+                                    <td><?php
+                                $datvenc = $row['data_venc'];
+                                echo date('d/m/Y', strtotime($datvenc));
+                                        ?></td>
                                     <td class="actions text-right"><a onclick="document.getElementById('recebe').value = '<?php echo $row['id']; ?>';
                                             location.href = '#ModalRecebe';
                                             document.getElementById('postarec').style.visibility = 'visible';
                                             document.getElementById('cancrec').style.visibility = 'visible'" class="btn btn-sm btn-success">Receber</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $row['id']; ?>'; document.getElementById('tituloalt').value = '<?php echo $row['titulo']; ?>'; document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($row['valor'], 2, ',', '.'); ?>';
                                                     document.getElementById('descricaoalt').value = '<?php echo $row['descricao']; ?>';
                                                     document.getElementById('categoriaalt').value = '<?php echo $row['categoria']; ?>';
-                                                    document.getElementById('datavencalt').value = '<?php $datvenc = $row['data_venc'];
-                        echo date('d/m/Y', strtotime($datvenc)); ?>';
+                                                    document.getElementById('datavencalt').value = '<?php
+                                                              $datvenc = $row['data_venc'];
+                                                              echo date('d/m/Y', strtotime($datvenc));
+                                        ?>';
                                                     modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i>Editar</a>
                                         <a onclick="document.getElementById('idd').value = '<?php echo $row['id']; ?>';
                                                 location.href = '#ModalDel';
@@ -103,8 +110,8 @@
                                     </td>
                                 </tr>
     <?php endwhile; ?>
-<?php endif; ?>
-<?php if ($totresult == 0) : ?>
+                        <?php endif; ?>
+                        <?php if ($totresult == 0) : ?>
                             <tr>
                                 <td colspan="6">Nenhum registro encontrado.</td>
                             </tr>
@@ -157,7 +164,7 @@
                 <!--MODAL DE ADIÇÃO DE REGISTRO-->
                 <div id="Modal" class="modalDialog" style="background: rgba(0,0,0,0);">
                     <div class="divdados"> <a href="#close" title="Close" class="close">X</a>
-                        <form id="formdados" name="formdados" method="post">
+                        <form action="../Controle/CadastrarReceita.php"ac id="formdados" name="formdados" method="post">
                             <h2>Cadastrar conta</h2>
                             <table>
                                 <tr>
@@ -169,22 +176,8 @@
                                 <tr>
                                     <td>&nbsp;</td>
                                     <td><input type="text" name="titulo" maxlength="20" required="required" class="input" /></td>
-                                    <script type="text/javascript">
-                                        function mascara(o, f) {
-                                            v_obj = o
-                                            v_fun = f
-                                            setTimeout("execmascara()", 1)
-                                        }
-                                        function execmascara() {
-                                            v_obj.value = v_fun(v_obj.value)
-                                        }
-                                        function mreais(v) {
-                                            v = v.replace(/\D/g, "")						//Remove tudo o que não é dígito
-                                            v = v.replace(/(\d{2})$/, ",$1") 			//Coloca a virgula
-                                            v = v.replace(/(\d+)(\d{3},\d{2})$/g, "$1.$2") 	//Coloca o primeiro ponto
-                                            return "R$ " + v
-                                        }
-                                    </script> 
+                                    <script type="text/javascript" src="js/mascaras.js"></script> 
+
                                     <td><input type="text" name="valor" id="valor" maxlength="20" required="required" class="input" onkeypress="mascara(this, mreais)"/></td>
                                 </tr>
                                 <tr>
@@ -221,7 +214,7 @@
                                     <td colspan="2"><div id="fechacad" style="width:20%; height:13%; position:absolute; top: 82%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
                                             atualizaIframerec()">Sair</div>
                                         <div id="postacad" style="width:20%; height:13%; position:absolute; top: 82%; left: 6.5%" class="btn btn-primary" onclick="document.getElementById('formdados').submit()">Salvar</div><div style="float:right"><?php
-                                            include('conexao.php');
+                                            include_once ('../modelo/conexao/Conexao.php');
                                             if (isset($_POST['titulo']) and isset($_POST['descricao']) and isset($_POST['valor']) and isset($_POST['categoria']) and isset($_POST['datavenc'])) {
                                                 $titulo = $_POST['titulo'];
                                                 $descricao = $_POST['descricao'];
@@ -245,7 +238,6 @@
                                                     echo 'Erro ao cadastrar conta!';
                                                 }
                                             }
-                                            mysql_close($con);
                                             ?></div></td>
                                     <td>&nbsp;</td>
                                 </tr>
@@ -290,35 +282,10 @@
 
                 <!--MODAL DE EDIÇÃO DE REGISTR0-->
                 <div id="ModalEdit" class="modalDialog" style="background: rgba(0,0,0,0);">
-                    <div class="divdados" style="height: 20%;"><a href="#close" title="Close" class="close">X</a><div id="query" style="position:absolute; top: 23%; font-size:16px;"><?php
-                            include('conexao.php');
-                            if (isset($_POST['tituloalt']) and isset($_POST['descricaoalt']) and isset($_POST['valoralt']) and isset($_POST['categoriaalt']) and isset($_POST['datavencalt']) and isset($_POST['idalt'])) {
-                                $idalt = $_POST['idalt'];
-                                $titulo = $_POST['tituloalt'];
-                                $descricao = $_POST['descricaoalt'];
-                                $valor = $_POST['valoralt'];
-                                $muda = array(",", ".", "R$ ");
-                                $valor = str_replace($muda, "", $valor);
-                                $vq1 = substr($valor, -2);
-                                $vq2 = substr($valor, 0, -2);
-                                $valor = $vq2 . '.' . $vq1;
-                                $tipo = 'receita';
-                                $categoria = $_POST['categoriaalt'];
-                                $datacad = date('Y-m-d');
-                                $horacad = date('Y-m-d H:i:s');
-                                $datavenc = $_POST['datavencalt'];
-                                $expldvc = explode('/', $datavenc);
-                                $dfinalvenc = $expldvc['2'] . '-' . $expldvc['1'] . '-' . $expldvc['0'];
-                                $atualiza = mysql_query("UPDATE financas SET titulo='$titulo', descricao='$descricao', valor='$valor', tipo='$tipo', categoria='$categoria', data='$datacad', hora='$horacad', data_venc='$dfinalvenc' WHERE ID = '$idalt'");
-                                if ($atualiza) {
-                                    echo 'Conta editada com sucesso!';
-                                } else {
-                                    echo 'Ocorreu um erro ao editar esta conta!';
-                                }
-                            }
-                            mysql_close($con);
-                            ?></div><div id="tab" style="visibility:hidden">
-                            <form id="formaltdados" name="formaltdados" method="post">
+                    <div class="divdados" style="height: 20%;"><a href="#close" title="Close" class="close">X</a><div id="query" style="position:absolute; top: 23%; font-size:16px;">
+
+                        </div><div id="tab" style="visibility:hidden">
+                            <form   action="../Controle/CadastrarReceita.php" id="formaltdados" name="formaltdados" method="post">
                                 <h2>Editar conta</h2>
                                 <table>
                                     <tr>
@@ -369,7 +336,8 @@
                                     </tr>
                                 </table>
                             </form></div>
-                        <div id="okat" style="width:20%; height:23%; position:absolute; top: 60%; left: 6%" class="btn btn-primary" onclick="location.href = '#close'; atualizaIframerec()">OK</div><div style="float:right">
+                        <div id="okat" style="width:20%; height:23%; position:absolute; top: 60%; left: 6%" class="btn btn-primary" onclick="location.href = '#close';
+                                atualizaIframerec()">OK</div><div style="float:right">
                             <div id="fechaat" style="width:20%; height:23%; position:absolute; top: 70%; left: 27%; visibility:hidden;" class="btn btn-danger" onclick="location.href = '#close';
                                     atualizaIframerec()">Cancelar</div>
                             <div id="atualizacad" style="width:20%; height:23%; position:absolute; top: 70%; left: 6%; visibility: hidden;" class="btn btn-primary" onclick="document.getElementById('formaltdados').submit()">Salvar</div><div style="float:right">

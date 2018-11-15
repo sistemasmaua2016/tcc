@@ -12,7 +12,7 @@
         <?php
         session_start();
         if (isset($_SESSION['logado']) && $_SESSION['logado'] == "SIM") {
-            header('location:painel.php');
+            header('location:visao/painel.php');
         }
         ?>
     </head>

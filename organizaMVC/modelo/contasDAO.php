@@ -11,7 +11,7 @@ class contasDAO {
         $this->pdo = Conexao::getConexao();
     }
 
-    public function getInserirConta($id) {
+    public function inserirConta(contas $novaConta) {
 
         try {
             $sql = "INSERT INTO `financas` (titulo, descricao, valor, tipo, categoria, data, hora, usuario_id, data_venc) "
@@ -19,15 +19,15 @@ class contasDAO {
 
             $stm = $this->pdo->prepare($sql);
 
-            $stm->bindValue("titulo", $id->getTitulo());
-            $stm->bindValue("descricao", $id->getDescricao());
-            $stm->bindValue("valor", $id->getValor());
-            $stm->bindValue("tipo", $id->getTipo());
-            $stm->bindValue("categoria", $id->getCategoria());
-            $stm->bindValue("data", $id->getData());
-            $stm->bindValue("hora", $id->getHora());
-            $stm->bindValue("usuario_id", $id->getUsuario_id());
-            $stm->bindValue("data_venc", $id->getData_venc());
+            $stm->bindValue("titulo", $novaConta->getTitulo());
+            $stm->bindValue("descricao", $novaConta->getDescricao());
+            $stm->bindValue("valor", $novaConta->getValor());
+            $stm->bindValue("tipo", $novaConta->getTipo());
+            $stm->bindValue("categoria", $novaConta->getCategoria());
+            $stm->bindValue("data", $novaConta->getData());
+            $stm->bindValue("hora", $novaConta->getHora());
+            $stm->bindValue("usuario_id", $novaConta->getUsuario_id());
+            $stm->bindValue("data_venc", $novaConta->getData_venc());
 
             return $stm->execute();
         } catch (PDOException $exc) {
