@@ -19,6 +19,9 @@ if (!empty($usuario)) {
     $_SESSION["id"] = $usuario->id;
     $_SESSION["usuario"] = $usuario->email;
     $_SESSION["nome"] = $usuario->nome;
+	$_SESSION["email"] = $usuario->email;
+	$_SESSION["senha"] = $usuario->senha;
+	$_SESSION["dica"] = $usuario->dica;
     $_SESSION["logado"] = "SIM";
     header('Location:../visao/painel.php');
 
