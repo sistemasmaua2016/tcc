@@ -52,7 +52,7 @@ function validaform() {
 
 
 //funçã confirmação de senha
-function verificasenha() {
+function verificaSenha() {
     var senha = document.form.csenha.value;
     var csenha = document.form.rsenha.value;
     if (senha == csenha) {

@@ -2,10 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <script src="chart/chart.min.js"></script>
-        <!--<script type="text/javascript" src="js/app.js"></script>-->
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/funcoes.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+        <script src="../chart/chart.min.js"></script>
+       <script type="text/javascript" src="js/funcoes.js"></script>
         <link href="css/style.css" rel="stylesheet" />
         <link href="css/bootstrap.min.css" rel="stylesheet" />
         <title>Untitled Document</title>
@@ -20,9 +19,10 @@
             <?php
             session_start(); //inicia sessão
             $id = $_SESSION['id']; //pega o id da sessão
-            $ip = (!empty($_SERVER['REMOTE_HOST'])); // IP da internet
-            $query = unserialize(file_get_contents('http://ip-api.com/php/' . $ip)); //Pesquisa sua localização
-//formata data
+           // $ip = (!empty($_SERVER['REMOTE_HOST'])); // IP da internet
+            // $query = unserialize(file_get_contents('http://ip-api.com/php/' . $ip)); //Pesquisa sua localização
+
+			//formata data
             $data = date('D');
             if (isset($_POST['mes']) > 0) {
                 $mes = $_POST['mes'];
@@ -70,8 +70,8 @@
                 'Oct' => '10',
                 'Dec' => '12'
             );
-//exibe local em que está, a data por extenso e em português
-            echo $ip . $query['city'] . ', ', $semana["$data"] . " - $dia de " . $mes_extenso["$mes_cal"] . " de $ano";
+			//exibe local em que está, a data por extenso e em português
+            //echo $ip . $query['city'] . ', ', $semana["$data"] . " - $dia de " . $mes_extenso["$mes_cal"] . " de $ano";
             ?>
         </div>
         <!-- FOMULÁRIO PARA PESQUISAR PELO MÊS -->
@@ -81,10 +81,11 @@
         <!-- FIM DO FORMULÁRIO -->
         <?php
         include_once '../modelo/FinancasDAO.php';
-//pesquisa os registros para exibi-los
+		//pesquisa os registros para exibi-los
         $finacasDAO = new FinancasDAO();
         $totalapag = $finacasDAO->getTotalDespezasMesAtual($_SESSION['id'], $mes, 'despesa');
         $totalarec = $finacasDAO->getTotalDespezasMesAtual($_SESSION['id'], $mes, 'receita');
+		
         ?>
         </div>
         <!-- INPUT PARA PASSAR OS DADOS PARA O GRÁFICO 1 -->
@@ -165,7 +166,7 @@
                     animation: {
                     animateScale: true,
                             responsive: true,
-                            maintainAspectRatio: false;
+                            maintainAspectRatio: false
                     }
                     }
             });
@@ -204,6 +205,7 @@
                     <?php
                     $finacasDAO = new FinancasDAO();
                     $contasProximasVecimento = $finacasDAO->getContasProximasAoVencimento($id, $mes);
+
                     ?>
                     <?php if ($contasProximasVecimento) { ?>
                         <?php foreach ($contasProximasVecimento as $conta) { ?>
@@ -226,25 +228,13 @@
 
         <!-- DIV GRÁFICO 2 -->
         <?php
-        $d3 = date('Y-01-01');
-        $d4 = date('Y-12-31');
-        $resu3 = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `tipo` = 'despesa' AND `data` BETWEEN ('$d3') AND ('$d4')");
-        $totalapagano = 0;
-        if ($resu3) {
-            while ($rows = mysql_fetch_assoc($resu3)) {
-                $totalapagano = $totalapagano + $rows['valor'];
-            }
-        }
-        $resu4 = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `tipo` = 'receita' AND `data` BETWEEN ('$d3') AND ('$d4')");
-        $totalarecano = 0;
-        if ($resu4) {
-            while ($rows = mysql_fetch_assoc($resu4)) {
-                $totalarecano = $totalarecano + $rows['valor'];
-            }
-        }
+		
+		$totalPagando = $finacasDAO->getTotalPorAno($_SESSION['id'],  'despesa',  date('Y-01-01'), date('Y-12-31'));
+		$totalReceita = $finacasDAO->getTotalPorAno($_SESSION['id'],  'receita',  date('Y-01-01'), date('Y-12-31'));
+
         ?>
-        <input type="hidden" value="<?php echo $totalapagano ?>" id="totalapagano"/>
-        <input type="hidden" value="<?php echo $totalarecano ?>" id="totalarecano"/>
+        <input type="hidden" value="<?php echo $totalPagando ?>" id="totalapagano"/>
+        <input type="hidden" value="<?php echo $totalReceita ?>" id="totalarecano"/>
         <div id="grafico2" style="width: 30%; height: 30%; float: left; padding: 1% 1%; position: absolute; left: 15%; top: 52%;">
             <table width="0" border="0" cellspacing="0" cellpadding="0" style="width: 100%; height:100%">
                 <tr>
@@ -318,7 +308,7 @@
                     animation: {
                     animateScale: true,
                             responsive: true,
-                            maintainAspectRatio: false;
+                            maintainAspectRatio: false
                     }
                     }
             });
@@ -334,15 +324,15 @@
                 </tr>
                 <tr>
                     <td colspan="2">Total Receitas</td>
-                    <td colspan="2" align="right"><?php echo 'R$ ' . number_format($totalarecano, 2, ",", "."); ?></td>
+                    <td colspan="2" align="right"><?php echo 'R$ ' . number_format($totalReceita, 2, ",", "."); ?></td>
                 </tr>
                 <tr>
                     <td colspan="2">Total Despesas</td>
-                    <td colspan="2" align="right"><?php echo 'R$ ' . number_format($totalapagano, 2, ",", "."); ?></td>
+                    <td colspan="2" align="right"><?php echo 'R$ ' . number_format($totalPagando, 2, ",", "."); ?></td>
                 </tr>
                 <tr>
                     <td colspan="2">Saldo</td>
-                    <td colspan="2" align="right"><?php echo 'R$ ' . number_format($totalarecano - $totalapagano, 2, ",", "."); ?></td>
+                    <td colspan="2" align="right"><?php echo 'R$ ' . number_format($totalReceita - $totalPagando, 2, ",", "."); ?></td>
                 </tr>
                 <tr>
                     <td colspan="2">&nbsp;</td>

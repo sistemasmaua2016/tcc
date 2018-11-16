@@ -4,6 +4,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Organiza! - Plataforma de Controle de Gastos</title>
         <link href="css/style.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
         <script type="text/javascript" src="js/funcoes.js"></script>
         <?php
         include_once ('../modelo/conexao/Conexao.php');
