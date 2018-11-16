@@ -1,4 +1,6 @@
 // JavaScript Document
+jQuery.noConflict();
+
 $(document).ready(function () {
     $(".username").focus(function () {
         $(".user-icon").css("left", "-48px");

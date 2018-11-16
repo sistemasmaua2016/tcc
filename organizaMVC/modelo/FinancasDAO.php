@@ -96,6 +96,37 @@ class FinancasDAO {
             echo $exc->getMessage();
         }
     }
+	
+	public function getDespesaAVencerPorData($id, $date) {
+        try {
+            $sql = "SELECT * FROM `financas` WHERE usuario_id=:id AND tipo = 'despesa'  AND categoria =  'a vencer' AND data :data";
+            $stm = $this->pdo->prepare($sql);
+            $stm->bindValue("id", $id);
+            $stm->bindValue("data", $date);
+            $stm->execute();
+            $result = $stm->fetchAll(PDO::FETCH_OBJ);
+
+			 return $result;
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
+        }
+    }
+	
+	public function getDespesaAVencerPorPeriodo($id, $date1, $date2) {
+        try {
+            $sql = "SELECT * FROM `financas` WHERE usuario_id=:id AND tipo = 'despesa'  AND categoria =  'a vencer' AND data_venc BETWEEN :data AND :data2";
+            $stm = $this->pdo->prepare($sql);
+            $stm->bindValue("id", $id);
+            $stm->bindValue("data", $date1);
+			$stm->bindValue("data2", $date2);
+            $stm->execute();
+            $result = $stm->fetchAll(PDO::FETCH_OBJ);
+
+			 return $result;
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
+        }
+    }
     }
 
 
