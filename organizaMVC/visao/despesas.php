@@ -153,7 +153,7 @@
                             $ipaga = 0;
                             if (isset($_POST['paga'])) {
                                 $paga = $_POST['paga'];
-                                $pagar = mysql_query("UPDATE financas SET categoria='paga' WHERE id='$paga'");
+								 Conexao::getConexao()->exec("UPDATE financas SET categoria='paga' WHERE  id='$paga'");
                             }
                             if (!empty($paga)) {
                                 $ipaga = 1;
@@ -185,7 +185,7 @@
                             $situacao = 0;
                             if (isset($_POST['idd'])) {
                                 $idd = $_POST['idd'];
-                                $apaga = mysql_query("DELETE FROM `financas` WHERE `id` = '$idd'");
+								$apaga = Conexao::getConexao()->exec("DELETE FROM financas WHERE  id='$idd'");
                             }
                             if (!empty($apaga)) {
                                 $situacao = 1;
@@ -195,7 +195,6 @@
                             } else {
                                 echo '<font style="float: left;">' . 'Tem certeza que deseja excluir esta conta?' . '</font>';
                             }
-                            mysql_close($con);
                             ?>
                             <div id="cancela" style="width:27%; height:35%; visibility: hidden; position:absolute; top: 50%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
                                     atualizaIframepag()">Cancelar</div>
@@ -270,7 +269,6 @@
                 <!--MODAL DE EDIÇÃO DE REGISTR0-->
                 <div id="ModalEdit" class="modalDialog" style="background: rgba(0,0,0,0);">
                     <div class="divdados" style="height: 20%;"><a href="#close" title="Close" class="close">X</a><div id="query" style="position:absolute; top: 23%; font-size:16px;"><?php
-                            include('conexao.php');
                             if (isset($_POST['tituloalt']) and isset($_POST['descricaoalt']) and isset($_POST['valoralt']) and isset($_POST['categoriaalt']) and isset($_POST['datavencalt']) and isset($_POST['idalt'])) {
                                 $idalt = $_POST['idalt'];
                                 $titulo = $_POST['tituloalt'];
@@ -288,8 +286,8 @@
                                 $datavenc = $_POST['datavencalt'];
                                 $expldvc = explode('/', $datavenc);
                                 $dfinalvenc = $expldvc['2'] . '-' . $expldvc['1'] . '-' . $expldvc['0'];
-                                $atualiza = mysql_query("UPDATE financas SET titulo='$titulo', descricao='$descricao', valor='$valor', tipo='$tipo', categoria='$categoria', data='$datacad', hora='$horacad', data_venc='$dfinalvenc' WHERE ID = '$idalt'");
-                                if ($atualiza) {
+                                $atualiza =  Conexao::getConexao()->exec("UPDATE financas SET titulo='$titulo', descricao='$descricao', valor='$valor', tipo='$tipo', categoria='$categoria', data='$datacad', hora='$horacad', data_venc='$dfinalvenc' WHERE ID = '$idalt'");
+								if ($atualiza) {
                                     echo 'Conta editada com sucesso!';
                                 } else {
                                     echo 'Ocorreu um erro ao editar esta conta!';

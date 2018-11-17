@@ -12,9 +12,8 @@ class contas {
     private $hora;
     private $usuario_id;
     private $data_venc;
-    
-    
-    function __construct($titulo, $descricao, $valor, $tipo, $categoria, $data, $hora, $usuario_id, $data_venc) {
+	
+    public function __construct($titulo, $descricao, $valor, $tipo, $categoria, $data, $hora, $usuario_id, $data_venc) {
         $this->titulo = $titulo;
         $this->descricao = $descricao;
         $this->valor = $valor;
@@ -28,83 +27,83 @@ class contas {
 
     
     
-    function getId() {
+    public function getId() {
         return $this->id;
     }
 
-    function getTitulo() {
+    public function getTitulo() {
         return $this->titulo;
     }
 
-    function getDescricao() {
+    public function getDescricao() {
         return $this->descricao;
     }
 
-    function getValor() {
+    public function getValor() {
         return $this->valor;
     }
 
-    function getTipo() {
+    public function getTipo() {
         return $this->tipo;
     }
 
-    function getCategoria() {
+    public function getCategoria() {
         return $this->categoria;
     }
 
-    function getData() {
+    public function getData() {
         return $this->data;
     }
 
-    function getHora() {
+    public function getHora() {
         return $this->hora;
     }
 
-    function getUsuario_id() {
+    public function getUsuario_id() {
         return $this->usuario_id;
     }
 
-    function getData_venc() {
+    public function getData_venc() {
         return $this->data_venc;
     }
 
-    function setId($id) {
+    public function setId($id) {
         $this->id = $id;
     }
 
-    function setTitulo($titulo) {
+    public function setTitulo($titulo) {
         $this->titulo = $titulo;
     }
 
-    function setDescricao($descricao) {
+    public function setDescricao($descricao) {
         $this->descricao = $descricao;
     }
 
-    function setValor($valor) {
+    public function setValor($valor) {
         $this->valor = $valor;
     }
 
-    function setTipo($tipo) {
+    public function setTipo($tipo) {
         $this->tipo = $tipo;
     }
 
-    function setCategoria($categoria) {
+    public function setCategoria($categoria) {
         $this->categoria = $categoria;
     }
 
-    function setData($data) {
+    public function setData($data) {
         $this->data = $data;
     }
 
-    function setHora($hora) {
+    public function setHora($hora) {
         $this->hora = $hora;
     }
 
-    function setUsuario_id($usuario_id) {
+    public function setUsuario_id($usuario_id) {
         $this->usuario_id = $usuario_id;
     }
 
-    function setData_venc($data_venc) {
+    public function setData_venc($data_venc) {
         $this->data_venc = $data_venc;
     }
     

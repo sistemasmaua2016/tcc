@@ -18,7 +18,7 @@ class contasDAO {
                     . "VALUES (:titulo, :descricao, :valor, :tipo, :categoria, :data, :hora, :usuario_id, :data_venc)";
 
             $stm = $this->pdo->prepare($sql);
-
+			
             $stm->bindValue("titulo", $novaConta->getTitulo());
             $stm->bindValue("descricao", $novaConta->getDescricao());
             $stm->bindValue("valor", $novaConta->getValor());
