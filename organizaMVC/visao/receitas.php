@@ -42,7 +42,9 @@
             </header>
             <?php
             $id = $_SESSION['id'];
-            include('../modelo/conexao/Conexao.php');
+            include_once '../modelo/conexao/Conexao.php';
+            include_once '../modelo/FinancasDAO.php';
+            $finacasDAO = new FinancasDAO();
             $i = 1;
             if (isset($_POST['datepicker'])) {
                 $dpesq = $_POST['datepicker'];
@@ -51,12 +53,17 @@
             if ($i == 0) {
                 $expld = explode('/', $dpesq);
                 $pesq = $expld['2'] . '-' . $expld['1'] . '-' . $expld['0'];
-                $result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `tipo`='receita' AND `categoria`='a receber' AND `data` = '$pesq'");
+                $result = $finacasDAO->getDespesaAVencerPorData($_SESSION['id'], $pesq);
+
+
+               // $result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `tipo`='receita' AND `categoria`='a receber' AND `data` = '$pesq'");
             }
             $data1 = date('Y-m-1');
             $data2 = date('Y-m-31');
             if ($i == 1) {
-                $result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `tipo` = 'receita' AND `categoria`='a receber' AND `data_venc` BETWEEN ('$data1') AND ('$data2')");
+                $result = $finacasDAO->getDespesaAVencerPorPeriodo($_SESSION['id'], $tipo = 'receita', $categoria = 'a receber', $data1, $data2);
+
+                //$result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `tipo` = 'receita' AND `categoria`='a receber' AND `data_venc` BETWEEN ('$data1') AND ('$data2')");
             }
             ?>
             <hr>
@@ -75,43 +82,47 @@
                     <tbody>
                         <?php
                         $total = 0;
-                        $totresult = mysql_query($result);
+
+                        $noresult = false;
+                        if (empty($result)) {
+                            $totresult = true;
+                        }
                         ?>
                         <?php if ($result) : ?>
-    <?php while ($row = mysql_fetch_assoc($result)) : ?>
-                                <tr><?php $total += $row['valor']; ?>
-                                    <td><?php echo $row['id']; ?></td>
-                                    <td><?php echo $row['titulo']; ?></td>
-                                    <td><?php echo 'R$ ' . number_format($row['valor'], 2, ',', '.'); ?></td>
-                                    <td><?php echo $row['descricao']; ?></td>
+    <?php foreach ($result as $row) : ?>
+                                <tr><?php $total += $row->valor; ?>
+                                    <td><?php echo $row->id; ?></td>
+                                    <td><?php echo $row->titulo; ?></td>
+                                    <td><?php echo 'R$ ' . number_format($row->valor, 2, ',', '.'); ?></td>
+                                    <td><?php echo $row->descricao; ?></td>
                                     <td><?php
-                                        $data = $row['data'];
+                                        $data = $row->data;
                                         echo date('d/m/Y', strtotime($data));
                                         ?></td>
                                     <td><?php
-                                $datvenc = $row['data_venc'];
-                                echo date('d/m/Y', strtotime($datvenc));
+                                        $datvenc = $row->data_venc;
+                                        echo date('d/m/Y', strtotime($datvenc));
                                         ?></td>
-                                    <td class="actions text-right"><a onclick="document.getElementById('recebe').value = '<?php echo $row['id']; ?>';
-                                            location.href = '#ModalRecebe';
-                                            document.getElementById('postarec').style.visibility = 'visible';
-                                            document.getElementById('cancrec').style.visibility = 'visible'" class="btn btn-sm btn-success">Receber</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $row['id']; ?>'; document.getElementById('tituloalt').value = '<?php echo $row['titulo']; ?>'; document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($row['valor'], 2, ',', '.'); ?>';
-                                                    document.getElementById('descricaoalt').value = '<?php echo $row['descricao']; ?>';
-                                                    document.getElementById('categoriaalt').value = '<?php echo $row['categoria']; ?>';
-                                                    document.getElementById('datavencalt').value = '<?php
-                                                              $datvenc = $row['data_venc'];
-                                                              echo date('d/m/Y', strtotime($datvenc));
-                                        ?>';
-                                                    modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i>Editar</a>
-                                        <a onclick="document.getElementById('idd').value = '<?php echo $row['id']; ?>';
-                                                location.href = '#ModalDel';
-                                                document.getElementById('posta').style.visibility = 'visible';
-                                                document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
+                                    <td class="actions text-right"><a onclick="document.getElementById('recebe').value = '<?php echo $row->id; ?>';
+                                                    location.href = '#ModalRecebe';
+                                                    document.getElementById('postarec').style.visibility = 'visible';
+                                                    document.getElementById('cancrec').style.visibility = 'visible'" class="btn btn-sm btn-success">Receber</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $row['id']; ?>'; document.getElementById('tituloalt').value = '<?php echo $row['titulo']; ?>'; document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($row['valor'], 2, ',', '.'); ?>';
+                                                            document.getElementById('descricaoalt').value = '<?php echo $row->descricao; ?>';
+                                                            document.getElementById('categoriaalt').value = '<?php echo $row->categoria; ?>';
+                                                            document.getElementById('datavencalt').value = '<?php
+                                                                      $datvenc = $row->data_venc;
+                                                                      echo date('d/m/Y', strtotime($datvenc));
+                                                                      ?>';
+                                                            modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i>Editar</a>
+                                        <a onclick="document.getElementById('idd').value = '<?php echo $row->id; ?>';
+                                                        location.href = '#ModalDel';
+                                                        document.getElementById('posta').style.visibility = 'visible';
+                                                        document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
                                     </td>
                                 </tr>
-    <?php endwhile; ?>
+                            <?php endforeach ?>
                         <?php endif; ?>
-                        <?php if ($totresult == 0) : ?>
+<?php if ($noresult) : ?>
                             <tr>
                                 <td colspan="6">Nenhum registro encontrado.</td>
                             </tr>
@@ -164,8 +175,8 @@
                 <!--MODAL DE ADIÇÃO DE REGISTRO-->
                 <div id="Modal" class="modalDialog" style="background: rgba(0,0,0,0);">
                     <div class="divdados"> <a href="#close" title="Close" class="close">X</a>
-                        <form action="../Controle/CadastrarReceita.php"ac id="formdados" name="formdados" method="post">
-                            <h2>Cadastrar conta</h2>
+                        <form action="../Controle/CadastrarReceita.php" id="formdados" name="formdados" method="post">
+                            <h2>Cadastrar receita</h2>
                             <table>
                                 <tr>
                                     <td width="0">&nbsp;</td>
@@ -213,32 +224,9 @@
                                     <td>&nbsp;</td>
                                     <td colspan="2"><div id="fechacad" style="width:20%; height:13%; position:absolute; top: 82%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
                                             atualizaIframerec()">Sair</div>
-                                        <div id="postacad" style="width:20%; height:13%; position:absolute; top: 82%; left: 6.5%" class="btn btn-primary" onclick="document.getElementById('formdados').submit()">Salvar</div><div style="float:right"><?php
-                                            include_once ('../modelo/conexao/Conexao.php');
-                                            if (isset($_POST['titulo']) and isset($_POST['descricao']) and isset($_POST['valor']) and isset($_POST['categoria']) and isset($_POST['datavenc'])) {
-                                                $titulo = $_POST['titulo'];
-                                                $descricao = $_POST['descricao'];
-                                                $valor = $_POST['valor'];
-                                                $muda = array(",", ".", "R$ ");
-                                                $valor = str_replace($muda, "", $valor);
-                                                $vq1 = substr($valor, -2);
-                                                $vq2 = substr($valor, 0, -2);
-                                                $valor = $vq2 . '.' . $vq1;
-                                                $tipo = 'receita';
-                                                $categoria = $_POST['categoria'];
-                                                $datacad = date('Y-m-d');
-                                                $horacad = date('Y-m-d H:i:s');
-                                                $datavenc = $_POST['datavenc'];
-                                                $expldvc = explode('/', $datavenc);
-                                                $dfinalvenc = $expldvc['2'] . '-' . $expldvc['1'] . '-' . $expldvc['0'];
-                                                $cadastra = mysql_query("INSERT INTO `financas` (titulo, descricao, valor, tipo, categoria, data, hora, usuario_id, data_venc) VALUES ('$titulo', '$descricao', '$valor', '$tipo', '$categoria', '$datacad', '$horacad', '$id', '$dfinalvenc')");
-                                                if ($cadastra) {
-                                                    echo 'Conta criada com sucesso!';
-                                                } else {
-                                                    echo 'Erro ao cadastrar conta!';
-                                                }
-                                            }
-                                            ?></div></td>
+                                        <div id="postacad" style="width:20%; height:13%; position:absolute; top: 82%; left: 6.5%" class="btn btn-primary" onclick="document.getElementById('formdados').submit()">Salvar</div><div style="float:right">
+
+                                        </div></td>
                                     <td>&nbsp;</td>
                                 </tr>
                             </table>

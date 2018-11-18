@@ -44,10 +44,10 @@
             <?php
             $id = $_SESSION['id'];
             include_once '../modelo/conexao/Conexao.php';
-			include_once '../modelo/FinancasDAO.php';
-			$finacasDAO = new FinancasDAO();
+            include_once '../modelo/FinancasDAO.php';
+            $finacasDAO = new FinancasDAO();
 
-			
+
             $i = 1;
             if (isset($_POST['datepicker'])) {
                 $dpesq = $_POST['datepicker'];
@@ -56,14 +56,14 @@
             if ($i == 0) {
                 $expld = explode('/', $dpesq);
                 $pesq = $expld['2'] . '-' . $expld['1'] . '-' . $expld['0'];
-				
-				$result = $finacasDAO-> getDespesaAVencerPorData($_SESSION['id'], $pesq);
+
+                $result = $finacasDAO->getDespesaAVencerPorData($_SESSION['id'], $pesq);
                 //$result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `tipo`='despesa' AND `categoria`='a vencer' AND `data` = '$pesq'");
             }
             $data1 = date('Y-m-1');
             $data2 = date('Y-m-31');
             if ($i == 1) {
-				$result = $finacasDAO-> getDespesaAVencerPorPeriodo($_SESSION['id'], $data1, $data2);
+                $result = $finacasDAO->getDespesaAVencerPorPeriodo($_SESSION['id'], $tipo = 'despesa', $categoria = 'a vencer', $data1, $data2);
                 //$result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `tipo` = 'despesa' AND `categoria`='a vencer' AND `data_venc` BETWEEN ('$data1') AND ('$data2')");
             }
             ?>
@@ -84,16 +84,16 @@
                         <?php
                         $total = 0;
 
-						$noresult = false;
-						if(empty($result)){
-							$totresult = true;
-						}
+                        $noresult = false;
+                        if (empty($result)) {
+                            $totresult = true;
+                        }
                         ?>
-						
+
                         <?php if ($result) : ?>
-							<?php foreach ($result as $r) : ?>
+                            <?php foreach ($result as $r) : ?>
                                 <tr><?php $total += $r->valor; ?>
-								    <td><?php echo $r->id; ?></td>
+                                    <td><?php echo $r->id; ?></td>
                                     <td><?php echo $r->titulo; ?></td>
                                     <td><?php echo 'R$ ' . number_format($r->valor, 2, ",", "."); ?></td>
                                     <td><?php echo $r->descricao; ?></td>
@@ -106,25 +106,25 @@
                                         echo date('d/m/Y', strtotime($datvenc));
                                         ?></td>
                                     <td class="actions text-right"><a onclick="document.getElementById('paga').value = '<?php echo $r->id; ?>';
-                                            location.href = '#ModalPaga';
-                                            document.getElementById('postapag').style.visibility = 'visible';
-                                            document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $r->id; ?>';
-                                                    document.getElementById('tituloalt').value = '<?php echo  $r->titulo; ?>';
-                                                    document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($r->valor, 2, ',', '.'); ?>';
-                                                    document.getElementById('descricaoalt').value = '<?php echo $r->descricao; ?>';
-                                                    document.getElementById('categoriaalt').value = '<?php echo $r->categoria; ?>';
-                                                    document.getElementById('datavencalt').value = '<?php
+                                                    location.href = '#ModalPaga';
+                                                    document.getElementById('postapag').style.visibility = 'visible';
+                                                    document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $r->id; ?>';
+                                                            document.getElementById('tituloalt').value = '<?php echo $r->titulo; ?>';
+                                                            document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($r->valor, 2, ',', '.'); ?>';
+                                                            document.getElementById('descricaoalt').value = '<?php echo $r->descricao; ?>';
+                                                            document.getElementById('categoriaalt').value = '<?php echo $r->categoria; ?>';
+                                                            document.getElementById('datavencalt').value = '<?php
                                                                       $datvenc = $r->data_venc;
                                                                       echo date('d/m/Y', strtotime($datvenc));
                                                                       ?>';
-                                                    modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
+                                                            modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
                                         <a onclick="document.getElementById('idd').value = '<?php echo $r->id; ?>';
-                                                location.href = '#ModalDel';
-                                                document.getElementById('posta').style.visibility = 'visible';
-                                                document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
+                                                        location.href = '#ModalDel';
+                                                        document.getElementById('posta').style.visibility = 'visible';
+                                                        document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
                                     </td>
                                 </tr>
-							<?php endforeach ?>
+                            <?php endforeach ?>
                         <?php endif; ?>
                         <?php if ($noresult) : ?>
                             <tr>
@@ -153,7 +153,7 @@
                             $ipaga = 0;
                             if (isset($_POST['paga'])) {
                                 $paga = $_POST['paga'];
-								 Conexao::getConexao()->exec("UPDATE financas SET categoria='paga' WHERE  id='$paga'");
+                                Conexao::getConexao()->exec("UPDATE financas SET categoria='paga' WHERE  id='$paga'");
                             }
                             if (!empty($paga)) {
                                 $ipaga = 1;
@@ -185,7 +185,7 @@
                             $situacao = 0;
                             if (isset($_POST['idd'])) {
                                 $idd = $_POST['idd'];
-								$apaga = Conexao::getConexao()->exec("DELETE FROM financas WHERE  id='$idd'");
+                                $apaga = Conexao::getConexao()->exec("DELETE FROM financas WHERE  id='$idd'");
                             }
                             if (!empty($apaga)) {
                                 $situacao = 1;
@@ -237,7 +237,7 @@
                                 <tr>
                                     <td>&nbsp;</td>
                                     <td>Categoria:</td>
-                                    <td><p>Data de venciento:</p></td>
+                                    <td><p>Data de vencimento:</p></td>
                                     <td>&nbsp;</td>
                                 </tr>
                                 <tr>
@@ -286,8 +286,8 @@
                                 $datavenc = $_POST['datavencalt'];
                                 $expldvc = explode('/', $datavenc);
                                 $dfinalvenc = $expldvc['2'] . '-' . $expldvc['1'] . '-' . $expldvc['0'];
-                                $atualiza =  Conexao::getConexao()->exec("UPDATE financas SET titulo='$titulo', descricao='$descricao', valor='$valor', tipo='$tipo', categoria='$categoria', data='$datacad', hora='$horacad', data_venc='$dfinalvenc' WHERE ID = '$idalt'");
-								if ($atualiza) {
+                                $atualiza = Conexao::getConexao()->exec("UPDATE financas SET titulo='$titulo', descricao='$descricao', valor='$valor', tipo='$tipo', categoria='$categoria', data='$datacad', hora='$horacad', data_venc='$dfinalvenc' WHERE ID = '$idalt'");
+                                if ($atualiza) {
                                     echo 'Conta editada com sucesso!';
                                 } else {
                                     echo 'Ocorreu um erro ao editar esta conta!';
