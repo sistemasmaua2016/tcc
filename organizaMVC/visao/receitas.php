@@ -56,7 +56,7 @@
                 $result = $finacasDAO->getDespesaAVencerPorData($_SESSION['id'], $pesq);
 
 
-               // $result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `tipo`='receita' AND `categoria`='a receber' AND `data` = '$pesq'");
+                // $result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `tipo`='receita' AND `categoria`='a receber' AND `data` = '$pesq'");
             }
             $data1 = date('Y-m-1');
             $data2 = date('Y-m-31');
@@ -89,7 +89,7 @@
                         }
                         ?>
                         <?php if ($result) : ?>
-    <?php foreach ($result as $row) : ?>
+                            <?php foreach ($result as $row) : ?>
                                 <tr><?php $total += $row->valor; ?>
                                     <td><?php echo $row->id; ?></td>
                                     <td><?php echo $row->titulo; ?></td>
@@ -104,29 +104,30 @@
                                         echo date('d/m/Y', strtotime($datvenc));
                                         ?></td>
                                     <td class="actions text-right"><a onclick="document.getElementById('recebe').value = '<?php echo $row->id; ?>';
-                                                    location.href = '#ModalRecebe';
-                                                    document.getElementById('postarec').style.visibility = 'visible';
-                                                    document.getElementById('cancrec').style.visibility = 'visible'" class="btn btn-sm btn-success">Receber</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $row['id']; ?>'; document.getElementById('tituloalt').value = '<?php echo $row['titulo']; ?>'; document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($row['valor'], 2, ',', '.'); ?>';
-                                                            document.getElementById('descricaoalt').value = '<?php echo $row->descricao; ?>';
-                                                            document.getElementById('categoriaalt').value = '<?php echo $row->categoria; ?>';
-                                                            document.getElementById('datavencalt').value = '<?php
+                                            location.href = '#ModalRecebe';
+                                            document.getElementById('postarec').style.visibility = 'visible';
+                                            document.getElementById('cancrec').style.visibility = 'visible'" class="btn btn-sm btn-success">Receber</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $row['id']; ?>';
+                                                    document.getElementById('tituloalt').value = '<?php echo $row['titulo']; ?>'; document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($row['valor'], 2, ',', '.'); ?>';
+                                                    document.getElementById('descricaoalt').value = '<?php echo $row->descricao; ?>';
+                                                    document.getElementById('categoriaalt').value = '<?php echo $row->categoria; ?>';
+                                                    document.getElementById('datavencalt').value = '<?php
                                                                       $datvenc = $row->data_venc;
                                                                       echo date('d/m/Y', strtotime($datvenc));
                                                                       ?>';
-                                                            modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i>Editar</a>
+                                                    modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i>Editar</a>
                                         <a onclick="document.getElementById('idd').value = '<?php echo $row->id; ?>';
-                                                        location.href = '#ModalDel';
-                                                        document.getElementById('posta').style.visibility = 'visible';
-                                                        document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
+                                                location.href = '#ModalDel';
+                                                document.getElementById('posta').style.visibility = 'visible';
+                                                document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
                         <?php endif; ?>
-<?php if ($noresult) : ?>
+                        <?php if ($noresult) : ?>
                             <tr>
                                 <td colspan="6">Nenhum registro encontrado.</td>
                             </tr>
-<?php endif; ?>
+                        <?php endif; ?>
                         <tr>
                             <td>Total</td>
                             <td></td>
@@ -273,7 +274,32 @@
                     <div class="divdados" style="height: 20%;"><a href="#close" title="Close" class="close">X</a><div id="query" style="position:absolute; top: 23%; font-size:16px;">
 
                         </div><div id="tab" style="visibility:hidden">
-                            <form   action="../Controle/CadastrarReceita.php" id="formaltdados" name="formaltdados" method="post">
+                            <?php  if (isset($_POST['tituloalt']) and isset($_POST['descricaoalt']) and isset($_POST['valoralt']) and isset($_POST['categoriaalt']) and isset($_POST['datavencalt']) and isset($_POST['idalt'])) {
+                                $idalt = $_POST['idalt'];
+                                $titulo = $_POST['tituloalt'];
+                                $descricao = $_POST['descricaoalt'];
+                                $valor = $_POST['valoralt'];
+                                $muda = array(",", ".", "R$ ");
+                                $valor = str_replace($muda, "", $valor);
+                                $vq1 = substr($valor, -2);
+                                $vq2 = substr($valor, 0, -2);
+                                $valor = $vq2 . '.' . $vq1;
+                                $tipo = 'receita';
+                                $categoria = $_POST['categoriaalt'];
+                                $datacad = date('Y-m-d');
+                                $horacad = date('Y-m-d H:i:s');
+                                $datavenc = $_POST['datavencalt'];
+                                $expldvc = explode('/', $datavenc);
+                                $dfinalvenc = $expldvc['2'] . '-' . $expldvc['1'] . '-' . $expldvc['0'];
+                                $atualiza = mysql_query("UPDATE financas SET titulo='$titulo', descricao='$descricao', valor='$valor', tipo='$tipo', categoria='$categoria', data='$datacad', hora='$horacad', data_venc='$dfinalvenc' WHERE ID = '$idalt'");
+                                if ($atualiza) {
+                                    echo 'Conta editada com sucesso!';
+                                } else {
+                                    echo 'Ocorreu um erro ao editar esta conta!';
+                                }
+                            }
+                            ?></div><div id="tab" style="visibility:hidden"></div>
+                            <form   action="" id="formaltdados" name="formaltdados" method="post">
                                 <h2>Editar conta</h2>
                                 <table>
                                     <tr>
