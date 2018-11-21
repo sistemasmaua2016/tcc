@@ -279,8 +279,7 @@
                                 $titulo = $_POST['tituloalt'];
                                 $descricao = $_POST['descricaoalt'];
                                 $valor = $_POST['valoralt'];
-                                $muda = array(",", ".", "R$ ");
-                                $valor = str_replace($muda, "", $valor);
+                                $muda = array(",", ".", "R$ ");                                $valor = str_replace($muda, "", $valor);
                                 $vq1 = substr($valor, -2);
                                 $vq2 = substr($valor, 0, -2);
                                 $valor = $vq2 . '.' . $vq1;
