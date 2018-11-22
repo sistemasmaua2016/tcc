@@ -36,7 +36,7 @@ class contasDAO {
     }
 
     public function Atualizar(contas $contaAtualizada) {
-        try { 
+        try {
             $sql = ("UPDATE `financas` SET titulo=:titulo, descricao=:descricao, valor=:valor, tipo=:tipo, categoria=:categoria, data=:data, hora=:hora, data_venc=:data_venc, usuario_id=:usuario_id"
                     . " WHERE id =:id");
             $stm = $this->pdo->prepare($sql);
@@ -52,6 +52,32 @@ class contasDAO {
             $stm->bindValue("usuario_id", $contaAtualizada->getUsuario_id());
             $stm->bindValue("id", $contaAtualizada->getId());
 
+            return $stm->execute();
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
+        }
+    }
+
+    public function pagar(contas $contaPaga) {
+        try {
+            $sql = ("UPDATE `financas` set categoria=:categoria where id=:id");
+
+            $stm = $this->pdo->prepare($sql);
+
+            $stm->bindValue("categoria", $contaPaga->getCategoria());
+            $stm->bindValue("id", $contaPaga->getId());
+
+            return $stm->execute();
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
+        }
+    }
+
+    public function excluir($contaExcluida) {
+        try {
+
+            $stm = $this->pdo->prepare("DELETE FROW ´financas´ where id:id");
+            $stm->bindValue("id", $contaExcluida);
             return $stm->execute();
         } catch (PDOException $exc) {
             echo $exc->getMessage();

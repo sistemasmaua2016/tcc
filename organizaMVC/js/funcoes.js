@@ -138,7 +138,7 @@ prevText: 'Anterior'
 });
 //FUNÇÃO PARA ATUALIZAR IFRAME NA PÁGINA DESPESAS
 function atualizaIframepag(){
-window.parent.document.getElementById("pframe").src = 'despesas.php';
+window.parent.document.getElementById("pframe").src = '../controle/MudarEstado.php';
 }
 //FUNÇÃO PARA ATUALIZAR IFRAME NA PÁGINA RECEITAS
 function atualizaIframerec(){

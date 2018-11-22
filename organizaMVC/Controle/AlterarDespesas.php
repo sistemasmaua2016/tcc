@@ -27,20 +27,20 @@ $valor = substr($valor, 3);
 $valor = str_replace('.', '', $valor);
 $valor = str_replace(',', '.', $valor);
 
-$conta = new contas($titulo, $descricao, $valor, $tipo, $categoria, $data, $hora,$usuario_id, $data_venc);
-$conta->setId($id);
-$conta->setTitulo($titulo);
-$conta->setDescricao($descricao);
-$conta->setValor($valor);
-$conta->setTipo($tipo);
-$conta->setCategoria($categoria);
-$conta->setData($data);
-$conta->setHora($hora);
-$conta->setData_venc($data_venc);
+$contaAtualizada = new contas($titulo, $descricao, $valor, $tipo, $categoria, $data, $hora,$usuario_id, $data_venc);
+$contaAtualizada->setId($id);
+$contaAtualizada->setTitulo($titulo);
+$contaAtualizada->setDescricao($descricao);
+$contaAtualizada->setValor($valor);
+$contaAtualizada->setTipo($tipo);
+$contaAtualizada->setCategoria($categoria);
+$contaAtualizada->setData($data);
+$contaAtualizada->setHora($hora);
+$contaAtualizada->setData_venc($data_venc);
 
-$contasDAO = new contasDAO();
+$contaAtualizadasDAO = new contasDAO();
 
-$sucesso = $contasDAO->Atualizar($conta);
+$sucesso = $contaAtualizadasDAO->Atualizar($contaAtualizada);
 
 if ($sucesso) {
     $msg = "Conta atualizada com sucesso!";

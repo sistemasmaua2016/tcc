@@ -149,7 +149,8 @@
                         <a href="#close" class="close">X</a>
                         <form action="../Controle/MudarEstado.php" id="fpaga" method="post">
                             <input type="hidden" id="paga" name="paga" />
-                        
+                            <?php echo 'Efetuar pagamento da conta?'; ?>
+
                             <div id="cancpag" style="width:27%; height:35%; visibility: hidden; position:absolute; top: 50%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
                                     atualizaIframepag()">Cancelar</div>
                             <div id="fechapag" style="width:20%; height:35%; visibility: visible; position:absolute; top: 50%; left: 7%" class="btn btn-primary" onclick="location.href = '#close';
@@ -164,87 +165,92 @@
                 <div id="ModalDel" class="modalDialog" style="background: rgba(0,0,0,0);">
                     <div id="mmodal2" class="divdados" style="width: 24%; height: 15%; padding: 1%  0 0 1.5%; left: 35%; top: 10%;">
                         <a href="#close" class="close">X</a>
-                        <form id="del" method="post">
+                        <form action="../Controle/ExcluirConta.php" id="del" method="post">
                             <input type="hidden" name="idd" id="idd" value="" />
                             <?php
-                            include_once '../modelo/conexao/Conexao.php';
-                            $situacao = 0;
-                            if (isset($_POST['idd'])) {
-                                $idd = $_POST['idd'];
-                                $apaga = Conexao::getConexao()->exec("DELETE FROM financas WHERE  id='$idd'");
-                            }
-                            if (!empty($apaga)) {
-                                $situacao = 1;
-                            }
-                            if ($situacao == 1) {
-                                echo '<font style="float: left;">' . 'Conta ' . $idd . ' excluída com sucesso!' . '</font>';
-                            } else {
-                                echo '<font style="float: left;">' . 'Tem certeza que deseja excluir esta conta?' . '</font>';
-                            }
+                            echo 'Deseja excluir a conta?';
                             ?>
-                            <div id="cancela" style="width:27%; height:35%; visibility: hidden; position:absolute; top: 50%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
+                            <div id = "cancela" style = "width:27%; height:35%; visibility: hidden; position:absolute; top: 50%; left: 28%" class = "btn btn-danger" onclick = "location.href = '#close';
                                     atualizaIframepag()">Cancelar</div>
-                            <div id="fecha" style="width:20%; height:35%; visibility: visible; position:absolute; top: 50%; left: 7%" class="btn btn-primary" onclick="location.href = '#close';
+                            <div id = "fecha" style = "width:20%; height:35%; visibility: visible; position:absolute; top: 50%; left: 7%" class = "btn btn-primary" onclick = "location.href = '#close';
                                     atualizaIframepag()">OK</div>
-                            <div id="posta" style="width:20%; height:35%; visibility:hidden; position:absolute; top: 50%; left: 7%" class="btn btn-primary" onclick="document.getElementById('del').submit()">OK</div>
+                            <div id = "posta" style = "width:20%; height:35%; visibility:hidden; position:absolute; top: 50%; left: 7%" class = "btn btn-primary" onclick = "document.getElementById('del').submit()">OK</div>
                         </form>
                     </div>
                 </div>
                 <!--FIM DO MODAL DE EXCLUSÃO DE REGISTRO-->
 
                 <!--MODAL DE ADIÇÃO DE REGISTRO-->
-                <div id="Modal" class="modalDialog" style="background: rgba(0,0,0,0);">
-                    <div class="divdados"> <a href="#close" title="Close" class="close">X</a>
-                        <form action="../Controle/CadastrarDespesas.php" id="formdados" name="formdados" method="post">
+                <div id = "Modal" class = "modalDialog" style = "background: rgba(0,0,0,0);">
+                    <div class = "divdados"> <a href = "#close" title = "Close" class = "close">X</a>
+                        <form action = "../Controle/CadastrarDespesas.php" id = "formdados" name = "formdados" method = "post">
                             <h2>Cadastrar conta</h2>
                             <table>
                                 <tr>
-                                    <td width="0">&nbsp;</td>
+                                    <td width = "0">&nbsp;
+                                    </td>
                                     <td>Título:</td>
-                                    <td width="180">Valor:</td>
-                                    <td width="0">&nbsp;</td>
+                                    <td width = "180">Valor:</td>
+                                    <td width = "0">&nbsp;
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>&nbsp;</td>
-                                    <td><input type="text" name="titulo" maxlength="20" required="required" class="input" /></td>
-                                    <td><input type="text" name="valor" maxlength="20" required="required" class="input" onkeypress="mascara(this, mreais)"/></td>
+                                    <td>&nbsp;
+                                    </td>
+                                    <td><input type = "text" name = "titulo" maxlength = "20" required = "required" class = "input" /></td>
+                                    <td><input type = "text" name = "valor" maxlength = "20" required = "required" class = "input" onkeypress = "mascara(this, mreais)"/></td>
                                 </tr>
                                 <tr>
-                                    <td>&nbsp;</td>
+                                    <td>&nbsp;
+                                    </td>
                                     <td>Desrição:</td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
+                                    <td>&nbsp;
+                                    </td>
+                                    <td>&nbsp;
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>&nbsp;</td>
-                                    <td colspan="2"><input type="text" name="descricao" maxlength="20" required="required" class="email" style="width: 100%;" /></td>
-                                    <td>&nbsp;</td>
+                                    <td>&nbsp;
+                                    </td>
+                                    <td colspan = "2"><input type = "text" name = "descricao" maxlength = "20" required = "required" class = "email" style = "width: 100%;" /></td>
+                                    <td>&nbsp;
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>&nbsp;</td>
+                                    <td>&nbsp;
+                                    </td>
                                     <td>Categoria:</td>
                                     <td><p>Data de vencimento:</p></td>
-                                    <td>&nbsp;</td>
+                                    <td>&nbsp;
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>&nbsp;</td>
-                                    <td><input type="text" name="categoria"  maxlength="15" required="required" class="input" value="a vencer" readonly="readonly" /></td>
-                                    <td><input type="text" id="datavenc" name="datavenc" maxlength="10" required="required" class="input" /></td>
-                                    <td>&nbsp;</td>
+                                    <td>&nbsp;
+                                    </td>
+                                    <td><input type = "text" name = "categoria" maxlength = "15" required = "required" class = "input" value = "a vencer" readonly = "readonly" /></td>
+                                    <td><input type = "text" id = "datavenc" name = "datavenc" maxlength = "10" required = "required" class = "input" /></td>
+                                    <td>&nbsp;
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
+                                    <td>&nbsp;
+                                    </td>
+                                    <td>&nbsp;
+                                    </td>
+                                    <td>&nbsp;
+                                    </td>
+                                    <td>&nbsp;
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>&nbsp;</td>
-                                    <td colspan="2"><div id="fechacad" style="width:20%; height:13%; position:absolute; top: 82%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
+                                    <td>&nbsp;
+                                    </td>
+                                    <td colspan = "2"><div id = "fechacad" style = "width:20%; height:13%; position:absolute; top: 82%; left: 28%" class = "btn btn-danger" onclick = "location.href = '#close';
                                             atualizaIframepag()">Sair</div>
-                                        <div id="postacad" style="width:20%; height:13%; position:absolute; top: 82%; left: 6.5%" class="btn btn-primary" onclick="document.getElementById('formdados').submit()">Salvar</div><div style="float:right">
+                                        <div id = "postacad" style = "width:20%; height:13%; position:absolute; top: 82%; left: 6.5%" class = "btn btn-primary" onclick = "document.getElementById('formdados').submit()">Salvar</div><div style = "float:right">
                                         </div></td>
-                                    <td>&nbsp;</td>
+                                    <td>&nbsp;
+                                    </td>
                                 </tr>
                             </table>
                         </form>
@@ -253,63 +259,79 @@
                 <!--FIM DO MODAL DE ADIÇÃO DE REGISTRO-->
 
                 <!--MODAL DE EDIÇÃO DE REGISTR0-->
-                <div id="ModalEdit" class="modalDialog" style="background: rgba(0,0,0,0);">
-                    <div class="divdados" style="height: 20%;"><a href="#close" title="Close" class="close">X</a><div id="query" style="position:absolute; top: 23%; font-size:16px;"></div><div id="tab" style="visibility:hidden">
-                                <form action="../Controle/AlterarDespesas.php" id="formaltdados" name="formaltdados" method="post">
+                <div id = "ModalEdit" class = "modalDialog" style = "background: rgba(0,0,0,0);">
+                    <div class = "divdados" style = "height: 20%;"><a href = "#close" title = "Close" class = "close">X</a><div id = "query" style = "position:absolute; top: 23%; font-size:16px;"></div><div id = "tab" style = "visibility:hidden">
+                            <form action = "../Controle/AlterarDespesas.php" id = "formaltdados" name = "formaltdados" method = "post">
                                 <h2>Editar conta</h2>
                                 <table>
                                     <tr>
-                                        <td width="0">&nbsp;</td>
+                                        <td width = "0">&nbsp;
+                                        </td>
                                         <td>Título:</td>
-                                        <td width="180">Valor:</td>
-                                        <td width="0">&nbsp;</td>
+                                        <td width = "180">Valor:</td>
+                                        <td width = "0">&nbsp;
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td>&nbsp;</td>
-                                        <td><input type="text" name="tituloalt"  id="tituloalt" maxlength="20" required="required" class="input" /></td>
-                                        <td><input type="text" name="valoralt"  id="valoralt" maxlength="20" required="required" class="input" /></td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td><input type = "text" name = "tituloalt" id = "tituloalt" maxlength = "20" required = "required" class = "input" /></td>
+                                        <td><input type = "text" name = "valoralt" id = "valoralt" maxlength = "20" required = "required" class = "input" /></td>
                                     </tr>
                                     <tr>
-                                        <td>&nbsp;</td>
+                                        <td>&nbsp;
+                                        </td>
                                         <td>Desrição:</td>
                                         <td></td>
-                                        <td>&nbsp;</td>
+                                        <td>&nbsp;
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td>&nbsp;</td>
-                                        <td colspan="2"><input type="text" name="descricaoalt" id="descricaoalt" maxlength="20" required="required" class="email" style="width: 100%;" /></td>
-                                        <td>&nbsp;</td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td colspan = "2"><input type = "text" name = "descricaoalt" id = "descricaoalt" maxlength = "20" required = "required" class = "email" style = "width: 100%;" /></td>
+                                        <td>&nbsp;
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td>&nbsp;</td>
+                                        <td>&nbsp;
+                                        </td>
                                         <td>Categoria:</td>
                                         <td><p>Data de vencimento:</p></td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td><input type="text" name="categoriaalt"  id="categoriaalt" maxlength="15" required="required" class="input" readonly="readonly"/></td>
-                                        <td><input type="text" id="datavencalt" name="datavencalt" maxlength="10" required="required" class="input" /></td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td><input type="hidden" id="idalt" name="idalt"/></td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td colspan="2">
+                                        <td>&nbsp;
                                         </td>
-                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td><input type = "text" name = "categoriaalt" id = "categoriaalt" maxlength = "15" required = "required" class = "input" readonly = "readonly"/></td>
+                                        <td><input type = "text" id = "datavencalt" name = "datavencalt" maxlength = "10" required = "required" class = "input" /></td>
+                                        <td>&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td><input type = "hidden" id = "idalt" name = "idalt"/></td>
+                                        <td>&nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;
+                                        </td>
+                                        <td colspan = "2">
+                                        </td>
+                                        <td>&nbsp;
+                                        </td>
                                     </tr>
                                 </table>
                             </form></div>
-                        <div id="okat" style="width:20%; height:23%; position:absolute; top: 60%; left: 6.5%" class="btn btn-primary" onclick="location.href = '#close';
-                                atualizaIframepag()">OK</div><div style="float:right">
-                            <div id="fechaat" style="width:20%; height:23%; position:absolute; top: 70%; left: 28%; visibility:hidden;" class="btn btn-danger" onclick="location.href = '#close'; atualizaIframepag()">Cancelar</div>
-                            <div id="atualizacad" style="width:20%; height:23%; position:absolute; top: 70%; left: 6.5%; visibility: hidden;" class="btn btn-primary" onclick="document.getElementById('formaltdados').submit()">Salvar</div><div style="float:right">
+                        <div id = "okat" style = "width:20%; height:23%; position:absolute; top: 60%; left: 6.5%" class = "btn btn-primary" onclick = "location.href = '#close';
+                                atualizaIframepag()">OK</div><div style = "float:right">
+                            <div id = "fechaat" style = "width:20%; height:23%; position:absolute; top: 70%; left: 28%; visibility:hidden;" class = "btn btn-danger" onclick = "location.href = '#close'; atualizaIframepag()">Cancelar</div>
+                            <div id = "atualizacad" style = "width:20%; height:23%; position:absolute; top: 70%; left: 6.5%; visibility: hidden;" class = "btn btn-primary" onclick = "document.getElementById('formaltdados').submit()">Salvar</div><div style = "float:right">
                             </div>
                         </div>
                         <!--FIM DO MODAL DE EDIÇÃO-->

@@ -13,7 +13,7 @@ class contas {
     private $usuario_id;
     private $data_venc;
 	
-    public function __construct($titulo, $descricao, $valor, $tipo, $categoria, $data, $hora, $usuario_id, $data_venc) {
+    public function __construct($titulo='', $descricao='', $valor='', $tipo='', $categoria='', $data='', $hora='', $usuario_id='', $data_venc='') {
         $this->titulo = $titulo;
         $this->descricao = $descricao;
         $this->valor = $valor;
@@ -25,6 +25,7 @@ class contas {
         $this->data_venc = $data_venc;
     }
 
+  
     
     function getUsuario_id() {
         return $this->usuario_id;
