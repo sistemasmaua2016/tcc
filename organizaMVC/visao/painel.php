@@ -10,8 +10,7 @@
         <?php
         include_once ('../modelo/conexao/Conexao.php');
         session_start();
-
-//atualiza banco de dados se as contas estiverem vencidas
+		//atualiza banco de dados se as contas estiverem vencidas
         $data = date('Y-m-d');
         Conexao::getConexao()->exec("UPDATE financas SET categoria='vencida' WHERE data_venc < '$data'");
         //$vencida = mysql_query("UPDATE financas SET categoria='vencida' WHERE data_venc < '$data'");
@@ -26,13 +25,13 @@
             <table border="0" style="float: right; padding: 5px 5px 10px 10px;">
                 <tr>
                     <td>
-                        <?php echo '<font style="font-family: Bree Serif, serif; font-size: 14px; color: #009999; float: right;">', 'Seja bem vindo ', $_SESSION['nome'], '</font><br />'; ?></td>
+                        <?php echo '<font style="font-family: Bree Serif, serif; font-size: 14px; color: #009999; float: right;">' ,'Seja bem vindo ', $_SESSION['nome'], '</font><br />'; ?></td>
                 </tr>
                 <tr>
                     <td><p><a href="#openModal" style="float:right; text-decoration:none; font-size:12px; color: #06F;">Editar dados</a></p></td>
                 </tr>
                 <tr>
-                    <td><p><a href="../index.php" style="float:right; text-decoration:none; font-size:12px; color: #06F;">Sair</a></p></td>
+                    <td><p><a href="../Controle/logout.php" style="float:right; text-decoration:none; font-size:12px; color: #06F;">Sair</a></p></td>
                 </tr>
             </table>
         </div>
@@ -135,7 +134,10 @@
                             $email = $_POST['email'];
                             $senha = $_POST['csenha'];
                             $dica = $_POST['dica'];
-                            $altera = mysql_query("UPDATE usuario SET nome='$nome', email='$email', senha='$senha', dica='$dica'");
+							$id = $_SESSION['id'];
+                            // $altera = mysql_query("UPDATE usuario SET nome='$nome', email='$email', senha='$senha', dica='$dica'");
+							$altera = Conexao::getConexao()->exec("UPDATE usuario SET nome= '$nome', email='$email', senha='$senha', dica='$dica' WHERE id=$id ");
+							var_dump($altera);
                             if ($altera) {
                                 echo 'Dados alterados com sucesso!';
                             } else {
