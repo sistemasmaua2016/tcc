@@ -34,7 +34,7 @@ echo $valor;
 $contasDAO = new contasDAO();
 $novaContas = new contas($titulo, $descricao, $valor, $tipo, $categoria, $data, $hora, $usuario_id, $data_venc);
 
-$sucesso = $contasDAO->InserirConta($novaContas);
+$sucesso = $contasDAO->Inserir($novaContas);
 
 if ($sucesso) {
     $msg = "Conta cadastrada com sucesso!";

@@ -13,7 +13,7 @@ class contas {
     private $usuario_id;
     private $data_venc;
 	
-    public function __construct($titulo, $descricao, $valor, $tipo, $categoria, $data, $hora, $usuario_id, $data_venc) {
+    public function __construct($titulo='', $descricao='', $valor='', $tipo='', $categoria='', $data='', $hora='', $usuario_id='', $data_venc='') {
         $this->titulo = $titulo;
         $this->descricao = $descricao;
         $this->valor = $valor;
@@ -25,9 +25,17 @@ class contas {
         $this->data_venc = $data_venc;
     }
 
+  
     
-    
-    public function getId() {
+    function getUsuario_id() {
+        return $this->usuario_id;
+    }
+
+    function setUsuario_id($usuario_id) {
+        $this->usuario_id = $usuario_id;
+    }
+
+        public function getId() {
         return $this->id;
     }
 
@@ -59,9 +67,6 @@ class contas {
         return $this->hora;
     }
 
-    public function getUsuario_id() {
-        return $this->usuario_id;
-    }
 
     public function getData_venc() {
         return $this->data_venc;
@@ -97,10 +102,7 @@ class contas {
 
     public function setHora($hora) {
         $this->hora = $hora;
-    }
-
-    public function setUsuario_id($usuario_id) {
-        $this->usuario_id = $usuario_id;
+  
     }
 
     public function setData_venc($data_venc) {

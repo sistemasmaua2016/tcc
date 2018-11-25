@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/organizaMVC/modelo/FinancasDAO.php</file>
-            <file>file:/C:/xampp/htdocs/organizaMVC/Controle/CadastrarDespesas.php</file>
-            <file>file:/C:/xampp/htdocs/organizaMVC/visao/despesas.php</file>
-            <file>file:/C:/xampp/htdocs/organizaMVC/modelo/contasDAO.php</file>
+            <file>file:/C:/xampp/htdocs/tcc/organizaMVC/modelo/contas.php</file>
+            <file>file:/C:/xampp/htdocs/tcc/organizaMVC/Controle/ExcluirConta.php</file>
+            <file>file:/C:/xampp/htdocs/tcc/organizaMVC/modelo/contasDAO.php</file>
+            <file>file:/C:/xampp/htdocs/tcc/organizaMVC/visao/despesas.php</file>
         </group>
     </open-files>
 </project-private>

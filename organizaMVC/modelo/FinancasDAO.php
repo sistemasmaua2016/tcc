@@ -76,30 +76,30 @@ class FinancasDAO {
             echo $exc->getMessage();
         }
     }
-	
-	public function getTotalPorAno($id, $tipo = 'despesa',  $date1, $date2) {
+
+    public function getTotalPorAno($id, $tipo = 'despesa', $date1, $date2) {
         try {
             $sql = "SELECT * FROM `financas` WHERE usuario_id=:id AND tipo = :tipo AND data_venc BETWEEN :data AND :data2";
             $stm = $this->pdo->prepare($sql);
             $stm->bindValue("id", $id);
-			$stm->bindValue("tipo", $tipo);
+            $stm->bindValue("tipo", $tipo);
             $stm->bindValue("data", $date1);
             $stm->bindValue("data2", $date2);
             $stm->execute();
             $result = $stm->fetchAll(PDO::FETCH_OBJ);
-			$total = 0;
-			foreach($result as $r){
-				$total = $total + $r->valor;
-			}
-			 return $total;
+            $total = 0;
+            foreach ($result as $r) {
+                $total = $total + $r->valor;
+            }
+            return $total;
         } catch (PDOException $exc) {
             echo $exc->getMessage();
         }
     }
-	
-	public function getDespesaAVencerPorData($id, $date) {
+
+    public function getDespesaAVencerPorData($id, $date) {
         try {
-			var_dump($date);
+            var_dump($date);
             $sql = "SELECT * FROM `financas` WHERE usuario_id=:id AND tipo = 'despesa'  AND categoria =  'a vencer' AND data= :data";
             $stm = $this->pdo->prepare($sql);
             $stm->bindValue("id", $id);
@@ -107,27 +107,28 @@ class FinancasDAO {
             $stm->execute();
             $result = $stm->fetchAll(PDO::FETCH_OBJ);
 
-			 return $result;
+            return $result;
         } catch (PDOException $exc) {
             echo $exc->getMessage();
         }
     }
-	
-	public function getDespesaAVencerPorPeriodo($id, $date1, $date2) {
+
+    public function getDespesaAVencerPorPeriodo($id,$tipo,$categoria, $date1, $date2) {
         try {
-            $sql = "SELECT * FROM `financas` WHERE usuario_id=:id AND tipo = 'despesa'  AND categoria =  'a vencer' AND data_venc BETWEEN :data AND :data2";
+            $sql = "SELECT * FROM `financas` WHERE usuario_id=:id AND tipo =:tipo  AND categoria = :categoria AND data_venc BETWEEN :data AND :data2";
             $stm = $this->pdo->prepare($sql);
             $stm->bindValue("id", $id);
+            $stm->bindValue("tipo", $tipo);
+            $stm->bindValue("categoria", $categoria);
             $stm->bindValue("data", $date1);
-			$stm->bindValue("data2", $date2);
+            $stm->bindValue("data2", $date2);
             $stm->execute();
             $result = $stm->fetchAll(PDO::FETCH_OBJ);
 
-			 return $result;
+            return $result;
         } catch (PDOException $exc) {
             echo $exc->getMessage();
         }
     }
-    }
 
-
+}
