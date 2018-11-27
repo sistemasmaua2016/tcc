@@ -10,7 +10,7 @@ $titulo = $_POST['tituloalt'];
 $descricao = $_POST['descricaoalt'];
 $valor = $_POST['valoralt'];
 $id = $_POST['idalt'];
-$tipo = 'despesa';
+$tipo = 'receita';
 $categoria = $_POST['categoriaalt'];
 $data = date('Y-m-d');
 $hora = date('Y-m-d H:i:s');
@@ -44,8 +44,8 @@ $sucesso = $contaAtualizadasDAO->Atualizar($contaAtualizada);
 
 if ($sucesso) {
     $msg = "Conta atualizada com sucesso!";
-    header("Location:../visao/despesas.php?msg=" . $msg);
+    header("Location:../visao/receitas.php?msg=" . $msg);
 } else {
     $msg = "Erro ao Atualizar!";
-    header("Location:../visao/despesas.php?msg=" . $msg);
+    header("Location:../visao/receitas.php?msg=" . $msg);
 }

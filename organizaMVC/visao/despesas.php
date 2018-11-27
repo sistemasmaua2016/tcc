@@ -149,7 +149,7 @@
                         <a href="#close" class="close">X</a>
                         <form action="../Controle/MudarEstado.php" id="fpaga" method="post">
                             <input type="hidden" id="paga" name="paga" />
-                            <?php echo 'Efetuar pagamento da conta?'; ?>
+                            <?php echo 'Efetuar pagamento da conta ?'; ?>
 
                             <div id="cancpag" style="width:27%; height:35%; visibility: hidden; position:absolute; top: 50%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
                                     atualizaIframepag()">Cancelar</div>

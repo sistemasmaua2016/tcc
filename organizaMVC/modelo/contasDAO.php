@@ -73,15 +73,16 @@ class contasDAO {
         }
     }
 
-    public function excluir($contaExcluida) {
+    
+     public function excluir($contaExcluida) {
         try {
-
-            $stm = $this->pdo->prepare("DELETE FROW ´financas´ where id:id");
+            $stm = $this->pdo->prepare("DELETE FROM `financas` WHERE id=:id");
             $stm->bindValue("id", $contaExcluida);
             return $stm->execute();
         } catch (PDOException $exc) {
             echo $exc->getMessage();
         }
-    }
+    
 
+     }
 }

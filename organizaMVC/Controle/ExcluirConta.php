@@ -4,17 +4,15 @@ session_start();
 
 include_once '../modelo/contasDAO.php';
 
-$usuario_id = $_SESSION['id'];
-$id = $_POST['idd'];
+$id = $_POST["idd"];
+$contaDAO = new contasDao();
+$sucesso = $contaDAO->excluir($id);
 
-$contaExcluidaDAO = new contasDAO();
 
-$sucesso = $contaExcluidaDAO->excluir($id);
-
-if ($sucesso) {
-    $msg = "Conta exluida com sucesso!";
-    header("Location:../visao/despesas.php?msg=" . $msg);
-} else {
-    $msg = "Erro ao excluir!";
-    header("Location:../visao/despesas.php?msg=" . $msg);
+if ($sucesso){
+   $msg = "Conta excluida com sucesso!"; 
+}else{
+   $msg = "Erro ao excluir a conta!";  
 }
+
+header('Location: ../visao/despesas.php?&msg='.$msg);

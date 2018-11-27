@@ -60,8 +60,9 @@
             }
             if ($i == 1) {
 
-                //$result = $finacasDAO->getDespesaAVencerPorPeriodo($_SESSION['id'], $tipo, $categoria = 'recebida', $date1, $date2);
-                $result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' and `categoria` = 'recebida'");
+                $result = $finacasDAO->despesaAVencerPeriodo($_SESSION['id'], $categoria = 'recebida');
+
+               // $result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' and `categoria` = 'recebida'");
             }
             ?>
             <hr>
@@ -101,17 +102,20 @@
                                         $datvenc = $row->data_venc;
                                         echo date('d/m/Y', strtotime($datvenc));
                                         ?></td>
-                                    <td class="actions text-right"><a onclick="document.getElementById('idalt').value = '<?php echo $row->id; ?>';
-                                            document.getElementById('tituloalt').value = '<?php echo $row->titulo; ?>';
-                                            document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($row->valor, 2, ',', '.'); ?>';
-                                            document.getElementById('descricaoalt').value = '<?php echo $row->descricao; ?>';
-                                            document.getElementById('categoriaalt').value = '<?php echo $row->categoria; ?>';
-                                            document.getElementById('datavencalt').value = '<?php
-                                        $datvenc = $row->data_venc;
-                                        echo date('d/m/Y', strtotime($datvenc));
-                                        ?>';
-                                            modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i>Editar</a>
-                                        <a onclick="document.getElementById('idd').value = '<?php echo $row->id; ?>';
+                                    <td class="actions text-right"><a onclick="document.getElementById('paga').value = '<?php echo $r->id; ?>';
+                                            location.href = '#ModalPaga';
+                                            document.getElementById('postapag').style.visibility = 'visible';
+                                            document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $r->id; ?>';
+                                                    document.getElementById('tituloalt').value = '<?php echo $r->titulo; ?>';
+                                                    document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($r->valor, 2, ',', '.'); ?>';
+                                                    document.getElementById('descricaoalt').value = '<?php echo $r->descricao; ?>';
+                                                    document.getElementById('categoriaalt').value = '<?php echo $r->categoria; ?>';
+                                                    document.getElementById('datavencalt').value = '<?php
+                                                                      $datvenc = $r->data_venc;
+                                                                      echo date('d/m/Y', strtotime($datvenc));
+                                                                      ?>';
+                                                    modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
+                                        <a onclick="document.getElementById('idd').value = '<?php echo $r->id; ?>';
                                                 location.href = '#ModalDel';
                                                 document.getElementById('posta').style.visibility = 'visible';
                                                 document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>

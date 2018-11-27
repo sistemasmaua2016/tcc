@@ -61,7 +61,8 @@
             $data1 = date('Y-m-1');
             $data2 = date('Y-m-31');
             if ($i == 1) {
-                $result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `categoria` = 'vencida'");
+                $result = $finacasDAO->despesaAVencerPeriodo($_SESSION['id'], $categoria = 'vencida');
+                //$result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `categoria` = 'vencida'");
             }
             ?>
             <hr>
@@ -87,7 +88,7 @@
                         }
                         ?>
                         <?php if ($result) : ?>
-                            <?php foreach ($result as $roe) : ?>
+                            <?php foreach ($result as $row) : ?>
                                 <tr><?php $total += $row->valor; ?>
                                     <td><?php echo $row->id ?></td>
                                     <td><?php echo $row->titulo; ?></td>
@@ -102,26 +103,26 @@
                                         $datvenc = $row->data_venc;
                                         echo date('d/m/Y', strtotime($datvenc));
                                         ?></td>
-                                    <td class="actions text-right"><a onclick="document.getElementById('paga').value = '<?php echo $row->id; ?>';
+                                    <td class="actions text-right"><a onclick="document.getElementById('paga').value = '<?php echo $r->id; ?>';
                                             location.href = '#ModalPaga';
                                             document.getElementById('postapag').style.visibility = 'visible';
-                                            document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $row['id']; ?>';
-                                                    document.getElementById('tituloalt').value = '<?php echo $row->titulo; ?>';
-                                                    document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($row->valor, 2, ',', '.'); ?>';
-                                                    document.getElementById('descricaoalt').value = '<?php echo $row->descricao; ?>';
-                                                    document.getElementById('categoriaalt').value = '<?php echo $row->categoria; ?>';
+                                            document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $r->id; ?>';
+                                                    document.getElementById('tituloalt').value = '<?php echo $r->titulo; ?>';
+                                                    document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($r->valor, 2, ',', '.'); ?>';
+                                                    document.getElementById('descricaoalt').value = '<?php echo $r->descricao; ?>';
+                                                    document.getElementById('categoriaalt').value = '<?php echo $r->categoria; ?>';
                                                     document.getElementById('datavencalt').value = '<?php
-                                                                      $datvenc = $row->data_venc;
+                                                                      $datvenc = $r->data_venc;
                                                                       echo date('d/m/Y', strtotime($datvenc));
                                                                       ?>';
                                                     modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
-                                        <a onclick="document.getElementById('idd').value = '<?php echo $row->id; ?>';
+                                        <a onclick="document.getElementById('idd').value = '<?php echo $r->id; ?>';
                                                 location.href = '#ModalDel';
                                                 document.getElementById('posta').style.visibility = 'visible';
                                                 document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
                                     </td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php endforeach ?>
                         <?php endif; ?>
                         <?php if ($totresult == 0) : ?>
                             <tr>
@@ -144,23 +145,10 @@
                 <div id="ModalPaga" class="modalDialog" style="background: rgba(0,0,0,0);">
                     <div id="mmodal" class="divdados" style="width: 27%; height: 15%; padding: 1%  0 0 1.5%; left: 35%; top: 10%;">
                         <a href="#close" class="close">X</a>
-                        <form id="fpaga" method="post">
+                        <form action="../Controle/MudarEstado.php" id="fpaga" method="post">
                             <input type="hidden" id="paga" name="paga" />
-                            <?php
-                            $ipaga = 0;
-                            if (isset($_POST['paga'])) {
-                                $paga = $_POST['paga'];
-                                $pagar = mysql_query("UPDATE financas SET categoria='paga' WHERE id='$paga'");
-                            }
-                            if (!empty($paga)) {
-                                $ipaga = 1;
-                            }
-                            if ($ipaga == 1) {
-                                echo '<font style="float: left;">' . 'Estado da conta ' . $paga . ' foi alterado para pago!' . '<br /></font>';
-                            } else {
-                                echo '<font style="float: left;">' . 'Deseja alterar o estado desta conta para paga?' . '</font>';
-                            }
-                            ?>
+                            <?php echo 'Efetuar o pagamento da conta ?'; ?>
+                            
                             <div id="cancpag" style="width:27%; height:35%; visibility: hidden; position:absolute; top: 50%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
                                     atualizaIframepag()">Cancelar</div>
                             <div id="fechapag" style="width:20%; height:35%; visibility: visible; position:absolute; top: 50%; left: 7%" class="btn btn-primary" onclick="location.href = '#close';
@@ -175,23 +163,9 @@
                 <div id="ModalDel" class="modalDialog" style="background: rgba(0,0,0,0);">
                     <div id="mmodal2" class="divdados" style="width: 24%; height: 15%; padding: 1%  0 0 1.5%; left: 35%; top: 10%;">
                         <a href="#close" class="close">X</a>
-                        <form id="del" method="post">
+                        <form action="../Controle/ExcluirConta.php" id="del" method="post">
                             <input type="hidden" name="idd" id="idd" value="" />
-                            <?php
-                            $situacao = 0;
-                            if (isset($_POST['idd'])) {
-                                $idd = $_POST['idd'];
-                                $apaga = Conexao::getConexao()->exec("DELETE FROM `financas` WHERE `id` = '$idd'");
-                            }
-                            if (!empty($apaga)) {
-                                $situacao = 1;
-                            }
-                            if ($situacao == 1) {
-                                echo '<font style="float: left;">' . 'Conta ' . $idd . ' excluída com sucesso!' . '</font>';
-                            } else {
-                                echo '<font style="float: left;">' . 'Tem certeza que deseja excluir esta conta?' . '</font>';
-                            }
-                            ?>
+                            <?php echo 'Excluir a conta?'; ?>
                             <div id="cancela" style="width:27%; height:35%; visibility: hidden; position:absolute; top: 50%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
                                     atualizaIframepag()">Cancelar</div>
                             <div id="fecha" style="width:20%; height:35%; visibility: visible; position:absolute; top: 50%; left: 7%" class="btn btn-primary" onclick="location.href = '#close';
@@ -204,33 +178,9 @@
 
                 <!--MODAL DE EDIÇÃO DE REGISTR0-->
                 <div id="ModalEdit" class="modalDialog" style="background: rgba(0,0,0,0);">
-                    <div class="divdados" style="height: 20%;"><a href="#close" title="Close" class="close">X</a><div id="query" style="position:absolute; top: 23%; font-size:16px;"><?php
-                            if (isset($_POST['tituloalt']) and isset($_POST['descricaoalt']) and isset($_POST['valoralt']) and isset($_POST['categoriaalt']) and isset($_POST['datavencalt']) and isset($_POST['idalt'])) {
-                                $idalt = $_POST['idalt'];
-                                $titulo = $_POST['tituloalt'];
-                                $descricao = $_POST['descricaoalt'];
-                                $valor = $_POST['valoralt'];
-                                $muda = array(",", ".", "R$ ");
-                                $valor = str_replace($muda, "", $valor);
-                                $vq1 = substr($valor, -2);
-                                $vq2 = substr($valor, 0, -2);
-                                $valor = $vq2 . '.' . $vq1;
-                                $tipo = 'despesa';
-                                $categoria = $_POST['categoriaalt'];
-                                $datacad = date('Y-m-d');
-                                $horacad = date('Y-m-d H:i:s');
-                                $datavenc = $_POST['datavencalt'];
-                                $expldvc = explode('/', $datavenc);
-                                $dfinalvenc = $expldvc['2'] . '-' . $expldvc['1'] . '-' . $expldvc['0'];
-                                $atualiza = mysql_query("UPDATE financas SET titulo='$titulo', descricao='$descricao', valor='$valor', tipo='$tipo', categoria='$categoria', data='$datacad', hora='$horacad', data_venc='$dfinalvenc' WHERE ID = '$idalt'");
-                                if ($atualiza) {
-                                    echo 'Conta editada com sucesso!';
-                                } else {
-                                    echo 'Ocorreu um erro ao editar esta conta!';
-                                }
-                            }
-                            ?></div><div id="tab" style="visibility:hidden">
-                            <form id="formaltdados" name="formaltdados" method="post">
+                    <div class="divdados" style="height: 20%;"><a href="#close" title="Close" class="close">X</a><div id="query" style="position:absolute; top: 23%; font-size:16px;">
+                            </div><div id="tab" style="visibility:hidden">
+                                <form  action="../Controle/AlterarReceita.phpphp" id="formaltdados" name="formaltdados" method="post">
                                 <h2>Editar conta</h2>
                                 <table>
                                     <tr>
