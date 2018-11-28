@@ -103,18 +103,16 @@
                                         $datvenc = $row->data_venc;
                                         echo date('d/m/Y', strtotime($datvenc));
                                         ?></td>
-                                    <td class="actions text-right"><a onclick="document.getElementById('paga').value = '<?php echo $r->id; ?>';
-                                            location.href = '#ModalPaga';
-                                            document.getElementById('postapag').style.visibility = 'visible';
-                                            document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Receber</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $r->id; ?>';
+                                    <td class="actions text-right"><a onclick="document.getElementById('recebe').value = '<?php echo $r->id; ?>';
+                                            location.href ='#ModalRecebe' ;
+                                            document.getElementById('postarec').style.visibility = 'visible';
+                                            document.getElementById('cancrec').style.visibility = 'visible'" class="btn btn-sm btn-success">Receber</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $r->id; ?>';
                                                     document.getElementById('tituloalt').value = '<?php echo $r->titulo; ?>';
                                                     document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($r->valor, 2, ',', '.'); ?>';
                                                     document.getElementById('descricaoalt').value = '<?php echo $r->descricao; ?>';
                                                     document.getElementById('categoriaalt').value = '<?php echo $r->categoria; ?>';
-                                                    document.getElementById('datavencalt').value = '<?php
-                                                                      $datvenc = $r->data_venc;
-                                                                      echo date('d/m/Y', strtotime($datvenc));
-                                                                      ?>';
+                                                    document.getElementById('datavencalt').value = '<?php $datvenc = $r->data_venc; echo date('d/m/Y', strtotime($datvenc));?>';
+                                                                      
                                                     modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
                                         <a onclick="document.getElementById('idd').value = '<?php echo $r->id; ?>';
                                                 location.href = '#ModalDel';
@@ -229,7 +227,7 @@
                         <a href="#close" class="close">X</a>
                         <form action="../Controle/MudarEstado.php" id="fpaga" method="post">
                             <input type="hidden" id="paga" name="paga" />
-                            <?php echo 'Efetuar recebimento dessa receita?'; ?>
+                            <?php echo 'Antecipar o recebimento ?'; ?>
 
                             <div id="cancpag" style="width:27%; height:35%; visibility: hidden; position:absolute; top: 50%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
                                     atualizaIframepag()">Cancelar</div>

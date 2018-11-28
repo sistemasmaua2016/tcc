@@ -44,6 +44,7 @@
             $id = $_SESSION['id'];
             include_once('../modelo/conexao/conexao.php');
             include_once '../modelo/FinancasDAO.php';
+            $finacasDAO = new FinancasDAO();
             $i = 1;
             if (isset($_POST['datepicker'])) {
                 $dpesq = $_POST['datepicker'];
@@ -119,10 +120,8 @@
                                 </tr>
                             <?php endforeach ?>
                         <?php endif; ?>
-                        <?php if ($totresult == 0) : ?>
-                            <tr>
-                                <td colspan="6">Nenhum registro encontrado.</td>
-                            </tr>
+                        <?php if ($noresult == 0) : ?>
+                            
                         <?php endif; ?>
                         <tr>
                             <td>Total</td>

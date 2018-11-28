@@ -35,7 +35,7 @@
                                 <td width="220" valign="bottom"><form id="form" name="form" method="POST"><input type="text" id="datepicker" name="datepicker" class="input-group-sm" style="width: 68%; border: solid 1px; border-radius: 5px; height: 34px;"/></td>
                                 <td width="95" align="right"><a href="#" class="btn btn-info" onclick="javascript:document.form.submit();">Pesquisar</a></form></td><td width="1310"></td>
                                 <td width="140"></td>
-                                <td width="89" align="right"><a class="btn btn-default" onclick="atualizaIframepag()"><i class="fa fa-refresh"></i>Atualizar</a></td>
+                                <td width="89" align="right"><a class="btn btn-default" onclick="atualizaIframev()"><i class="fa fa-refresh"></i>Atualizar</a></td>
                             </tr>
                         </table>
                     </div>
@@ -104,30 +104,28 @@
                                         echo date('d/m/Y', strtotime($datvenc));
                                         ?></td>
                                     <td class="actions text-right"><a onclick="document.getElementById('paga').value = '<?php echo $r->id; ?>';
-                                            location.href = '#ModalPaga';
-                                            document.getElementById('postapag').style.visibility = 'visible';
-                                            document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $r->id; ?>';
-                                                    document.getElementById('tituloalt').value = '<?php echo $r->titulo; ?>';
-                                                    document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($r->valor, 2, ',', '.'); ?>';
-                                                    document.getElementById('descricaoalt').value = '<?php echo $r->descricao; ?>';
-                                                    document.getElementById('categoriaalt').value = '<?php echo $r->categoria; ?>';
-                                                    document.getElementById('datavencalt').value = '<?php
+                                                    location.href = '#ModalPaga';
+                                                    document.getElementById('postapag').style.visibility = 'visible';
+                                                    document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $r->id; ?>';
+                                                            document.getElementById('tituloalt').value = '<?php echo $r->titulo; ?>';
+                                                            document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($r->valor, 2, ',', '.'); ?>';
+                                                            document.getElementById('descricaoalt').value = '<?php echo $r->descricao; ?>';
+                                                            document.getElementById('categoriaalt').value = '<?php echo $r->categoria; ?>';
+                                                            document.getElementById('datavencalt').value = '<?php
                                                                       $datvenc = $r->data_venc;
                                                                       echo date('d/m/Y', strtotime($datvenc));
                                                                       ?>';
-                                                    modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
+                                                            modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
                                         <a onclick="document.getElementById('idd').value = '<?php echo $r->id; ?>';
-                                                location.href = '#ModalDel';
-                                                document.getElementById('posta').style.visibility = 'visible';
-                                                document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
+                                                        location.href = '#ModalDel';
+                                                        document.getElementById('posta').style.visibility = 'visible';
+                                                        document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
                         <?php endif; ?>
-                        <?php if ($totresult == 0) : ?>
-                            <tr>
-                                <td colspan="8">Nenhum registro encontrado.</td>
-                            </tr>
+                        <?php if ($noresult == 0) : ?>
+
                         <?php endif; ?>
                         <tr>
                             <td>Total</td>
@@ -148,7 +146,7 @@
                         <form action="../Controle/MudarEstado.php" id="fpaga" method="post">
                             <input type="hidden" id="paga" name="paga" />
                             <?php echo 'Efetuar o pagamento da conta ?'; ?>
-                            
+
                             <div id="cancpag" style="width:27%; height:35%; visibility: hidden; position:absolute; top: 50%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
                                     atualizaIframepag()">Cancelar</div>
                             <div id="fechapag" style="width:20%; height:35%; visibility: visible; position:absolute; top: 50%; left: 7%" class="btn btn-primary" onclick="location.href = '#close';
@@ -179,8 +177,8 @@
                 <!--MODAL DE EDIÇÃO DE REGISTR0-->
                 <div id="ModalEdit" class="modalDialog" style="background: rgba(0,0,0,0);">
                     <div class="divdados" style="height: 20%;"><a href="#close" title="Close" class="close">X</a><div id="query" style="position:absolute; top: 23%; font-size:16px;">
-                            </div><div id="tab" style="visibility:hidden">
-                                <form  action="../Controle/AlterarReceita.phpphp" id="formaltdados" name="formaltdados" method="post">
+                        </div><div id="tab" style="visibility:hidden">
+                            <form  action="../Controle/AlterarReceita.phpphp" id="formaltdados" name="formaltdados" method="post">
                                 <h2>Editar conta</h2>
                                 <table>
                                     <tr>
