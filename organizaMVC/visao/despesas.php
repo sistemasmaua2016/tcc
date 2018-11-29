@@ -96,7 +96,8 @@
                                     <td><?php echo $r->id; ?></td>
                                     <td><?php echo $r->titulo; ?></td>
                                     <td><?php echo 'R$ ' . number_format($r->valor, 2, ",", "."); ?></td>
-                                    <td><?php echo $r->descricao; ?></td>
+                                    <td><?php echo $r->descricao; echo"   "; echo $r->categoria; ?></td>
+
                                     <td><?php
                                         $data = $r->data;
                                         echo date('d/m/Y', strtotime($data));
@@ -108,16 +109,17 @@
                                     <td class="actions text-right"><a onclick="document.getElementById('paga').value = '<?php echo $r->id; ?>';
                                             location.href = '#ModalPaga';
                                             document.getElementById('postapag').style.visibility = 'visible';
-                                            document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $r->id; ?>';
-                                                    document.getElementById('tituloalt').value = '<?php echo $r->titulo; ?>';
-                                                    document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($r->valor, 2, ',', '.'); ?>';
-                                                    document.getElementById('descricaoalt').value = '<?php echo $r->descricao; ?>';
-                                                    document.getElementById('categoriaalt').value = '<?php echo $r->categoria; ?>';
-                                                    document.getElementById('datavencalt').value = '<?php
-                                                                      $datvenc = $r->data_venc;
-                                                                      echo date('d/m/Y', strtotime($datvenc));
-                                                                      ?>';
-                                                    modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
+                                            document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;
+                                        <a onclick="document.getElementById('idalt').value = '<?php echo $r->id; ?>';
+                                                document.getElementById('tituloalt').value = '<?php echo $r->titulo; ?>';
+                                                document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($r->valor, 2, ',', '.'); ?>';
+                                                document.getElementById('descricaoalt').value = '<?php echo $r->descricao; ?>';
+                                                document.getElementById('categoriaalt').value = '<?php echo $r->categoria; ?>';
+                                                document.getElementById('datavencalt').value = '<?php
+                                        $datvenc = $r->data_venc;
+                                        echo date('d/m/Y', strtotime($datvenc));
+                                        ?>';
+                                                modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
                                         <a onclick="document.getElementById('idd').value = '<?php echo $r->id; ?>';
                                                 location.href = '#ModalDel';
                                                 document.getElementById('posta').style.visibility = 'visible';
@@ -147,7 +149,7 @@
                 <div id="ModalPaga" class="modalDialog" style="background: rgba(0,0,0,0);">
                     <div id="mmodal" class="divdados" style="width: 27%; height: 15%; padding: 1%  0 0 1.5%; left: 35%; top: 10%;">
                         <a href="#close" class="close">X</a>
-                        <form action="../Controle/MudarEstado.php" id="fpaga" method="post">
+                        <form action="../Controle/MudarEstadoPaga.php" id="fpaga" method="post">
                             <input type="hidden" id="paga" name="paga" />
                             <?php echo 'Efetuar pagamento da conta ?'; ?>
 

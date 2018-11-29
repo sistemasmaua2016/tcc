@@ -70,10 +70,10 @@
                             <th width="6%">ID</th>
                             <th width="15%">Título</th>
                             <th width="10%">Valor</th>
-                            <th width="25%">Descrição</th>
+                            <th width="15%">Descrição</th>
+                            <th width="15%">categoria</th>
                             <th width="14%">Data do cadastro</th>
                             <th width="15%">Data do pagamento</th>
-                            <th width="15%">Opções</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,38 +85,23 @@
                         }
                         ?>
                         <?php if ($result) : ?>
-                            <?php foreach ($result as $row) : ?>
-                                <tr><?php $total += $row->valor; ?>
-                                    <td><?php echo $row->id; ?></td>
-                                    <td><?php echo $row->titulo; ?></td>
-                                    <td><?php echo 'R$ ' . number_format($row->valor, 2, ',', '.'); ?></td>
-                                    <td><?php echo $row->descricao; ?></td>
+                            <?php foreach ($result as $r) : ?>
+                                <tr><?php $total += $r->valor; ?>
+                                    <td><?php echo $r->id; ?></td>
+                                    <td><?php echo $r->titulo; ?></td>
+                                    <td><?php echo 'R$ ' . number_format($r->valor, 2, ',', '.'); ?></td>
+                                    <td><?php echo $r->descricao; ?></td>
+                                    <td><?php echo $r->categoria; ?></td>
                                     <td><?php
-                                        $data = $row->data;
+                                        $data = $r->data;
                                         echo date('d/m/Y', strtotime($data));
                                         ?></td>
                                     <td><?php
-                                        $datvenc = $row->data_venc;
+                                        $datvenc = $r->data_venc;
                                         echo date('d/m/Y', strtotime($datvenc));
                                         ?></td>
                                     <td class="actions text-right"><a onclick="document.getElementById('paga').value = '<?php echo $r->id; ?>';
-                                            location.href = '#ModalPaga';
-                                            document.getElementById('postapag').style.visibility = 'visible';
-                                            document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;<a onclick="document.getElementById('idalt').value = '<?php echo $r->id; ?>';
-                                                    document.getElementById('tituloalt').value = '<?php echo $r->titulo; ?>';
-                                                    document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($r->valor, 2, ',', '.'); ?>';
-                                                    document.getElementById('descricaoalt').value = '<?php echo $r->descricao; ?>';
-                                                    document.getElementById('categoriaalt').value = '<?php echo $r->categoria; ?>';
-                                                    document.getElementById('datavencalt').value = '<?php
-                                                                      $datvenc = $r->data_venc;
-                                                                      echo date('d/m/Y', strtotime($datvenc));
-                                                                      ?>';
-                                                    modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
-                                        <a onclick="document.getElementById('idd').value = '<?php echo $r->id; ?>';
-                                                location.href = '#ModalDel';
-                                                document.getElementById('posta').style.visibility = 'visible';
-                                                document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
-                                    </td>
+                                       </td>
                                 </tr>
                             <?php endforeach ?>
                         <?php endif; ?>
@@ -132,126 +117,8 @@
                             <td></td>
                         </tr> 
                     </tbody>
-                </table>
                 <!--FIM DA TABELA DE EXIBIÇÃO DE REGISTROS-->
-
-                <!--MODAL DE EXCLUSÃO DE REGISTRO-->
-                <div id="ModalDel" class="modalDialog" style="background: rgba(0,0,0,0);">
-                    <div class="divdados" style="width: 24%; height: 15%; padding: 1%  0 0 1.5%; left: 35%; top: 10%;">
-                        <a href="#close" class="close">X</a>
-                        <form id="del" method="post">
-                            <input type="hidden" name="idd" id="idd" value="" />
-                            <?php
-                            $situacao = 0;
-                            if (isset($_POST['idd'])) {
-                                $idd = $_POST['idd'];
-                                $apaga = Conexao::getConexao()->exec("DELETE FROM `financas` WHERE `id` = '$idd'");
-                            }
-                            if (!empty($apaga)) {
-                                $situacao = 1;
-                            }
-                            if ($situacao == 1) {
-                                echo '<font style="float: left;">' . 'Conta ' . $idd . ' excluída com sucesso!' . '</font>';
-                            } else {
-                                echo '<font style="float: left;">' . 'Tem certeza que deseja excluir esta conta?' . '</font>';
-                            }
-                            ?>
-                            <div id="cancela" style="width:27%; height:32%; visibility: hidden; position:absolute; top: 50%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
-                                    atualizaIframep()">Cancelar</div>
-                            <div id="fecha" style="width:20%; height:32%; visibility: visible; position:absolute; top: 50%; left: 7%" class="btn btn-primary" onclick="location.href = '#close';
-                                    atualizaIframep()">OK</div>
-                            <div id="posta" style="width:20%; height:32%; visibility:hidden; position:absolute; top: 50%; left: 7%" class="btn btn-primary" onclick="document.getElementById('del').submit()">OK</div>
-                        </form>
-                    </div>
-                </div>
-                <!--FIM DO MODAL DE EXCLUSÃO DE REGISTRO-->
-
-                <!--MODAL DE EDIÇÃO DE REGISTR0-->
-                <div id="ModalEdit" class="modalDialog" style="background: rgba(0,0,0,0);">
-                    <div class="divdados" style="height: 20%;"><a href="#close" title="Close" class="close">X</a><div id="query" style="position:absolute; top: 23%; font-size:16px;"><?php
-                            if (isset($_POST['tituloalt']) and isset($_POST['descricaoalt']) and isset($_POST['valoralt']) and isset($_POST['categoriaalt']) and isset($_POST['datavencalt']) and isset($_POST['idalt'])) {
-                                $idalt = $_POST['idalt'];
-                                $titulo = $_POST['tituloalt'];
-                                $descricao = $_POST['descricaoalt'];
-                                $valor = $_POST['valoralt'];
-                                $muda = array(",", ".", "R$ ");
-                                $valor = str_replace($muda, "", $valor);
-                                $vq1 = substr($valor, -2);
-                                $vq2 = substr($valor, 0, -2);
-                                $valor = $vq2 . '.' . $vq1;
-                                $tipo = 'receita';
-                                $categoria = $_POST['categoriaalt'];
-                                $datacad = date('Y-m-d');
-                                $horacad = date('Y-m-d H:i:s');
-                                $datavenc = $_POST['datavencalt'];
-                                $expldvc = explode('/', $datavenc);
-                                $dfinalvenc = $expldvc['2'] . '-' . $expldvc['1'] . '-' . $expldvc['0'];
-                                $atualiza = mysql_query("UPDATE financas SET titulo='$titulo', descricao='$descricao', valor='$valor', tipo='$tipo', categoria='$categoria', data='$datacad', hora='$horacad', data_venc='$dfinalvenc' WHERE ID = '$idalt'");
-                                if ($atualiza) {
-                                    echo 'Conta editada com sucesso!';
-                                } else {
-                                    echo 'Ocorreu um erro ao editar esta conta!';
-                                }
-                            }
-                            ?></div><div id="tab" style="visibility:hidden">
-                            <form id="formaltdados" name="formaltdados" method="post">
-                                <h2>Editar conta</h2>
-                                <table>
-                                    <tr>
-                                        <td width="0">&nbsp;</td>
-                                        <td>Título:</td>
-                                        <td width="180">Valor:</td>
-                                        <td width="0">&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td><input type="text" name="tituloalt"  id="tituloalt" maxlength="20" required="required" class="input" /></td>
-                                        <td><input type="text" name="valoralt"  id="valoralt" maxlength="20" required="required" class="input" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>Desrição:</td>
-                                        <td></td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td colspan="2"><input type="text" name="descricaoalt" id="descricaoalt" maxlength="20" required="required" class="email" style="width: 100%;" /></td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>Categoria:</td>
-                                        <td><p>Data de recebimento:</p></td>
-                                        <td>&nbsp;</td>	
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td><input type="text" name="categoriaalt"  id="categoriaalt" maxlength="15" required="required" class="input" readonly="readonly" /></td>
-                                        <td><input type="text" id="datavencalt" name="datavencalt" maxlength="10" required="required" class="input" /></td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td><input type="hidden" id="idalt" name="idalt"/></td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td colspan="2">
-                                        </td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                </table>
-                            </form></div>
-                        <div id="okat" style="width:20%; height:23%; position:absolute; top: 60%; left: 6.5%" class="btn btn-primary" onclick="location.href = '#close';
-                                atualizaIframep()">OK</div><div style="float:right">
-                            <div id="fechaat" style="width:20%; height:23%; position:absolute; top: 70%; left: 28%; visibility:hidden;" class="btn btn-danger" onclick="location.href = '#close'; atualizaIframep()">Cancelar</div>
-                            <div id="atualizacad" style="width:20%; height:23%; position:absolute; top: 70%; left: 6.5%; visibility: hidden;" class="btn btn-primary" onclick="document.getElementById('formaltdados').submit()">Salvar</div><div style="float:right">
-                            </div>
-                        </div>
-                        <!--FIM DO MODAL DE EDIÇÃO-->
+                
                     </div>
                     </body>
                     </html>

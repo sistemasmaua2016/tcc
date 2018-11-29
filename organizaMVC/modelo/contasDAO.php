@@ -73,8 +73,7 @@ class contasDAO {
         }
     }
 
-    
-     public function excluir($contaExcluida) {
+    public function excluir($contaExcluida) {
         try {
             $stm = $this->pdo->prepare("DELETE FROM `financas` WHERE id=:id");
             $stm->bindValue("id", $contaExcluida);
@@ -82,7 +81,38 @@ class contasDAO {
         } catch (PDOException $exc) {
             echo $exc->getMessage();
         }
-    
+    }
 
-     }
+    public function receber($receitaRecebida) {
+        try {
+            $sql = ("UPDATE `financas`set categoria=:categoria WHERE id=:id");
+
+            $stm = $this->pdo->prepare($sql);
+
+            $stm->bindvalue("categoria", $receitaRecebida->getCategoria());
+            $stm->bindvalue("id", $receitaRecebida->getId());
+
+            return $stm->execute();
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
+        }
+    }
+
+    public function atualizarBanco($atualizarBanco) {
+
+        try {
+
+            $sql = ("UPDATE `financas` set categoria=:categoria where data_venc < '$data'");
+
+            $stm = $this->pdo->prepare($sql);
+
+            $stm->bindValue("categoria", $atualizarBanco->getCategoria());
+
+            return $stm->execute();
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
+        }
+    }
+    
 }
+    

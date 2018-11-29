@@ -19,7 +19,7 @@ $sucesso = $contaPagaDAO->pagar($contaPaga);
 
 if ($sucesso) {
     $msg = "Conta paga com sucesso!";
-    header("Location:../visao/despesas.php?msg=" . $msg);
+    header("Location:../visao/pagas.php?msg=" . $msg);
 } else {
     $msg = "Erro ao pagar!";
     header("Location:../visao/despesas.php?msg=" . $msg);

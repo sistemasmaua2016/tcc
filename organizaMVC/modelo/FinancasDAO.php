@@ -114,6 +114,21 @@ class FinancasDAO {
             echo $exc->getMessage();
         }
     }
+    public function getReceitaAVencerPorData($id, $date, $tipo) {
+        try {
+            var_dump($date);
+            $sql = "SELECT * FROM `financas` WHERE usuario_id=:id AND tipo =:tipo  AND categoria =  'a receber' AND data= :data";
+            $stm = $this->pdo->prepare($sql);
+            $stm->bindValue("id", $id);
+            $stm->bindValue("data", $date);
+            $stm->execute();
+            $result = $stm->fetchAll(PDO::FETCH_OBJ);
+
+            return $result;
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
+        }
+    }
 
     public function getDespesaAVencerPorPeriodo($id,$tipo,$categoria, $date1, $date2) {
         try {

@@ -28,7 +28,7 @@
             <header>
                 <div class="row" style="font-family: 'Bree Serif', serif;">
                     <div class="col-sm-6">
-                        <h3>&nbsp;&nbsp;Contas vencidas</h3>
+                        <h3>&nbsp;&nbsp;Receitas não recebidas</h3>
                     </div>
                     <div class="col-sm-6 text-right h2"><table width="507" border="0" style="position: absolute; right: 4%; width: 199%; height: 10%; top: 40px;">
                             <tr>
@@ -61,7 +61,7 @@
             $data1 = date('Y-m-1');
             $data2 = date('Y-m-31');
             if ($i == 1) {
-                $result = $finacasDAO->despesaAVencerPeriodo($_SESSION['id'], $categoria = 'vencida');
+                $result = $finacasDAO->despesaAVencerPeriodo($_SESSION['id'], $categoria = 'nao recebida');
                 //$result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `categoria` = 'vencida'");
                 
             }
