@@ -19,14 +19,13 @@ $contaPaga->setId($id);
 $contaPaga->setCategoria($categoria);
 
 $contaPagaDAO = new contasDAO();
-//$sucesso = $contaPagaDAO->pagar($contaPaga);
-$sucesso = true;
+$sucesso = $contaPagaDAO->pagar($contaPaga);
 
 if ($sucesso) {
     $msg = "Conta paga com sucesso!";
     header("Location:../visao/pagas.php?msg=" . $msg);
 } else {
     $msg = "Erro ao pagar!";
-    header("Location:../".$base."/".$path."?msg=" . $msg);
+    header("Location:../visao/pagas.php?msg=" . $msg);
 }
     

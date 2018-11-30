@@ -105,7 +105,7 @@
                                         echo date('d/m/Y', strtotime($datvenc));
                                         ?></td>
                                     <td class="actions text-right">
-									<a onclick="document.getElementById('paga').value = '<?php echo $row->id; ?>';
+									<a onclick="document.getElementById('paga').value = '<?php echo $r->id; ?>';
 													document.getElementById('server').value = '<?php echo $_SERVER['REQUEST_URI']; ?>';
                                                     location.href = '#ModalPaga';
                                                     document.getElementById('postapag').style.visibility = 'visible';
@@ -117,11 +117,11 @@
                                                             document.getElementById('despesa').value = '<?php echo $r->tipo; ?>';
                                                             document.getElementById('categoriaalt').value = '<?php echo $r->categoria; ?>';
                                                             document.getElementById('datavencalt').value = '<?php
-                                                                      $datvenc = $row->data_venc;
+                                                                      $datvenc = $r->data_venc;
                                                                       echo date('d/m/Y', strtotime($datvenc));
                                                                       ?>';
                                                             modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
-                                        <a onclick="document.getElementById('idd').value = '<?php echo $row->id; ?>';
+                                        <a onclick="document.getElementById('idd').value = '<?php echo $r->id; ?>';
                                                         location.href = '#ModalDel';
                                                         document.getElementById('posta').style.visibility = 'visible';
                                                         document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
@@ -150,7 +150,7 @@
                 <div id="ModalPaga" class="modalDialog" style="background: rgba(0,0,0,0);">
                     <div id="mmodal" class="divdados" style="width: 27%; height: 15%; padding: 1%  0 0 1.5%; left: 35%; top: 10%;">
                         <a href="#close" class="close">X</a>
-                        <form action="../Controle/MudarEstado.php" id="fpaga" method="post">
+                        <form action="../Controle/MudarEstadoPaga.php" id="fpaga" method="post">
                             <input type="hidden" id="paga" name="paga" />
 							<input type="hidden" id="server" name="server" />
                             <?php echo 'Efetuar o pagamento da conta ?'; ?>
