@@ -9,11 +9,15 @@
         <script type="text/javascript" src="js/funcoes.js"></script>
         <?php
         include_once ('../modelo/conexao/Conexao.php');
+        include_once '../modelo/contasDAO.php';
         session_start();
 		//atualiza banco de dados se as contas estiverem vencidas
         $data = date('Y-m-d');
+               
+        
         Conexao::getConexao()->exec("UPDATE financas SET categoria='vencida' WHERE data_venc < '$data'");
         //$vencida = mysql_query("UPDATE financas SET categoria='vencida' WHERE data_venc < '$data'");
+        
         ?>
     </head>
     <body onload="diminuimodal()">
@@ -54,12 +58,20 @@
                             <li><a href="despesas.php" target="pframe"> Despesas</a></li>
                             <li><a href="receitas.php" target="pframe">Receitas</a></li>
                             <li><a href="vencidas.php" target="pframe">Vencidas</a></li>
+                            <li><a href="nao_recebidas.php" target="pframe">Não recebidas</a></li>
+                        </ul>
+                    </li> 
+                    
+                    <ul class="submenu"></ul>
+                    <li><a href="">Relatorios</a>
+                        <ul class="submenu">
                             <li><a href="pagas.php" target="pframe">Pagas</a></li>
                             <li><a href="recebidas.php" target="pframe">Recebidas</a></li>
                         </ul>
-                    </li>
+                    </li>                                
+                        
                     <li><a href="sobre.php" target="pframe">Sobre</a></li>
-                </ul>
+                </ul>                   
             </nav>
         </div>
         <!-- FIM MENU -->

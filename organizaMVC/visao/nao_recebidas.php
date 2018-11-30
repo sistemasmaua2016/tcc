@@ -28,7 +28,7 @@
             <header>
                 <div class="row" style="font-family: 'Bree Serif', serif;">
                     <div class="col-sm-6">
-                        <h3>&nbsp;&nbsp;Contas vencidas</h3>
+                        <h3>&nbsp;&nbsp;Receitas não recebidas</h3>
                     </div>
                     <div class="col-sm-6 text-right h2"><table width="507" border="0" style="position: absolute; right: 4%; width: 199%; height: 10%; top: 40px;">
                             <tr>
@@ -61,7 +61,7 @@
             $data1 = date('Y-m-1');
             $data2 = date('Y-m-31');
             if ($i == 1) {
-                $result = $finacasDAO->despesaAVencerPeriodo($_SESSION['id'], $categoria = 'vencida');
+                $result = $finacasDAO->despesaAVencerPeriodo($_SESSION['id'], $categoria = 'nao recebida');
                 //$result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `categoria` = 'vencida'");
                 
             }
@@ -104,9 +104,7 @@
                                         $datvenc = $r->data_venc;
                                         echo date('d/m/Y', strtotime($datvenc));
                                         ?></td>
-                                    <td class="actions text-right">
-									<a onclick="document.getElementById('paga').value = '<?php echo $row->id; ?>';
-													document.getElementById('server').value = '<?php echo $_SERVER['REQUEST_URI']; ?>';
+                                    <td class="actions text-right"><a onclick="document.getElementById('paga').value = '<?php echo $r->id; ?>';
                                                     location.href = '#ModalPaga';
                                                     document.getElementById('postapag').style.visibility = 'visible';
                                                     document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;
@@ -117,11 +115,11 @@
                                                             document.getElementById('despesa').value = '<?php echo $r->tipo; ?>';
                                                             document.getElementById('categoriaalt').value = '<?php echo $r->categoria; ?>';
                                                             document.getElementById('datavencalt').value = '<?php
-                                                                      $datvenc = $row->data_venc;
+                                                                      $datvenc = $r->data_venc;
                                                                       echo date('d/m/Y', strtotime($datvenc));
                                                                       ?>';
                                                             modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
-                                        <a onclick="document.getElementById('idd').value = '<?php echo $row->id; ?>';
+                                        <a onclick="document.getElementById('idd').value = '<?php echo $r->id; ?>';
                                                         location.href = '#ModalDel';
                                                         document.getElementById('posta').style.visibility = 'visible';
                                                         document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
@@ -129,10 +127,8 @@
                                 </tr>
                             <?php endforeach ?>
                         <?php endif; ?>
-                        <?php if ($noresult) : ?>
-                            <tr>
-                                <td colspan="6">Nenhum registro encontrado.</td>
-                            </tr>
+                        <?php if ($noresult == 0) : ?>
+
                         <?php endif; ?>
                         <tr>
                             <td>Total</td>
@@ -152,7 +148,6 @@
                         <a href="#close" class="close">X</a>
                         <form action="../Controle/MudarEstado.php" id="fpaga" method="post">
                             <input type="hidden" id="paga" name="paga" />
-							<input type="hidden" id="server" name="server" />
                             <?php echo 'Efetuar o pagamento da conta ?'; ?>
 
                             <div id="cancpag" style="width:27%; height:35%; visibility: hidden; position:absolute; top: 50%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
@@ -186,7 +181,7 @@
                 <div id="ModalEdit" class="modalDialog" style="background: rgba(0,0,0,0);">
                     <div class="divdados" style="height: 20%;"><a href="#close" title="Close" class="close">X</a><div id="query" style="position:absolute; top: 23%; font-size:16px;">
                         </div><div id="tab" style="visibility:hidden">
-                            <form  action="../Controle/AlterarReceita.php" id="formaltdados" name="formaltdados" method="post">
+                            <form  action="../Controle/AlterarReceita.phpphp" id="formaltdados" name="formaltdados" method="post">
                                 <h2>Editar conta</h2>
                                 <table>
                                     <tr>

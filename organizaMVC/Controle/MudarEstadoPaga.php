@@ -24,7 +24,7 @@ $sucesso = true;
 
 if ($sucesso) {
     $msg = "Conta paga com sucesso!";
-    header("Location:../".$base."/".$path."?msg=" . $msg);
+    header("Location:../visao/pagas.php?msg=" . $msg);
 } else {
     $msg = "Erro ao pagar!";
     header("Location:../".$base."/".$path."?msg=" . $msg);
