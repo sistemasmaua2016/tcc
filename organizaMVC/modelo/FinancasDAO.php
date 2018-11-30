@@ -101,7 +101,6 @@ class FinancasDAO {
 
     public function getDespesaAVencerPorData($id, $date) {
         try {
-            var_dump($date);
             $sql = "SELECT * FROM `financas` WHERE usuario_id=:id AND tipo = 'despesa'  AND categoria =  'a vencer' AND data= :data";
             $stm = $this->pdo->prepare($sql);
             $stm->bindValue("id", $id);
