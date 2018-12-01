@@ -1,19 +1,38 @@
 <?php
 
-include_once 'conexao/conexao.php';
+include_once 'conexao/Conexao.php';
 include_once 'Usuario.php';
 
 class UsuarioDAO {
 
     public $pdo = null;
 
-    function _construct() {
+    function __construct() {
         $this->pdo = Conexao::getConexao();
     }
+	
+	public function insertUsuario(Usuario $user){
+		var_dump($user);
+		try {
+            $sql = "INSERT INTO `usuario` (nome, email, senha, dica, usuario_id) "
+                    . "VALUES (:nome, :email, :senha, :dica, :usuario_id)";
+
+            $stm = $this->pdo->prepare($sql);
+            $stm->bindValue("nome", $user->getNome());
+            $stm->bindValue("email", $user->getEmail());
+            $stm->bindValue("senha", $user->getSenha());
+            $stm->bindValue("dica", $user->getDica());
+            $stm->bindValue("usuario_id", $user->getUsuario_id());
+
+            return $stm->execute();
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
+        }
+	}
 
     public function getUsuario($id) {
         try {
-            $sql = "SELECT 'id', 'nome', 'email', 'senha', 'usuario_id' FROM 'usuario' WHERE id=:id";
+            $sql = "SELECT 'id', 'nome', 'email', 'senha', 'usuario_id' FROM `usuario` WHERE id=:id";
             $stm = $this->pdo->prepare($sql);
             $stm->bindValue("id", $id);
             $stm->execute();
@@ -26,45 +45,36 @@ class UsuarioDAO {
 
     public function verificarEmail($email) {
         try {
-            $stm = $this->pdo->prepare("SELECT count(*) FROM 'usuario' WHERE email=:email");
+            $stm = $this->pdo->prepare("SELECT count(*) FROM `usuario` WHERE email=:email");
             $stm->bindValue("email", $email);
             $stm->execute();
-            return $stm->fetchColumn();
-        } catch (PDOException $exc) {
+            $result =  $stm->fetchColumn();
+			if($result > 0){
+				return true;
+			} else {
+				return false;
+			}
+		} catch (PDOException $exc) {
             echo $exc->getMessage();
         }
     }
 
     public function recuperarSenha($email, $dica) {
-       
-           /* $sql = "SELECT * FROM ' usuario WHERE email =:email and dica=:dica";
+		
+		try {
+            $sql = "SELECT * FROM `usuario` WHERE email=:email AND dica=:dica";
             $stm = $this->pdo->prepare($sql);
             $stm->bindValue("email", $email);
-            $stm->bindValue("dica", $dica); 
-                       */
-        
-          $email = $_POST['email'];
-          $dicar = $_POST['dica'];
-          $pesquisa = mysql_query("SELECT * FROM `usuario` WHERE `email` = '$mail' AND `dica` = '$dicar'");
-          $resultado = mysql_fetch_assoc($pesquisa);
-          if ($resultado > 0) {
-          echo 'Sua senha é ', '<font style="color:red;">', $resultado['senha'], '</font>';
-          } else {
-          echo 'Não existe uma conta com os dados informados ou um dos campos não correspodem';
-          }
-          
-          
+			$stm->bindValue("dica", $dica);
+            $stm->execute();
+            $usuario = $stm->fetchAll(PDO::FETCH_OBJ);
+            return $usuario;
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
         }
-
-          public function mostra() {
-          $this->recuperar();
-          }
-
-          }
-
-          $mostra = new recuperarsenha;
-          $mostra->mostra();
-         
+          
+    }
+ }
     
 
 

@@ -1,15 +1,46 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <strong><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>Cadastrar</title></strong>
-    </head>
-    <body>
-        <?php
+
+<?php
+		include_once '../modelo/UsuarioDAO.php';
+		include_once '../modelo/Usuario.php';
+
+		$usuarioDAO = new UsuarioDAO();
+		
         $nome = $_POST['nome'];
         $email = $_POST['email'];
         $senha = $_POST['csenha'];
         $dica = $_POST['dica'];
+		
+		$veremail = $usuarioDAO->verificarEmail($email);
+		if($veremail){
+			
+			echo '
+			<script type="text/javascript">
+				var ok = alert("Já existe um usuário com o email informado!");	
+				if (ok) {
+					location.href="../index.php";
+				}
+				else {
+					location.href="../index.php";
+				}
+			</script>';
+			
+		} else {
+			$usuario = new Usuario($nome, $email, $senha, $dica, rand(0, 9999));
+			$bool = $usuarioDAO->insertUsuario($usuario);
+			echo '<script type="text/javascript">
+				var ok = alert("Cliente cadastrado com sucesso!");
+				if (ok) {
+					location.href="../index.php";
+				}
+				else {
+					location.href="../index.php";
+				}
+			</script>';		
+			
+		}
+		
+		/*
+		
         $con = mysql_connect('localhost', 'root', '') or die("Sem conexão com o servidor");
         $select = mysql_select_db('controle_financeiro') or die("Sem acesso ao DB, Entre em contato com o Administrador.");
         $veremail = mysql_query("SELECT * FROM `usuario` WHERE `email` = '$email'");
@@ -43,6 +74,5 @@ alert("Erro ao tentar cadastrar o usuário!");
 </script>';
             }
         }
-        ?>
-    </body>
-</html>
+		*/
+?>

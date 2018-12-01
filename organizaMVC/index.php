@@ -10,6 +10,8 @@
         <script type="text/javascript" src="js/funcoes.js"></script>
         </style>
         <?php
+		include_once('modelo/UsuarioDAO.php');
+		$usuario = new UsuarioDAO();
         session_start();
         if (isset($_SESSION['logado']) && $_SESSION['logado'] == "SIM") {
             header('location:visao/painel.php');
@@ -45,7 +47,7 @@
             <div id="openModal" class="modalDialog">
                 <div id="cadastro" class="div">
                     <a href="#close" title="Close" class="close">X</a>
-                    <form id="form" name="form" method="post" action="visao/cadastrar.php">
+                    <form id="form" name="form" method="post" action="Controle/cadastrar.php">
                         <h2>Cadastre-se</h2>
                         <table width="413" border="0" cellspacing="0" cellpadding="0">
                             <tr>
@@ -120,15 +122,20 @@
                 <input type="hidden" id="gnome" name="gnome" />
             </form>
             <?php
-            include('conexao.php');
+            //include('conexao.php');
             if (isset($_POST['validaemail']) and isset($_POST['gnome'])) {
                 $email = $_POST['validaemail'];
                 $nome = $_POST['gnome'];
+				
+				$result = $usuario->verificarEmail($email);
+				var_dump($result);
+				/*
                 $verifica = mysql_query("SELECT * FROM `usuario` WHERE `email`='$email'");
                 if (mysql_num_rows($verifica) > 0) {
                     echo '<script type="text/javascript">
                     alert("Já existe uma conta cadastrada com este email");</script>';
                 }
+				*/
             }
             ?>
             <script type="text/javascript">
@@ -186,34 +193,21 @@
                             </tr>
                             <tr>
                                 <td>&nbsp;</td>
-                                <td colspan="2"><?php
+                                <td colspan="2">
+								<?php
+								$usuario = new UsuarioDAO();
 
-            class recuperarsenha {
-
-                private function recuperar() {
-                    include('conexao.php');
-                    if (isset($_POST['mail']) and isset($_POST['dicar'])) {
-                        $mail = $_POST['mail'];
-                        $dicar = $_POST['dicar'];
-                        $pesquisa = mysql_query("SELECT * FROM `usuario` WHERE `email` = '$mail' AND `dica` = '$dicar'");
-                        $resultado = mysql_fetch_assoc($pesquisa);
-                        if ($resultado > 0) {
-                            echo 'Sua senha é ', '<font style="color:red;">', $resultado['senha'], '</font>';
-                        } else {
-                            echo 'Não existe uma conta com os dados informados ou um dos campos não correspodem';
-                        }
-                    }
-                }
-
-                public function mostra() {
-                    $this->recuperar();
-                }
-
-            }
-
-            $mostra = new recuperarsenha;
-            $mostra->mostra();
-            ?>
+								if (isset($_POST['mail']) and isset($_POST['mail'])) {
+									$mail = $_POST['mail'];
+									$dicar = $_POST['dicar'];
+									$recuperado = $usuario->recuperarSenha($mail, $dicar);
+									if(count($recuperado) > 0){
+										echo 'Sua senha é ', '<font style="color:red;">', $recuperado[0]->senha, '</font>';
+									} else {
+										echo 'Não existe uma conta com os dados informados ou um dos campos não correspodem';
+									}
+								}
+						?>
                                     <td>&nbsp;</td>
                             </tr>
                             <tr>

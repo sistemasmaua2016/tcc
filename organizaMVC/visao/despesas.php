@@ -60,7 +60,7 @@
                 $result = $finacasDAO->getDespesaAVencerPorData($_SESSION['id'], $pesq);
                 //$result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `tipo`='despesa' AND `categoria`='a vencer' AND `data` = '$pesq'");
             }
-            $data1 = date('Y-m-1');
+            $data1 = date('Y-m-01');
             $data2 = date('Y-m-31');
             if ($i == 1) {
                 $result = $finacasDAO->getDespesaAVencerPorPeriodo($_SESSION['id'], $tipo = 'despesa', $categoria = 'a vencer', $data1, $data2);
