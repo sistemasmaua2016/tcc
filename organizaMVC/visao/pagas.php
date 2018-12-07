@@ -31,9 +31,6 @@
                     </div>
                     <div class="col-sm-6 text-right h2"><table width="507" border="0" style="position: absolute; right: 4%; width: 199%; height: 10%; top: 40px;">
                             <tr>
-                                <td width="220" valign="bottom"><form id="form" name="form" method="POST"><input type="text" id="datepicker" name="datepicker" class="input-group-sm" style="width: 68%; border: solid 1px; border-radius: 5px; height: 34px;"/></td>
-                                <td width="95" align="right"><a href="#" class="btn btn-info" onclick="javascript:document.form.submit();">Pesquisar</a></form></td><td width="1310"></td>
-                                <td width="140"></td>
                                 <td width="89" align="right"><a class="btn btn-default" onclick="atualizaIframep()"><i class="fa fa-refresh"></i>Atualizar</a></td>
                             </tr>
                         </table>

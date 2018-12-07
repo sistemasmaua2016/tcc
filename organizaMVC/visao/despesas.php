@@ -17,6 +17,7 @@
             </style>
             <script type="text/javascript" src="js/mascaras.js"></script> 
             <?php
+            date_default_timezone_set('America/Sao_Paulo');
             session_start();
             if ($_SESSION['logado'] != "SIM") {
                 header('location:index.php');
@@ -32,9 +33,7 @@
                     </div>
                     <div class="col-sm-6 text-right h2"><table width="507" border="0" style="position: absolute; right: 4%; width: 199%; height: 10%; top: 40px;">
                             <tr>
-                                <td width="220" valign="bottom"><form id="form" name="form" method="POST"><input type="text" id="datepicker" name="datepicker" class="input-group-sm" style="width: 68%; border: solid 1px; border-radius: 5px; height: 34px;"/></td>
-                                <td width="95" align="right"><a href="#" class="btn btn-info" onclick="javascript:document.form.submit();">Pesquisar</a></form></td><td width="1310"></td>
-                                <td width="140"><a class="btn btn-primary" href="#Modal"><i class="fa fa-plus"></i>Novo Registro</a></td>
+                                <td width="15000"><a class="btn btn-primary" href="#Modal"><i class="fa fa-plus"></i>Novo Registro</a></td>
                                 <td width="89" align="right"><a class="btn btn-default" onclick="atualizaIframepag()"><i class="fa fa-refresh"></i>Atualizar</a></td>
                             </tr>
                         </table>
@@ -74,7 +73,8 @@
                             <th width="4%">ID</th>
                             <th width="16%">Título</th>
                             <th width="10%">Valor</th>
-                            <th width="24%">Descrição</th>
+                            <th width="12%">Descrição</th>
+                            <th width="12%">Categoria</th>
                             <th width="12%">Data do cadastro</th>
                             <th width="15%">Data do vencimento</th>
                             <th width="19%">Opções</th>
@@ -96,7 +96,8 @@
                                     <td><?php echo $r->id; ?></td>
                                     <td><?php echo $r->titulo; ?></td>
                                     <td><?php echo 'R$ ' . number_format($r->valor, 2, ",", "."); ?></td>
-                                    <td><?php echo $r->descricao; echo"   "; echo $r->categoria; ?></td>
+                                    <td><?php echo $r->descricao; ?></td>
+                                    <td><?php echo $r->categoria; ?></td>
 
                                     <td><?php
                                         $data = $r->data;
@@ -107,25 +108,25 @@
                                         echo date('d/m/Y', strtotime($datvenc));
                                         ?></td>
                                     <td class="actions text-right">
-									<a onclick="document.getElementById('paga').value = '<?php echo $r->id; ?>';
-											document.getElementById('server').value = '<?php echo $_SERVER['REQUEST_URI']; ?>';
-                                            location.href = '#ModalPaga';
-                                            document.getElementById('postapag').style.visibility = 'visible';
-                                            document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;
+                                        <a onclick="document.getElementById('paga').value = '<?php echo $r->id; ?>';
+                                                        document.getElementById('server').value = '<?php echo $_SERVER['REQUEST_URI']; ?>';
+                                                        location.href = '#ModalPaga';
+                                                        document.getElementById('postapag').style.visibility = 'visible';
+                                                        document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;
+
                                         <a onclick="document.getElementById('idalt').value = '<?php echo $r->id; ?>';
-                                                document.getElementById('tituloalt').value = '<?php echo $r->titulo; ?>';
-                                                document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($r->valor, 2, ',', '.'); ?>';
-                                                document.getElementById('descricaoalt').value = '<?php echo $r->descricao; ?>';
-                                                document.getElementById('categoriaalt').value = '<?php echo $r->categoria; ?>';
-                                                document.getElementById('datavencalt').value = '<?php
-                                        $datvenc = $r->data_venc;
-                                        echo date('d/m/Y', strtotime($datvenc));
-                                        ?>';
-                                                modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
+                                                                        document.getElementById('tituloalt').value = '<?php echo $r->titulo; ?>';
+                                                                        document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($r->valor, 2, ',', '.'); ?>';
+                                                                        document.getElementById('descricaoalt').value = '<?php echo $r->descricao; ?>';
+                                                                        document.getElementById('categoriaalt').value = '<?php echo $r->categoria; ?>';
+                                                                        document.getElementById('datavencalt').value = '<?php echo $r->data_venc; ?>';
+                                       
+                                                                        modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
+
                                         <a onclick="document.getElementById('idd').value = '<?php echo $r->id; ?>';
-                                                location.href = '#ModalDel';
-                                                document.getElementById('posta').style.visibility = 'visible';
-                                                document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
+                                                        location.href = '#ModalDel';
+                                                        document.getElementById('posta').style.visibility = 'visible';
+                                                        document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
@@ -153,7 +154,7 @@
                         <a href="#close" class="close">X</a>
                         <form action="../Controle/MudarEstadoPaga.php" id="fpaga" method="post">
                             <input type="hidden" id="paga" name="paga" />
-							<input type="hidden" id="server" name="server" />
+                            <input type="hidden" id="server" name="server" />
                             <?php echo 'Efetuar pagamento da conta ?'; ?>
 
                             <div id="cancpag" style="width:27%; height:35%; visibility: hidden; position:absolute; top: 50%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
@@ -233,7 +234,7 @@
                                     <td>&nbsp;
                                     </td>
                                     <td><input type = "text" name = "categoria" maxlength = "15" required = "required" class = "input" value = "a vencer" readonly = "readonly" /></td>
-                                    <td><input type = "text" id = "datavenc" name = "datavenc" maxlength = "10" required = "required" class = "input" /></td>
+                                    <td><input type = "date" id = "campoData" name = "datavenc" maxlength = "10" required = "required" class = "input" /></td>
                                     <td>&nbsp;
                                     </td>
                                 </tr>
@@ -310,7 +311,7 @@
                                         <td>&nbsp;
                                         </td>
                                         <td><input type = "text" name = "categoriaalt" id = "categoriaalt" maxlength = "15" required = "required" class = "input" readonly = "readonly"/></td>
-                                        <td><input type = "text" id = "datavencalt" name = "datavencalt" maxlength = "10" required = "required" class = "input" /></td>
+                                        <td><input type = "date" id = "datavencalt" name = "datavencalt" maxlength = "10" required = "required" class = "input" /></td>
                                         <td>&nbsp;
                                         </td>
                                     </tr>
@@ -335,7 +336,8 @@
                             </form></div>
                         <div id = "okat" style = "width:20%; height:23%; position:absolute; top: 60%; left: 6.5%" class = "btn btn-primary" onclick = "location.href = '#close';
                                 atualizaIframepag()">OK</div><div style = "float:right">
-                            <div id = "fechaat" style = "width:20%; height:23%; position:absolute; top: 70%; left: 28%; visibility:hidden;" class = "btn btn-danger" onclick = "location.href = '#close'; atualizaIframepag()">Cancelar</div>
+                            <div id = "fechaat" style = "width:20%; height:23%; position:absolute; top: 70%; left: 28%; visibility:hidden;" class = "btn btn-danger" onclick = "location.href = '#close';
+                                    atualizaIframepag()">Cancelar</div>
                             <div id = "atualizacad" style = "width:20%; height:23%; position:absolute; top: 70%; left: 6.5%; visibility: hidden;" class = "btn btn-primary" onclick = "document.getElementById('formaltdados').submit()">Salvar</div><div style = "float:right">
                             </div>
                         </div>

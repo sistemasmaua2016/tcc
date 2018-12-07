@@ -130,7 +130,7 @@ function diminuimodal() {
     }
 }
 //FUNÇÃO PARA EXIBIR O CALENDÁRIO NO INPUT DE PESQUISA
-$(function () {
+/*$(function () {
     $("#datepicker").datepicker({
         dateFormat: 'dd/mm/yy',
         dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
@@ -141,7 +141,8 @@ $(function () {
         nextText: 'Próximo',
         prevText: 'Anterior'
     });
-});
+});*/
+
 //FUNÇÃO PARA ATUALIZAR IFRAME NA PÁGINA DESPESAS
 function atualizaIframepag() {
     window.parent.document.getElementById("pframe").src = 'despesas.php';
@@ -170,7 +171,7 @@ function diminuitamanho() {
     }
 }
 //FUNÇÃO PARA EXIBIR O CALENDÁRIO NO INPUT DE REGISTRO
-$(function () {
+/*$(function () {
     $("#datavenc").datepicker({
         dateFormat: 'dd/mm/yy',
         dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
@@ -181,7 +182,7 @@ $(function () {
         nextText: 'Próximo',
         prevText: 'Anterior'
     });
-});
+});*/
 //FUNÇÃO PARA MODIFICAR OS MODAIS, TORNÁLOS RESPONSIVO
 function modificamodal() {
     var modal = document.getElementById('ModalEdit');

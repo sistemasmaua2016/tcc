@@ -12,3 +12,20 @@ function mreais(v) {
     v = v.replace(/(\d+)(\d{3},\d{2})$/g, "$1.$2"); 	//Coloca o primeiro ponto
     return "R$ " + v;
 }
+
+
+function mascara_data(data){ 
+              var mydata = ''; 
+              mydata = mydata + data; 
+              if (mydata.length == 2){ 
+                  mydata = mydata + '/'; 
+                  document.forms[0].data.value = mydata; 
+              } 
+              if (mydata.length == 5){ 
+                  mydata = mydata + '/'; 
+                  document.forms[0].data.value = mydata; 
+              } 
+              if (mydata.length == 10){ 
+                  verifica_data(); 
+              } 
+          } 

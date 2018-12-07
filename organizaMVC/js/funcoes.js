@@ -178,25 +178,25 @@ prevText: 'Anterior'
 });
 //FUNÇÃO PARA MODIFICAR OS MODAIS, TORNÁLOS RESPONSIVO
 function modificamodal(){
-var modal = document.getElementById('ModalEdit');
-var btnsalva = document.getElementById('atualizacad');
-var btncanc = document.getElementById('fechaat');
-var btnok = document.getElementById('okat');
+//var modal = document.getElementById('ModalEdit');
+//var btnsalva = document.getElementById('atualizacad');
+//var btncanc = document.getElementById('fechaat');
+//var btnok = document.getElementById('okat');
 var tab = document.getElementById('tab');
-modal.style.height='210%';
+//modal.style.height='210%';
 tab.style.visibility='visible';
-btnsalva.style.visibility='visible';
-btncanc.style.visibility='visible';
-btncanc.style.height='13%';
-btnsalva.style.height='13%';
-btnok.style.height='13%';
-btnsalva.style.visibility='visible';
-btncanc.style.top='83%';
-btnsalva.style.top='83%';
-btnok.style.top='83%';
-if(screen.width < 1600){
-modal.style.height='260%';
-}
+//btnsalva.style.visibility='visible';
+//btncanc.style.visibility='visible';
+//btnok.style.visibility='visible';
+//btncanc.style.height='13%';
+//btnsalva.style.height='13%';
+//btnok.style.height='13%';
+//btncanc.style.top='83%';
+//btnsalva.style.top='83%';
+//btnok.style.top='83%';
+//if(screen.width < 1600){
+//modal.style.height='260%';
+//}
 }
 //FUNÇÃO PARA CONFERIR SE OS CAMPOS DO FORMULARIO DE REGISTRO ESTÃO PREENCHIDOS
 function confere(){

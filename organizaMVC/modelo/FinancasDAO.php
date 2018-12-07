@@ -5,8 +5,6 @@ include_once 'conexao/Conexao.php';
 class FinancasDAO {
 
     public $pdo = null;
-    
-    
     private $mes_num = array(
         'Jan' => '1',
         'Feb' => '2',
@@ -113,6 +111,7 @@ class FinancasDAO {
             echo $exc->getMessage();
         }
     }
+
     public function getReceitaAVencerPorData($id, $date, $tipo) {
         try {
             var_dump($date);
@@ -129,8 +128,9 @@ class FinancasDAO {
         }
     }
 
-    public function getDespesaAVencerPorPeriodo($id,$tipo,$categoria, $date1, $date2) {
+    public function getDespesaAVencerPorPeriodo($id, $tipo, $categoria, $date1, $date2) {
         try {
+            
             $sql = "SELECT * FROM `financas` WHERE usuario_id=:id AND tipo =:tipo  AND categoria = :categoria AND data_venc BETWEEN :data AND :data2";
             $stm = $this->pdo->prepare($sql);
             $stm->bindValue("id", $id);
@@ -148,20 +148,19 @@ class FinancasDAO {
     }
 
     public function despesaAVencerPeriodo($id, $categoria) {
-        try{
+        try {
             $sql = "SELECT * FROM financas WHERE usuario_id =:id AND categoria =:categoria";
-            $stm= $this->pdo->prepare($sql);
+            $stm = $this->pdo->prepare($sql);
             $stm->bindValue("id", $id);
             $stm->bindValue("categoria", $categoria);
             $stm->execute();
-            
+
             $result = $stm->fetchAll(PDO::FETCH_OBJ);
-            
+
             return $result;
         } catch (PDOException $exc) {
             echo $exc->getMessage();
-
         }
-        
     }
+
 }

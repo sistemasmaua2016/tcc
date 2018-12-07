@@ -17,11 +17,11 @@ $hora = date('Y-m-d H:i:s');
 $data_venc = $_POST['datavencalt'];
 
 // TRATAMENTOS
-$day = substr($data_venc, 0, 2);
-$month = substr($data_venc, 3, 2);
-$year = substr($data_venc, 6, 4);
-
-$data_venc = date('' . $year . '-' . $month . '-' . $day);
+//$day = substr($data_venc, 0, 2);
+//$month = substr($data_venc, 3, 2);
+//$year = substr($data_venc, 6, 4);
+//
+//$data_venc = date('' . $year . '-' . $month . '-' . $day);
 
 $valor = substr($valor, 3);
 $valor = str_replace('.', '', $valor);

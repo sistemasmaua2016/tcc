@@ -15,4 +15,4 @@ if ($sucesso){
    $msg = "Erro ao excluir a conta!";  
 }
 
-header('Location: ../visao/despesas.php?&msg='.$msg);
+header('Location: ../visao/nao_recebidas.php?&msg='.$msg);

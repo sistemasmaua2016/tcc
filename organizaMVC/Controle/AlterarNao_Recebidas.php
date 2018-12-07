@@ -44,8 +44,8 @@ $sucesso = $contaAtualizadasDAO->Atualizar($contaAtualizada);
 
 if ($sucesso) {
     $msg = "Conta atualizada com sucesso!";
-    header("Location:../visao/receitas.php?msg=" . $msg);
+    header("Location:../visao/nao_recebidas.php?msg=" . $msg);
 } else {
     $msg = "Erro ao Atualizar!";
-    header("Location:../visao/receitas.php?msg=" . $msg);
+    header("Location:../visao/nao_recebidas.php?msg=" . $msg);
 }

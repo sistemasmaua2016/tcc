@@ -15,7 +15,8 @@
         $data = date('Y-m-d');
                
         
-        Conexao::getConexao()->exec("UPDATE financas SET categoria='vencida' WHERE data_venc < '$data'");
+        Conexao::getConexao()->exec("UPDATE financas SET categoria='vencida' WHERE tipo = 'a vencer' data_venc < '$data'");
+        Conexao::getConexao()->exec("UPDATE financas SET categoria='nao recebida' WHERE tipo = 'a receber'data_venc < '$data'");
         //$vencida = mysql_query("UPDATE financas SET categoria='vencida' WHERE data_venc < '$data'");
         
         ?>
