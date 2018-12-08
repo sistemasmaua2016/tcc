@@ -176,7 +176,7 @@
                                 </tr>
                                 <tr>
                                     <td>&nbsp;</td>
-                                    <td><input type="text" name="titulo" maxlength="20" required="required" class="input" /></td>
+                                    <td><input type="text" name="titulo" maxlength="11" required="required" class="input" /></td>
 
                                     <td><input type="text" name="valor" id="valor" maxlength="20" required="required" class="input" onkeypress="mascara(this, mreais)"/></td>
                                 </tr>
@@ -256,7 +256,7 @@
                                     </tr>
                                     <tr>
                                         <td>&nbsp;</td>
-                                        <td><input type="text" name="tituloalt"  id="tituloalt" maxlength="20" required="required" class="input" /></td>
+                                        <td><input type="text" name="tituloalt"  id="tituloalt" maxlength="11" required="required" class="input" /></td>
                                         <td><input type="text" name="valoralt"  id="valoralt" maxlength="20" required="required" class="input" /></td>
                                     </tr>
                                     <tr>

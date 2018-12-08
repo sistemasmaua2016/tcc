@@ -69,7 +69,7 @@
                             </tr>
                             <tr>
                                 <td>&nbsp;</td>
-                                <td colspan="2"><input type="text" name="email" id="email" maxlength="50" required="required" width="340" class="email" onblur="valida(); confere()"/></td>
+                                <td colspan="2"><input type="text" name="email" id="email" maxlength="50" required="required" width="340" class="email" onblur="valida(); confere();"/></td>
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>

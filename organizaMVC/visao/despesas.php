@@ -203,7 +203,7 @@
                                 <tr>
                                     <td>&nbsp;
                                     </td>
-                                    <td><input type = "text" name = "titulo" maxlength = "20" required = "required" class = "input" /></td>
+                                    <td><input type = "text" name = "titulo" maxlength = "11" required = "required" class = "input" /></td>
                                     <td><input type = "text" name = "valor" maxlength = "20" required = "required" class = "input" onkeypress = "mascara(this, mreais)"/></td>
                                 </tr>
                                 <tr>
@@ -281,8 +281,8 @@
                                     <tr>
                                         <td>&nbsp;
                                         </td>
-                                        <td><input type = "text" name = "tituloalt" id = "tituloalt" maxlength = "20" required = "required" class = "input" /></td>
-                                        <td><input type = "text" name = "valoralt" id = "valoralt" maxlength = "20" required = "required" class = "input" /></td>
+                                        <td><input type = "text" name = "tituloalt" id = "tituloalt" maxlength = "11" required="required" class = "input" /></td>
+                                        <td><input type = "text" name = "valoralt" id = "valoralt" maxlength = "20" required="required" class = "input" /></td>
                                     </tr>
                                     <tr>
                                         <td>&nbsp;
@@ -295,7 +295,7 @@
                                     <tr>
                                         <td>&nbsp;
                                         </td>
-                                        <td colspan = "2"><input type = "text" name = "descricaoalt" id = "descricaoalt" maxlength = "20" required = "required" class = "email" style = "width: 100%;" /></td>
+                                        <td colspan = "2"><input type = "text" name = "descricaoalt" id = "descricaoalt" maxlength = "20" required="required" class = "email" style = "width: 100%;" /></td>
                                         <td>&nbsp;
                                         </td>
                                     </tr>
@@ -310,8 +310,8 @@
                                     <tr>
                                         <td>&nbsp;
                                         </td>
-                                        <td><input type = "text" name = "categoriaalt" id = "categoriaalt" maxlength = "15" required = "required" class = "input" readonly = "readonly"/></td>
-                                        <td><input type = "date" id = "datavencalt" name = "datavencalt" maxlength = "10" required = "required" class = "input" /></td>
+                                        <td><input type = "text" name = "categoriaalt" id = "categoriaalt" maxlength = "15" required="required" class = "input" readonly = "readonly"/></td>
+                                        <td><input type = "date" id = "datavencalt" name = "datavencalt" maxlength = "10" required="required" class = "input" /></td>
                                         <td>&nbsp;
                                         </td>
                                     </tr>

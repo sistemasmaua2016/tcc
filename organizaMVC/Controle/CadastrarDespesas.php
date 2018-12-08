@@ -30,13 +30,10 @@ $valor = substr($valor,3);
 $valor = str_replace('.', '', $valor);
 $valor = str_replace(',', '.', $valor);
 
-echo $valor;
-
 $contasDAO = new contasDAO();
 $novaContas = new contas($titulo, $descricao, $valor, $tipo, $categoria, $data, $hora, $usuario_id, $data_venc);
 
 $sucesso = $contasDAO->Inserir($novaContas);
-
 if ($sucesso) {
     $msg = "Conta cadastrada com sucesso!";
     header("Location:../visao/despesas.php?msg=" . $msg);

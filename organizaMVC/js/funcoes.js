@@ -16,18 +16,36 @@ $(document).ready(function() {
 });
 //função para email válido
 function valida(){
-if (document.form.email.value.indexOf('@', 0) == -1 || document.form.email.value.indexOf('.', 0) == -1){ alert("E-mail invalido!");
+if (document.form.email.value.indexOf('@', 0) == -1 || document.form.email.value.indexOf('.', 0) == -1){ 
+//alert("E-mail invalido!");
+$("#erro").removeAttr("hidden");
+document.form.email.style.borderColor='#CC3300';
 document.form.email.focus();
 return false;
 	}
 	}
+//valida email
+function validateEmail(email) {
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
 //termina função
 //função para limite de senha
 function validaform(){
 var senha = document.form.csenha.value;
 var nome = document.form.nome.value;
+var email = document.form.email.value;
 if (nome.length === 0){
 alert("O campo nome precisa ser preenchido!");
+return false;
+}
+console.log(email);
+if (email.length === 0){
+alert("O campo email precisa ser preenchido!");
+return false;
+}
+if (!validateEmail(email)){
+alert("Email  invalido!");
 return false;
 }
 if (senha.length < 8){
