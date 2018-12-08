@@ -58,8 +58,8 @@
             $data1 = date('Y-m-01');
             $data2 = date('Y-m-31');
             if ($i == 1) {
-                $result = $finacasDAO->getDespesaAVencerPorPeriodo($_SESSION['id'], $tipo = 'receita', $categoria = 'nao recebida', $data1, $data2);
-
+                //$result = $finacasDAO->getDespesaAVencerPorPeriodo($_SESSION['id'], $tipo = 'receita', $categoria = 'nao recebida', $data1, $data2);
+                $result = $finacasDAO->receitaAVencerPeriodo($_SESSION['id'], $tipo = 'a receber');
                 //$result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `tipo` = 'receita' AND `categoria`='a receber' AND `data_venc` BETWEEN ('$data1') AND ('$data2')");
             }
             ?>

@@ -30,7 +30,7 @@ class FinancasDAO {
                     . "BETWEEN :dtInicio AND :dtFinal ";
             $stm = $this->pdo->prepare($sql);
             $stm->bindValue("usuarioId", $usuario_id);
-            $stm->bindValue("dtInicio", date('Y-' . $this->mes_num["$mes"] . '-1'));
+            $stm->bindValue("dtInicio", date('Y-' . $this->mes_num["$mes"] . '-01'));
             $stm->bindValue("dtFinal", date('Y-' . $this->mes_num["$mes"] . '-31'));
             $stm->bindValue("tipo", $tipo);
             $stm->execute();
@@ -113,8 +113,7 @@ class FinancasDAO {
     }
 
     public function getReceitaAVencerPorData($id, $date, $tipo) {
-        try {
-            var_dump($date);
+		try {
             $sql = "SELECT * FROM `financas` WHERE usuario_id=:id AND tipo =:tipo  AND categoria =  'a receber' AND data= :data";
             $stm = $this->pdo->prepare($sql);
             $stm->bindValue("id", $id);
@@ -148,6 +147,22 @@ class FinancasDAO {
     }
 
     public function despesaAVencerPeriodo($id, $categoria) {
+        try {
+            $sql = "SELECT * FROM financas WHERE usuario_id =:id AND categoria =:categoria";
+            $stm = $this->pdo->prepare($sql);
+            $stm->bindValue("id", $id);
+            $stm->bindValue("categoria", $categoria);
+            $stm->execute();
+
+            $result = $stm->fetchAll(PDO::FETCH_OBJ);
+
+            return $result;
+        } catch (PDOException $exc) {
+            echo $exc->getMessage();
+        }
+    }
+	
+	public function receitaAVencerPeriodo($id, $categoria) {
         try {
             $sql = "SELECT * FROM financas WHERE usuario_id =:id AND categoria =:categoria";
             $stm = $this->pdo->prepare($sql);
