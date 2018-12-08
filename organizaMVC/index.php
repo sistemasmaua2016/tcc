@@ -51,14 +51,14 @@
                         <h2>Cadastre-se</h2>
                         <table width="413" border="0" cellspacing="0" cellpadding="0">
                             <tr>
-                                <td width="6">&nbsp;</td>
-                                <td width="200">Nome:</td>
-                                <td width="201"><p>&nbsp;</p></td>
-                                <td width="10">&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>Nome:</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
                             </tr>
                             <tr>
                                 <td>&nbsp;</td>
-                                <td colspan="2"><input type="text" name="nome" maxlength="20" id="nome" required="required" width="380" class="nome" onblur="validanome()"/></td>
+                                <td colspan="2"><input type="text" name="nome" id="nome" maxlength="20"  required="required" width="300" class="input" onblur="validanome();"/></td>
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
@@ -70,7 +70,7 @@
                             <tr>
                                 <td>&nbsp;</td>
                                 <td colspan="2"><input type="text" name="email" id="email" maxlength="50" required="required" width="340" class="email" onblur="valida(); confere()"/></td>
-                                <td></td>
+                                <td>&nbsp;</td>
                             </tr>
                             <tr>
                                 <td>&nbsp;</td>
@@ -113,7 +113,7 @@
                                 <td>&nbsp;</td>
                             </tr>
                         </table>
-
+						<p id="erro" style="color: red" hidden="true">Campos obrigatorios não preenchidos</p>
                     </form>
                 </div>
             </div>
@@ -128,7 +128,6 @@
                 $nome = $_POST['gnome'];
 				
 				$result = $usuario->verificarEmail($email);
-				var_dump($result);
 				/*
                 $verifica = mysql_query("SELECT * FROM `usuario` WHERE `email`='$email'");
                 if (mysql_num_rows($verifica) > 0) {

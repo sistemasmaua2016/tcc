@@ -25,6 +25,11 @@ return false;
 //função para limite de senha
 function validaform(){
 var senha = document.form.csenha.value;
+var nome = document.form.nome.value;
+if (nome.length === 0){
+alert("O campo nome precisa ser preenchido!");
+return false;
+}
 if (senha.length < 8){
 alert("A senha deve conter pelo menos 8 caracteres");
 document.form.csenha.style.borderColor='#CC3300';
@@ -66,11 +71,13 @@ document.form.csenha.style.borderColor='#CC3300';
 //funcão para mudar a cor do input caso vazio
 function validanome(){
 var nome = document.getElementById('nome').value;
-if (nome > 0){
+if (nome.length > 0){
+$("#erro").attr("hidden", "true");
 document.form.nome.style.borderColor='#009900';
 }
 else{
-alert('O campo nome precisa ser preenchido!');
+//alert('O campo nome precisa ser preenchido!');
+$("#erro").removeAttr("hidden");
 document.form.nome.style.borderColor='#CC3300';
 document.form.nome.focus();
 return false;
@@ -79,11 +86,13 @@ return false;
 //funcao mudar a cor do campo dica
 function validadica(){
 var dica = document.getElementById('dica').value;
-if (dica > 0){
+if (dica.length > 0){
 document.form.dica.style.borderColor='#009900';
+$("#erro").attr("hidden", "true");
 }
 else{
-alert('O campo dica precisa ser preenchido!');
+//alert('O campo dica precisa ser preenchido!');
+$("#erro").removeAttr("hidden");
 document.form.dica.style.borderColor='#CC3300';
 document.form.dica.focus();
 return false;
