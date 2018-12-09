@@ -213,7 +213,7 @@
                                     <td>&nbsp;</td>
                                     <td colspan="2"><div id="fechacad" style="width:20%; height:13%; position:absolute; top: 82%; left: 28%" class="btn btn-danger" onclick="location.href = '#close';
                                             atualizaIframerec()">Sair</div>
-                                        <div id="postacad" style="width:20%; height:13%; position:absolute; top: 82%; left: 6.5%" class="btn btn-primary" onclick="document.getElementById('formdados').submit()">Salvar</div><div style="float:right">
+                                        <div id="postacad" style="width:20%; height:13%; position:absolute; top: 82%; left: 6.5%" class="btn btn-primary" onclick="if(!validarFormAdicao()){document.getElementById('formdados').submit();}">Salvar</div><div style="float:right">
                                         </div></td>
                                     <td>&nbsp;</td>
                                 </tr>
@@ -256,8 +256,8 @@
                                     </tr>
                                     <tr>
                                         <td>&nbsp;</td>
-                                        <td><input type="text" name="tituloalt"  id="tituloalt" maxlength="11" onblur="validartituloalt();" required="required" class="input" /></td>
-                                        <td><input type="text" name="valoralt"  id="valoralt" maxlength="20" onblur="validarvaloralt();"  required="required" class="input" /></td>
+                                        <td><input type="text" name="tituloalt"  id="tituloalt" maxlength="11" required="required" class="input" /></td>
+                                        <td><input type="text" name="valoralt"  id="valoralt" maxlength="20" required="required" class="input" /></td>
                                     </tr>
                                     <tr>
                                         <td>&nbsp;</td>
@@ -267,7 +267,7 @@
                                     </tr>
                                     <tr>
                                         <td>&nbsp;</td>
-                                        <td colspan="2"><input type="text" name="descricaoalt" id="descricaoalt" onblur="validardescricaoalt();"  maxlength="20" required="required" class="email" style="width: 100%;" /></td>
+                                        <td colspan="2"><input type="text" name="descricaoalt" id="descricaoalt" maxlength="20" required="required" class="email" style="width: 100%;" /></td>
                                         <td>&nbsp;</td>
                                     </tr>
                                     <tr>
@@ -300,7 +300,7 @@
                                 atualizaIframerec()">OK</div><div style="float:right">
                             <div id="fechaat" style="width:20%; height:23%; position:absolute; top: 70%; left: 27%; visibility:hidden;" class="btn btn-danger" onclick="location.href = '#close';
                                     atualizaIframerec()">Cancelar</div>
-                            <div id="atualizacad" style="width:20%; height:23%; position:absolute; top: 70%; left: 6%; visibility: hidden;" class="btn btn-primary" onclick="document.getElementById('formaltdados').submit()">Salvar</div><div style="float:right">
+                            <div id="atualizacad" style="width:20%; height:23%; position:absolute; top: 70%; left: 6%; visibility: hidden;" class="btn btn-primary" onclick="if(!validarFormAlterar()){document.getElementById('formaltdados').submit()}">Salvar</div><div style="float:right">
                             </div>
                         </div>
                         <!--FIM DO MODAL DE EDIÇÃO-->

@@ -237,7 +237,7 @@
                                 atualizaIframepag()">OK</div><div style="float:right">
                             <div id="fechaat" style="width:20%; height:23%; position:absolute; top: 70%; left: 28%; visibility:hidden;" class="btn btn-danger" onclick="location.href = '#close';
                                     atualizaIframepag()">Cancelar</div>
-                            <div id="atualizacad" style="width:20%; height:23%; position:absolute; top: 70%; left: 6.5%; visibility: hidden;" class="btn btn-primary" onclick="document.getElementById('formaltdados').submit()">Salvar</div><div style="float:right">
+                            <div id="atualizacad" style="width:20%; height:23%; position:absolute; top: 70%; left: 6.5%; visibility: hidden;" class="btn btn-primary" onclick="if(!validarFormAlterar()){document.getElementById('formdados').submit();}">Salvar</div><div style="float:right">
                             </div>
                         </div>
                         <!--FIM DO MODAL DE EDIÇÃO-->

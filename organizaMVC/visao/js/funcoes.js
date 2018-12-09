@@ -220,6 +220,29 @@ function diminuimodaldata() {
 }
 
 //validando campos
+function validarFormAdicao(){
+	var titulo = document.getElementById('titulo').value;
+	var valor = document.getElementById('valor').value;
+    var descricao = document.getElementById('descricao').value;
+	var erro = false;
+    if (titulo.length === 0) {
+        alert('O campo titulo precisa ser preenchido!');
+        erro = true;
+    }
+	
+	if (valor.length === 0) {
+        alert('O campo valor precisa ser preenchido!');
+        erro = true;
+    }
+	
+	if (descricao.length === 0) {
+        alert('O campo descricao precisa ser preenchido!');
+        erro = true;
+    }
+	
+	return erro;
+}
+
 function validartitulo() {
     var titulo = document.getElementById('titulo').value;
 
@@ -245,6 +268,30 @@ function validardescricao() {
         alert('O campo descricao precisa ser preenchido!');
         return false;
     }
+}
+
+// validar form alteracao
+function validarFormAlterar(){
+    var titulo = document.getElementById('tituloalt').value;
+	var valor = document.getElementById('valoralt').value;
+    var descricao = document.getElementById('descricaoalt').value;
+	var erro = false;
+    if (titulo.length === 0) {
+        alert('O campo titulo precisa ser preenchido!');
+        erro = true;
+    }
+	
+	if (valor.length === 0) {
+        alert('O campo valor precisa ser preenchido!');
+        erro = true;
+    }
+	
+	if (descricao.length === 0) {
+        alert('O campo descricao precisa ser preenchido!');
+        erro = true;
+    }
+	
+	return erro;
 }
 
 //validando campos alteracao
