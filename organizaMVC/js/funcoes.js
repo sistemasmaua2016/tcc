@@ -237,3 +237,16 @@ if (screen.width < 1600){
 document.getElementById('mmodal').style="width: 30%; height: 25%";
 }
 }
+
+//validando campos
+function validarcampos() {
+    var titulo = document.getElementById('titulo').value;
+    if (titulo.length > 0) {
+        titulo.style.borderColor = '#009900';
+    } else {
+        alert('O campo nome precisa ser preenchido!');
+        titulo.style.borderColor = '#CC3300';
+        titulo.focus();
+        return false;
+    }
+}

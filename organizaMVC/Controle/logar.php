@@ -33,10 +33,10 @@ if (!empty($usuario)) {
     echo '<script type="text/javascript">
 var ok = alert("Email e/ou Senha inválidos! ou o Usuário não está cadastrado!");
 if (ok) {
-	location.href="index.php#openModal";
+	location.href="../index.php#openModal";
 }
 else {
-	location.href="index.php#openModal";
+	location.href="../index.php#openModal";
 }
 </script>';
 }

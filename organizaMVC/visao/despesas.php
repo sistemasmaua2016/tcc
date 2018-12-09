@@ -8,7 +8,7 @@
         <title>Despesas</title>
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="js/funcoes.js"></script>
+        <script type="text/javascript"  src="js/funcoes.js"></script>
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             <style type="text/css">
                 body {
@@ -203,8 +203,8 @@
                                 <tr>
                                     <td>&nbsp;
                                     </td>
-                                    <td><input type = "text" name = "titulo" maxlength = "11" required = "required" class = "input" /></td>
-                                    <td><input type = "text" name = "valor" maxlength = "20" required = "required" class = "input" onkeypress = "mascara(this, mreais)"/></td>
+                                    <td><input type = "text" id="titulo" name = "titulo" maxlength = "11" required = "required" class = "input" onblur="validartitulo()"/></td>
+                                    <td><input type = "text" id="valor" name = "valor" maxlength = "20" required = "required" class = "input" onblur="validarvalor()" onkeypress = "mascara(this, mreais)"/></td>
                                 </tr>
                                 <tr>
                                     <td>&nbsp;
@@ -218,7 +218,7 @@
                                 <tr>
                                     <td>&nbsp;
                                     </td>
-                                    <td colspan = "2"><input type = "text" name = "descricao" maxlength = "20" required = "required" class = "email" style = "width: 100%;" /></td>
+                                    <td colspan = "2"><input type = "text" id="descricao" name = "descricao" maxlength = "20" required = "required" onblur="validardescricao()" class = "email" style = "width: 100%;" /></td>
                                     <td>&nbsp;
                                     </td>
                                 </tr>
@@ -281,8 +281,8 @@
                                     <tr>
                                         <td>&nbsp;
                                         </td>
-                                        <td><input type = "text" name = "tituloalt" id = "tituloalt" maxlength = "11" required="required" class = "input" /></td>
-                                        <td><input type = "text" name = "valoralt" id = "valoralt" maxlength = "20" required="required" class = "input" /></td>
+                                        <td><input type = "text" name = "tituloalt" id = "tituloalt" maxlength = "11" onblur="validartituloalt()" required="required"  class = "input" /></td>
+                                        <td><input type = "text" name = "valoralt" id = "valoralt" maxlength = "20" onblur="validarvaloralt()" required="required" class = "input" /></td>
                                     </tr>
                                     <tr>
                                         <td>&nbsp;
@@ -295,7 +295,7 @@
                                     <tr>
                                         <td>&nbsp;
                                         </td>
-                                        <td colspan = "2"><input type = "text" name = "descricaoalt" id = "descricaoalt" maxlength = "20" required="required" class = "email" style = "width: 100%;" /></td>
+                                        <td colspan = "2"><input type = "text" name = "descricaoalt" id = "descricaoalt" maxlength = "20" onblur="validardescricaoalt()" required="required" class = "email" style = "width: 100%;" /></td>
                                         <td>&nbsp;
                                         </td>
                                     </tr>

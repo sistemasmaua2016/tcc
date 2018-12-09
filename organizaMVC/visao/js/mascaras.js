@@ -13,7 +13,6 @@ function mreais(v) {
     return "R$ " + v;
 }
 
-
 function mascara_data(data){ 
               var mydata = ''; 
               mydata = mydata + data; 

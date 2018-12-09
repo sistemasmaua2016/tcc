@@ -176,9 +176,9 @@
                                 </tr>
                                 <tr>
                                     <td>&nbsp;</td>
-                                    <td><input type="text" name="titulo" maxlength="11" required="required" class="input" /></td>
+                                    <td><input type="text" name="titulo" id="titulo" maxlength="11" onblur="validartitulo();" required="required" class="input" /></td>
 
-                                    <td><input type="text" name="valor" id="valor" maxlength="20" required="required" class="input" onkeypress="mascara(this, mreais)"/></td>
+                                    <td><input type="text" name="valor" id="valor" maxlength="20" onblur="validarvalor();"  ="required" class="input" onkeypress="mascara(this, mreais)"/></td>
                                 </tr>
                                 <tr>
                                     <td>&nbsp;</td>
@@ -188,7 +188,7 @@
                                 </tr>
                                 <tr>
                                     <td>&nbsp;</td>
-                                    <td colspan="2"><input type="text" name="descricao" maxlength="20" required="required" class="email" style="width: 100%;" /></td>
+                                    <td colspan="2"><input type="text" name="descricao" id="descricao" onblur="validardescricao();"  maxlength="20" required="required" class="email" style="width: 100%;" /></td>
                                     <td>&nbsp;</td>
                                 </tr>
                                 <tr>
@@ -256,8 +256,8 @@
                                     </tr>
                                     <tr>
                                         <td>&nbsp;</td>
-                                        <td><input type="text" name="tituloalt"  id="tituloalt" maxlength="11" required="required" class="input" /></td>
-                                        <td><input type="text" name="valoralt"  id="valoralt" maxlength="20" required="required" class="input" /></td>
+                                        <td><input type="text" name="tituloalt"  id="tituloalt" maxlength="11" onblur="validartituloalt();" required="required" class="input" /></td>
+                                        <td><input type="text" name="valoralt"  id="valoralt" maxlength="20" onblur="validarvaloralt();"  required="required" class="input" /></td>
                                     </tr>
                                     <tr>
                                         <td>&nbsp;</td>
@@ -267,7 +267,7 @@
                                     </tr>
                                     <tr>
                                         <td>&nbsp;</td>
-                                        <td colspan="2"><input type="text" name="descricaoalt" id="descricaoalt" maxlength="20" required="required" class="email" style="width: 100%;" /></td>
+                                        <td colspan="2"><input type="text" name="descricaoalt" id="descricaoalt" onblur="validardescricaoalt();"  maxlength="20" required="required" class="email" style="width: 100%;" /></td>
                                         <td>&nbsp;</td>
                                     </tr>
                                     <tr>

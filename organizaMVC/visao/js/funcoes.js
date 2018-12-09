@@ -74,7 +74,7 @@ function verificaSenha() {
 //funcão para mudar a cor do input caso vazio
 function validanome() {
     var nome = document.getElementById('nome').value;
-    if (nome > 0) {
+    if (nome.length > 0) {
         document.form.nome.style.borderColor = '#009900';
     } else {
         alert('O campo nome precisa ser preenchido!');
@@ -86,7 +86,7 @@ function validanome() {
 //funcao mudar a cor do campo dica
 function validadica() {
     var dica = document.getElementById('dica').value;
-    if (dica > 0) {
+    if (dica.length > 0) {
         document.form.dica.style.borderColor = '#009900';
     } else {
         alert('O campo dica precisa ser preenchido!');
@@ -211,9 +211,67 @@ function confere() {
     document.getElementById('validaemail').value = document.getElementById('email').value;
     document.getElementById('valida').submit();
 }
+
 //FUNÇÃO PARA DIMINUIR O MODAL NA PÁGINA INÍCIO
 function diminuimodaldata() {
     if (screen.width < 1600) {
         document.getElementById('mmodal').style = "width: 30%; height: 25%";
     }
 }
+
+//validando campos
+function validartitulo() {
+    var titulo = document.getElementById('titulo').value;
+
+    if (titulo.length === 0) {
+        alert('O campo titulo precisa ser preenchido!');
+        return false;
+    }
+}
+
+function validarvalor() {
+	var valor = document.getElementById('valor').value;
+
+	if (valor.length === 0) {
+        alert('O campo valor precisa ser preenchido!');
+        return false;
+    }
+}
+
+function validardescricao() {
+    var descricao = document.getElementById('descricao').value;
+
+	if (descricao.length === 0) {
+        alert('O campo descricao precisa ser preenchido!');
+        return false;
+    }
+}
+
+//validando campos alteracao
+function validartituloalt() {
+    var titulo = document.getElementById('tituloalt').value;
+
+    if (titulo.length === 0) {
+        alert('O campo titulo precisa ser preenchido!');
+        return false;
+    }
+}
+
+function validarvaloralt() {
+	var valor = document.getElementById('valoralt').value;
+
+	if (valor.length === 0) {
+        alert('O campo valor precisa ser preenchido!');
+        return false;
+    }
+}
+
+function validardescricaoalt() {
+    var descricao = document.getElementById('descricaoalt').value;
+
+	if (descricao.length === 0) {
+        alert('O campo descricao precisa ser preenchido!');
+        return false;
+    }
+}
+
