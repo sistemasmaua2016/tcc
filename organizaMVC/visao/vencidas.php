@@ -18,6 +18,13 @@
             <script type="text/javascript" src="js/mascaras.js" ></script> 
             <?php
             session_start();
+
+            //atualiza banco de dados se as contas estiverem vencidas
+            $data = date('Y-m-d');
+
+            Conexao::getConexao()->exec("UPDATE financas SET categoria='vencida' WHERE categoria = 'a vencer' AND data_venc < '$data'");
+            Conexao::getConexao()->exec("UPDATE financas SET categoria='nao recebida' WHERE categoria = 'a receber' AND data_venc < '$data'");
+
             if ($_SESSION['logado'] != "SIM") {
                 header('location:index.php');
             }
@@ -93,36 +100,36 @@
                                     <td><?php echo $r->descricao; ?></td>
                                     <td><?php echo $r->categoria; ?></td>
                                     <td><?php
-                        $data = $r->data;
-                        echo date('d/m/Y', strtotime($data));
-                                ?></td>
+                                        $data = $r->data;
+                                        echo date('d/m/Y', strtotime($data));
+                                        ?></td>
                                     <td><?php
-                                $datvenc = $r->data_venc;
-                                echo date('d/m/Y', strtotime($datvenc));
-                                ?></td>
+                                        $datvenc = $r->data_venc;
+                                        echo date('d/m/Y', strtotime($datvenc));
+                                        ?></td>
                                     <td class="actions text-right">
                                         <a onclick="document.getElementById('paga').value = '<?php echo $r->id; ?>';
-                                                                                        document.getElementById('server').value = '<?php echo $_SERVER['REQUEST_URI']; ?>';
-                                                                                        location.href = '#ModalPaga';
-                                                                                        document.getElementById('postapag').style.visibility = 'visible';
-                                                                                        document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;
+                                                        document.getElementById('server').value = '<?php echo $_SERVER['REQUEST_URI']; ?>';
+                                                        location.href = '#ModalPaga';
+                                                        document.getElementById('postapag').style.visibility = 'visible';
+                                                        document.getElementById('cancpag').style.visibility = 'visible'" class="btn btn-sm btn-success">Pagar</a>&nbsp;
 
                                         <a onclick="document.getElementById('idalt').value = '<?php echo $r->id; ?>';
-                                                                    document.getElementById('tituloalt').value = '<?php echo $r->titulo; ?>';
-                                                                    document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($r->valor, 2, ',', '.'); ?>';
-                                                                    document.getElementById('descricaoalt').value = '<?php echo $r->descricao; ?>';
+                                                        document.getElementById('tituloalt').value = '<?php echo $r->titulo; ?>';
+                                                        document.getElementById('valoralt').value = '<?php echo 'R$ ' . number_format($r->valor, 2, ',', '.'); ?>';
+                                                        document.getElementById('descricaoalt').value = '<?php echo $r->descricao; ?>';
 
-                                                                    document.getElementById('categoriaalt').value = '<?php echo $r->categoria; ?>';
-                                                                    document.getElementById('datavencalt').value = '<?php echo $r->data_venc; ?>';
+                                                        document.getElementById('categoriaalt').value = '<?php echo $r->categoria; ?>';
+                                                        document.getElementById('datavencalt').value = '<?php echo $r->data_venc; ?>';
 
 
 
-                                                                    modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
+                                                        modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
 
                                         <a onclick="document.getElementById('idd').value = '<?php echo $r->id; ?>';
-                                                                            location.href = '#ModalDel';
-                                                                            document.getElementById('posta').style.visibility = 'visible';
-                                                                            document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
+                                                        location.href = '#ModalDel';
+                                                        document.getElementById('posta').style.visibility = 'visible';
+                                                        document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
@@ -237,7 +244,9 @@
                                 atualizaIframepag()">OK</div><div style="float:right">
                             <div id="fechaat" style="width:20%; height:23%; position:absolute; top: 70%; left: 28%; visibility:hidden;" class="btn btn-danger" onclick="location.href = '#close';
                                     atualizaIframepag()">Cancelar</div>
-                            <div id="atualizacad" style="width:20%; height:23%; position:absolute; top: 70%; left: 6.5%; visibility: hidden;" class="btn btn-primary" onclick="if(!validarFormAlterar()){document.getElementById('formdados').submit();}">Salvar</div><div style="float:right">
+                            <div id="atualizacad" style="width:20%; height:23%; position:absolute; top: 70%; left: 6.5%; visibility: hidden;" class="btn btn-primary" onclick="if (!validarFormAlterar()) {
+                                        document.getElementById('formdados').submit();
+                                    }">Salvar</div><div style="float:right">
                             </div>
                         </div>
                         <!--FIM DO MODAL DE EDIÇÃO-->

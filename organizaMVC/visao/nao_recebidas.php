@@ -18,6 +18,13 @@
             <script type="text/javascript" src="js/mascaras.js"></script>
             <?php
             session_start();
+
+            //atualiza banco de dados se as contas estiverem vencidas
+            $data = date('Y-m-d');
+
+            Conexao::getConexao()->exec("UPDATE financas SET categoria='vencida' WHERE categoria = 'a vencer' AND data_venc < '$data'");
+            Conexao::getConexao()->exec("UPDATE financas SET categoria='nao recebida' WHERE categoria = 'a receber' AND data_venc < '$data'");
+
             if ($_SESSION['logado'] != "SIM") {
                 header('location:index.php');
             }
@@ -118,9 +125,9 @@
                                                         modificamodal()" href="#ModalEdit" class="btn btn-sm btn-warning">Editar</a>
 
                                         <a onclick="document.getElementById('idd').value = '<?php echo $r->id; ?>';
-                                                                            location.href = '#ModalDel';
-                                                                            document.getElementById('posta').style.visibility = 'visible';
-                                                                            document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
+                                                        location.href = '#ModalDel';
+                                                        document.getElementById('posta').style.visibility = 'visible';
+                                                        document.getElementById('cancela').style.visibility = 'visible'" class="btn btn-sm btn-danger">Excluir</a>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
@@ -240,7 +247,9 @@
                         <div id="okat" style="width:20%; height:23%; position:absolute; top: 60%; left: 6.5%" class="btn btn-primary" onclick="location.href = '#close';
                                 atualizaiframerecb()">OK</div><div style="float:right">
                             <div id="fechaat" style="width:20%; height:23%; position:absolute; top: 70%; left: 28%; visibility:hidden;" class="btn btn-danger" onclick="location.href = '#close'; atualizaiframerecb()">Cancelar</div>
-                            <div id="atualizacad" style="width:20%; height:23%; position:absolute; top: 70%; left: 6.5%; visibility: hidden;" class="btn btn-primary" onclick="if(!validarFormAlterar()){document.getElementById('formdados').submit();}">Salvar</div><div style="float:right">
+                            <div id="atualizacad" style="width:20%; height:23%; position:absolute; top: 70%; left: 6.5%; visibility: hidden;" class="btn btn-primary" onclick="if (!validarFormAlterar()) {
+                                        document.getElementById('formdados').submit();
+                                    }">Salvar</div><div style="float:right">
                             </div>
                         </div>
                         <!--FIM DO MODAL DE EDIÇÃO-->
