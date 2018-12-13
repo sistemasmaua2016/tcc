@@ -20,10 +20,10 @@
             session_start();
 
             //atualiza banco de dados se as contas estiverem vencidas
-            $data = date('Y-m-d');
-
-            Conexao::getConexao()->exec("UPDATE financas SET categoria='vencida' WHERE categoria = 'a vencer' AND data_venc < '$data'");
-            Conexao::getConexao()->exec("UPDATE financas SET categoria='nao recebida' WHERE categoria = 'a receber' AND data_venc < '$data'");
+//            $data = date('Y-m-d');
+//
+//            Conexao::getConexao()->exec("UPDATE financas SET categoria='vencida' WHERE categoria = 'a vencer' AND data_venc < '$data'");
+//            Conexao::getConexao()->exec("UPDATE financas SET categoria='nao recebida' WHERE categoria = 'a receber' AND data_venc < '$data'");
 
             if ($_SESSION['logado'] != "SIM") {
                 header('location:index.php');

@@ -19,11 +19,11 @@
             <?php
             session_start();
 
-            //atualiza banco de dados se as contas estiverem vencidas
-            $data = date('Y-m-d');
-
-            Conexao::getConexao()->exec("UPDATE financas SET categoria='vencida' WHERE categoria = 'a vencer' AND data_venc < '$data'");
-            Conexao::getConexao()->exec("UPDATE financas SET categoria='nao recebida' WHERE categoria = 'a receber' AND data_venc < '$data'");
+//            //atualiza banco de dados se as contas estiverem vencidas
+//            $data = date('Y-m-d');
+//
+//            Conexao::getConexao()->exec("UPDATE financas SET categoria='vencida' WHERE categoria = 'a vencer' AND data_venc < '$data'");
+//            Conexao::getConexao()->exec("UPDATE financas SET categoria='nao recebida' WHERE categoria = 'a receber' AND data_venc < '$data'");
 
             if ($_SESSION['logado'] != "SIM") {
                 header('location:index.php');
@@ -66,7 +66,7 @@
             $data2 = date('Y-m-31');
             if ($i == 1) {
                 //$result = $finacasDAO->getDespesaAVencerPorPeriodo($_SESSION['id'], $tipo = 'receita', $categoria = 'nao recebida', $data1, $data2);
-                $result = $finacasDAO->receitaAVencerPeriodo($_SESSION['id'], $tipo = 'a receber');
+                $result = $finacasDAO->receitaAVencerPeriodo($_SESSION['id'], $tipo = 'nao recebida');
                 //$result = mysql_query("SELECT * FROM `financas` WHERE `usuario_id` = '$id' AND `tipo` = 'receita' AND `categoria`='a receber' AND `data_venc` BETWEEN ('$data1') AND ('$data2')");
             }
             ?>
