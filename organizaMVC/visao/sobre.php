@@ -19,7 +19,7 @@ if($_SESSION['logado'] != "SIM"){
 <img src="imagens/logo3.png" width="200" height="200"/>
 </div>
 <div id="texto" style="position: absolute; top: 50%; left: 28%; text-align:center;">
-<?php echo '<font style="font-family: Bree Serif, serif; font-size: 18px; color: #333333"; text-align: center;">Organiza v1.0<br /><br />Copyright© 2017<br />Organiza é um sistema de controle de gastos online <br /><br />na Faculdade Mauá de Águas Lindas de Goiás<br />orientado pelo coordenador Wander</font>';
+<?php echo '<font style="font-family: Bree Serif, serif; font-size: 18px; color: #333333"; text-align: center;">Organiza v1.0<br /><br />Copyright© 2018<br />Organiza é um sistema de controle de gastos online <br /><br /></font>';
 ?>
 </body>
 </html>
